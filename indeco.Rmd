@@ -1,0 +1,1518 @@
+---
+title: " Indicadores Económicos "
+output:
+  flexdashboard::flex_dashboard:
+     includes:
+       in_header: header.html
+     theme : yeti
+     orientation : rows
+     social: [ "menu" ] 
+     css : coloresbotones.css
+     self_contained : TRUE
+     navbar:
+       - { title: "Consultas y comentarios", href: "http://nahuelbargas.github.io/indeco/index.html", align: right} 
+---
+
+
+
+
+```{r setup, include=FALSE}
+
+# Librerías
+
+library(highcharter)
+library(flexdashboard)
+library(openxlsx)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(viridisLite)
+library(tidyverse)
+library(mFilter)
+library(treemap)
+library(jsonlite)
+library(DT)
+
+
+
+# Bases
+
+## IPC
+
+ipcmensual<- read.xlsx("bases/indicadores.xlsx", sheet=1,detectDates = TRUE)
+ipcmensualdiv<-read.xlsx("bases/indicadores.xlsx", sheet=2)
+colnames(ipcmensualdiv)[1]<-""
+ipcintdiv<-read.xlsx("bases/indicadores.xlsx", sheet=3)
+colnames(ipcintdiv)[1]<-""
+
+## Gini
+
+gini_ts<-readRDS("bases/basegini.RDS")
+
+trimestre<-seq(as.Date("2016-04-01"), length = 16,by = "3 months")
+trimestre2<-as.yearqtr(trimestre)
+trimestre2 <-format(trimestre2,  "%q-%Y")
+
+gini_ts3<-data.frame(trimestre,trimestre2,gini_ts[,1:3])
+
+
+## PIB
+
+producto<-read.xlsx("bases/indicadores.xlsx", sheet=4,detectDates = TRUE)
+
+producto$Fecha <- as.yearqtr(2004 + seq(0, 64)/4)
+producto$Fecha <-format(producto$Fecha,  "%q %Y")
+producto$fecha1<-seq(as.Date("2004-01-01"), length = 65, by = "3 months")
+producto$fecha2<-format(as.yearqtr(2004 + seq(0, 64)/4),  "%q %Y")
+producto$fecha3<-paste(producto$Año,"-",producto$Trimestre)
+
+PBI.ts<-ts(producto$PIB.DESEST, frequency = 4, start = c(2004, 1))
+PBI.hp<-hpfilter(PBI.ts,type="lambda", freq=1600, drift=FALSE)
+producto.ts<-ts(producto[,3:4], frequency = 4, start = c(2004, 1))
+producto.ts<-cbind(producto.ts,PBI.hp$trend)
+
+## Comercio
+
+basezonas<-read.xlsx("bases/basezonas4.xlsx", sheet=1)
+
+saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
+
+## Valor agregado bruto
+
+VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
+
+## EMAE
+
+emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
+
+## Resultado fiscal
+basecaja<-read.xlsx("bases/resultado-fiscal-julio_20.xlsx", sheet=2,startRow = 7,colNames=FALSE)
+basecaja<-basecaja[,c(1,2,5)]
+names(basecaja)<-c("Concepto","Monto", "Var Anual")
+
+
+# Colores utilizados en los próximos gráficos
+
+cols <- plasma(4,alpha=0.8,direction=-1)
+cols2<- c("Coeficiente de Gini" = "red", "Intervalos de  Confianza-95%" = "lightblue")
+cols3 <- plasma(3,alpha=0.8,direction=-1)
+cols4<- c("PIB" = cols3[1], "PIB desestacionalizado" = cols3[2], "PIB tendencia" = cols3[3])
+cols5<- c("PIB" = "yellow3", "PIB desestacionalizado" = "hotpink4", "PIB tendencia" = "navyblue")
+cols6<- c("lightblue", "red")
+cols7 <- plasma(3,alpha=0.8)
+cols8 <- plasma(17,alpha=0.8)
+
+
+cols9 <- viridis(20,alpha=0.8,direction=-1)
+
+cols9 <- substr(cols9, 0, 7)
+
+cols10<-plasma(6, alpha=0.8,direction=-1)
+cols11<-viridis(6, alpha=0.8,direction=-1)
+cols12<-viridis(12, alpha=0.8)
+
+##usar scales::show_col(cols13) para previsualizar los colores
+
+cols13<-inferno(7, alpha=0.8, direction=-1)
+
+
+
+
+
+
+```
+
+```{r opc  hc, include=FALSE}
+hcopts <- getOption("highcharter.lang")
+
+
+hcopts$drillUpText<- "Volver"
+hcopts$downloadCSV <- "Descargar CSV"
+hcopts$downloadJPEG <- "Descargar imágen JPEG"
+hcopts$downloadPDF <- "Descargar documento PDF"
+hcopts$downloadPNG  <- "Descargar imágen PNG"
+hcopts$downloadSVG  <- "Descargar imágen SVG"
+hcopts$downloadXLS  <- "Descargar XLS"
+hcopts$loading  <- "Procesando..."
+hcopts$months<-c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
+hcopts$noData <- "No existen datos para mostrar"
+hcopts$numericSymbols <-c("mil", "M", "G", "T", "P", "E") 
+hcopts$printChart <- "Imprimir Gráfico"
+hcopts$shortMonths<-c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic")
+hcopts$resetZoom <- "Restablecer zoom"
+hcopts$resetZoomTitle <- "Restablecer nivel del zoom 1:1"
+hcopts$thousandsSep <- ","
+hcopts$viewData <- "Mostrar tabla de datos"
+
+
+options(highcharter.lang = hcopts)
+```
+
+
+Serie histórica del Nivel General-IPC {data-navmenu="Inflación e Ingresos"}
+=========================================
+
+Rows {data-height=150}
+-------------------------------------
+
+### Mensual
+
+```{r}
+valueBox("1.9 %", caption = "Inflación del mes de Julio-2020", icon="glyphicon-arrow-up",color="skyblue")
+```
+
+### Interanual
+
+
+```{r}
+valueBox("42.4 %", caption = "Variación interanual", icon="glyphicon-arrow-down",color="orangered")
+```
+
+### Acumulada en el año.
+
+```{r}
+valueBox("15.8 %", caption = "Acumulada en lo que va del año",  color="yellow")
+```
+
+
+Rows {data-height=850}
+---------------------------------------------------------------
+
+### Serie histórica del Nivel General, IPC Núcleo, Estacional y Regulados
+
+```{r gráfico1}
+
+highchart() %>% 
+  hc_add_series(ipcmensual, "column", hcaes(x = Período, y =IPC.General ),name="Nivel General")%>%
+  hc_add_series(ipcmensual, "line", hcaes(x = Período, y =Estacional ),name="Estacional")%>%
+  hc_add_series(ipcmensual, "line", hcaes(x = Período, y =Nucleo ),name="IPC Núcleo")%>%
+  hc_add_series(ipcmensual, "line", hcaes(x = Período, y =Regulados ),name="Regulados")%>%
+  hc_xAxis(type = "datetime")%>%
+  hc_yAxis(title=list(text = "Porcentaje"))%>%    
+  hc_tooltip(pointFormat =  "{point.y} %") %>%
+  hc_colors(cols)%>%
+  hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
+  style = list(color = "#2b908f", fontSize = '10px'),
+             href = "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_08_207BFCDEE221.pdf")%>%
+  hc_exporting(enabled = TRUE)
+```
+
+
+Tasa de Inflación mensual e Interanual por región   {data-navmenu="Inflación e Ingresos"}
+==================================================
+
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+
+### Variación mensual según divisiones
+
+```{r tabla1}
+kable(ipcmensualdiv) %>%
+kable_styling(bootstrap_options = c("bordered","responsive")) %>%
+  add_header_above(c(" " = 2, "Regiones" = 6))%>%
+row_spec(1, bold = T, color = "white", background = "lightseagreen")%>%
+footnote("INDEC",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
+
+ipcmensualdiv%>% 
+ downloadthis::download_this(
+    output_name = "Variación mensual según divisiones",
+    output_extension = ".xlsx",
+    button_label = "Descargar la tabla en formato xlsx",
+    button_type = "info",
+    self_contained = FALSE, 
+    has_icon = FALSE 
+  )
+
+```
+
+### Variación interanual según divisiones
+
+```{r tabla2}
+kable(ipcintdiv) %>%
+kable_styling(bootstrap_options = c("bordered","responsive")) %>%
+add_header_above(c(" " = 2, "Regiones" = 6))%>%
+row_spec(1, bold = T, color = "white", background = "orangered")%>%
+footnote("INDEC",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
+
+ipcintdiv%>% 
+ downloadthis::download_this(
+    output_name = "Variación interanual según divisiones",
+    output_extension = ".xlsx",
+    button_label = "Descargar la tabla en formato xlsx",
+    button_type = "info",
+    self_contained = FALSE, 
+    has_icon = FALSE 
+  )
+
+```
+
+
+Distribución del ingreso y pobreza {data-navmenu="Inflación e Ingresos"}
+===================================== 
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+
+
+### Coef.Gini
+
+```{r graf2, fig.width=6, fig.asp = 0.618 }
+z<-ggplot(gini_ts3, aes(trimestre,gini)) +
+geom_ribbon(aes(ymin=cilower, ymax=ciupper,group=1),alpha=0.5,fill="lightblue")+
+geom_point(aes(y=cilower,colour="Intervalos de  Confianza-95%",group=1))+
+geom_point(aes(y=ciupper,colour="Intervalos de  Confianza-95%",group=1))+
+geom_line(aes(colour="Coeficiente de Gini", group=1))+
+geom_point(aes(colour="Coeficiente de Gini", group=1))+
+geom_text(aes(label=round(gini,2)),data=gini_ts3,nudge_y=0.13,size=2.8,alpha=1)+
+labs(x="Trimestres",y="Coeficientes estimados (%)",colour="",linetype="",caption = "En base a datos obtenidos de la EPH-INDEC")+
+theme_classic()+
+scale_colour_manual(values=cols2)+
+scale_x_date(breaks=trimestre,labels=trimestre2)+
+theme(legend.position = c(.5, 1),
+legend.background=element_blank(),
+axis.ticks.x=element_line(colour="grey",size=0.5),
+axis.text.x = element_text(angle=55, hjust = 1, vjust = 1),
+panel.grid.major.y = element_line(colour = "grey", size = 0.1),
+axis.ticks.y=element_blank(),
+axis.line = element_blank())+
+guides(colour =guide_legend(nrow = 2, override.aes = list(size = 2)))
+```
+
+
+
+
+```{r graf5}
+
+highchart() %>%
+hc_add_series(gini_ts3, type = "arearange",
+                hcaes(x = trimestre2, low = cilower,
+                      high =ciupper ),
+                name="Intervalos de  Confianza-95%")%>%
+hc_add_series(gini_ts3, type = "line", hcaes(x = trimestre2, y = gini),
+                name="Coeficiente de Gini") %>%
+hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
+  hc_yAxis(title=list(text = "Porcentaje %"))%>% 
+    hc_colors(cols6)%>%
+   hc_tooltip(pointFormat =  "{point.y:.2f}% ")%>%
+    hc_subtitle(text = "En base a datos obtenidos de la EPH-INDEC - Estimaciones vía Bootstrap de mil repeticiones.",
+              align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '10px'))%>%
+  hc_exporting(enabled = TRUE)
+```
+
+### Tasa de incidencia de la pobreza e indigencia- 2ndo semestre 2019- Aglomerados
+
+
+```{r preppob, include= FALSE  }
+pobrezaaglo<-read.xlsx("bases/indicadores.xlsx", sheet=5,startRow=2,rowNames = TRUE)
+
+pobrezaaglo[9,]<-c(rep(".",4))
+
+pobrezaaglo_footnote <- pobrezaaglo
+
+row.names(pobrezaaglo_footnote)[9] <- paste0(row.names(pobrezaaglo_footnote)[9], 
+                                footnote_marker_symbol(1))
+
+
+pobrezareg<-read.xlsx("bases/indicadores.xlsx", sheet=6,startRow=2,rowNames = TRUE)
+
+pobrezareg_footnote <- pobrezareg
+
+row.names(pobrezareg_footnote)[4] <- paste0(row.names(pobrezareg_footnote)[4], 
+                                footnote_marker_symbol(1))
+
+
+```
+
+```{r tabla3}
+kable(pobrezaaglo_footnote,escape = F) %>%
+kable_styling(bootstrap_options = c("bordered","condensed"),full_width= FALSE) %>%
+  add_header_above(c(" " = 1, "Pobreza(%)" = 2,"Indigencia(%)" = 2 ))%>%
+row_spec(1, bold = T, color = "white", background = "lightseagreen")%>%
+footnote("INDEC",symbol = "Debido a dificultades en el relevamiento de la información del tercer trimestre, se excluyen los datos del segundo semestre del aglomerado de Gran Resistencia en el informe del INDEC.",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
+
+data.frame(row.names(pobrezaaglo),pobrezaaglo)%>% 
+ downloadthis::download_this(
+    output_name = "Tasas de incidencia y de pobreza",
+    output_extension = ".xlsx",
+    button_label = "Descargar la tabla en formato xlsx",
+    button_type = "info",
+    self_contained = FALSE, 
+    has_icon = FALSE 
+  )
+
+
+```
+
+### Pobreza e indigencia-2ndo semestre 2019-Regiones
+
+```{r tabla4}
+kable(pobrezareg_footnote,escape = F) %>%
+kable_styling(bootstrap_options = c("bordered","condensed"),full_width= FALSE) %>%
+  add_header_above(c(" " = 1, "Pobreza(%)" = 2,"Indigencia(%)" = 2 ))%>%
+row_spec(1, bold = T, color = "white", background = "orangered")%>%
+footnote("INDEC", symbol = "Debido a dificultades en el relevamiento de la información del tercer trimestre, se excluyen los datos del segundo semestre del aglomerado de Gran Resistencia en el informe del INDEC.",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
+
+data.frame(row.names(pobrezareg),pobrezareg)%>% 
+ downloadthis::download_this(
+    output_name = "Tasas de incidencia y de pobreza-regiones",
+    output_extension = ".xlsx",
+    button_label = "Descargar la tabla en formato xlsx",
+    button_type = "info",
+    self_contained = FALSE, 
+    has_icon = FALSE 
+  )
+
+
+```
+
+
+PIB  {data-navmenu="Producto"}
+======================================================
+
+
+### Serie completa PIB, PIB desestacionalizado. Miles de millones de pesos a precios de 2004.   Tendencia obtenida mediante filtro HP.
+
+```{r graf3, include= FALSE  }
+
+png("tamaño completo.png", width=1024, height=483)
+
+print(ggplot(producto,aes(fecha1,PBI/1000,group=1,color="PIB"))+
+geom_line()+
+geom_point(color=cols3[1])+
+geom_line(aes(y=PIB.DESEST/1000,color="PIB desestacionalizado"))+
+geom_line(aes(y=(PBI.hp$trend)/1000,color="PIB tendencia"))+
+geom_point(aes(y=PIB.DESEST/1000),color=cols3[2])+
+geom_point(aes(y=(PBI.hp$trend)/1000),color=cols3[3])+
+geom_vline(xintercept=producto$fecha1[4],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[8],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[12],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[16],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[20],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[24],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[28],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[32],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[36],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[40],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[44],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[48],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[52],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[56],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[60],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[64],color="grey",size=0.1,linetype="dashed")+
+scale_x_date(name="Trimestres",breaks=producto$fecha1,labels=producto$Trimestre,sec.axis = sec_axis(~.,labels = scales::date_format("%Y"),breaks=seq(as.Date("2004-06-01"), length = 17, by = "12 months")))+
+theme_classic()+
+scale_colour_manual(name=" ",values=cols5)+
+theme(legend.position = "bottom",
+legend.background=element_blank(),
+axis.ticks.x=element_blank(),
+panel.grid.major.y = element_line(colour = "grey"),
+axis.ticks.y=element_blank(),
+axis.line = element_blank(),
+axis.ticks.length=unit(0.2, "cm"))+
+guides(colour =guide_legend(nrow = 1, override.aes = list(size = 2)))+
+labs(y=" ", caption="Serie PIB, miles de millones de pesos a precios de 2004.   Tendencia obtenida mediante filtro HP.                                                                             Fuente:Cuentas Nacionales-INDEC")
+)
+
+dev.off()
+
+```
+
+
+```{r graf4 }
+
+highchart() %>% 
+  hc_add_series(producto, "line", hcaes(x = fecha3, y =(PBI.hp$trend)/1000 ),name="PIB tendencia",dashStyle = "Dot",lineWidth=0.3)%>%
+  hc_add_series(producto, "line", hcaes(x = fecha3, y =PBI/1000 ),name="PIB",dashStyle ="ShortDash")%>%
+  hc_add_series(producto, "line", hcaes(x = fecha3, y =PIB.DESEST/1000),name="PIB desestacionalizado",dashStyle = "ShortDashDotDot")%>%
+  hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
+  hc_yAxis(title=list(text = ""),max= 800)%>% 
+  hc_plotOptions(
+  line = list(                  
+    marker = list(
+      lineWidth = 1,
+      radius=3,
+      lineColor = "#ffffff"
+    )
+  )
+)%>%   
+  hc_tooltip(pointFormat =  "{point.y:.3f} ")%>%
+  hc_colors(cols7)%>%
+    hc_subtitle(text = "Fuente: INDEC",
+              align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '8px'))%>%
+  hc_exporting(enabled = TRUE)%>% 
+  hc_legend(align = "bottom", verticalAlign = "bottom",
+            layout = "horizontal", x = 0, y = 20)
+
+
+```
+
+
+
+EMAE {data-orientation=columns data-navmenu="Producto"}
+=========================================================
+
+
+Column {data-width = 700}
+-------------------------------------
+
+### Índice EMAE, base 2004 = 100
+
+```{r grafemae, }
+
+highchart() %>% 
+  hc_add_series(emae, "line", hcaes(x = Fecha, y =Tendencia_Ciclo ),name="Serie Tendencia-Ciclo",dashStyle = "DashDot")%>%
+  hc_add_series(emae, "line", hcaes(x = Fecha, y =Original),name="Serie Original")%>%
+  hc_add_series(emae, "line", hcaes(x = Fecha, y =Desestacionalizada),name="Serie Desestacionalizada",dashStyle ="ShortDash")%>%
+  hc_xAxis(type = "datetime")%>%
+  hc_yAxis(title=list(text = "Índice"))%>%    
+  hc_tooltip(pointFormat =  "{point.y:.3f}") %>%
+  hc_colors(cols3)%>%
+  hc_credits(enabled = TRUE, text = "Fuente: INDEC - Consultar aquí la serie completa y las variaciones porcentuales ",align = "right",verticalAlign = "bottom",
+  style = list(color = "#2b908f", fontSize = '10px'),
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls")%>%
+  hc_exporting(enabled = TRUE)
+
+```
+  
+Column {tabset .tabset-fade}
+-----------------------------------------------
+
+
+### EMAE, descripción
+
+
+
+El EMAE es un indicador provisorio de la evolución del PIB a precios constantes de 2004.
+El indicador es un índice Laspeyres que ofrece una pauta del comportamiento de la actividad económica real con 
+una frecuencia mayor a la del PIB trimestral a precios constantes. Su cálculo consiste en sumar el 
+valor agregado a precios básicos de cada una de las actividades económicas más los impuestos netos de subsidios 
+a los productos, utilizando las ponderaciones de las cuentas nacionales base 2004 de la República Argentina. 
+[Leer la metodología aquí.](https://www.indec.gob.ar/ftp/cuadros/economia/metodologia_emae_ago_16.pdf)
+
+Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_actividad_base2004.xls) . Fuente: INDEC.
+
+### Variación Desestacionalizada 
+
+
+```{r boxes1,}
+
+valueBox("7.4 %", caption = "Aumento del EMAE desestacionalizado de Junio-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+
+```
+
+### Variación Acumulada
+
+```{r boxes2,}
+
+valueBox("-12.9 %", caption = "Variación acumulada del año(Primeros seis meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+
+```
+
+
+
+Valor agregado bruto a precios básicos {data-navmenu="Producto"}
+======================================================
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+
+### VAB Primer trimestre 2020
+
+
+```{r , include= FALSE }
+vab<-tibble(
+  name = VAB[2:17,1],
+  y = VAB[2:17,2] )
+
+vab<-list_parse(vab)
+
+
+vabvar<-tibble(
+  name = VAB[1:17,1],
+  y = VAB[1:17,3] )
+
+vabvar<-list_parse(vabvar)
+
+```
+
+```{r graf15 }
+
+highchart() %>%
+  hc_chart(type = "bar") %>%
+  hc_xAxis(type = "category") %>%
+  hc_legend(enabled = FALSE) %>%
+   hc_add_series(
+    name = "VAB",
+    colorByPoint = TRUE,
+    data = vab
+  ) %>%
+hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
+hc_colors(cols8)%>%
+hc_title(text=" Valor agregado bruto a precios básicos,por categorías, primer trimestre del 2020",style = list(color = "black", fontSize = '14px')) %>%
+hc_subtitle(text="El VAB total asciende a 522,595 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_exporting(enabled = TRUE)
+
+```
+
+### VAB, variación interanual
+
+```{r graf16 }
+
+highchart() %>%
+  hc_chart(type = "bar") %>%
+  hc_xAxis(type = "category") %>%
+  hc_legend(enabled = FALSE) %>%
+   hc_add_series(
+    name = "VAB%",
+    colorByPoint = TRUE,
+    data = vabvar
+  ) %>%
+hc_tooltip(pointFormat =  "{point.y} por ciento") %>%
+hc_colors(c("black",cols8[-1]))%>%
+hc_title(text=" Variación porcentual respecto al mismo trimestre del año anterior, categorías VAB.",style = list(color = "black", fontSize = '14px')) %>%
+hc_subtitle(text="Fuente: INDEC - Datos preliminares. Primer trimestre 2020. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
+hc_exporting(enabled = TRUE)
+
+```
+
+Balanza comercial, acumulado en 2020 {data-navmenu="Comercio Exterior"}
+=========================================================================
+
+
+### Balanza comercial, primeros siete meses del 2020
+
+```{r , include= FALSE }
+
+
+bc <- tibble(
+  name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
+  y = c(32291, 22718,9573),
+  drilldown = tolower(name)
+)
+
+ds <- list_parse(bc)
+names(ds) <- NULL
+
+
+hc <- highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(type = "category") %>%
+  hc_legend(enabled = FALSE) %>%
+  hc_plotOptions(
+    series = list(
+      boderWidth = 0,
+      dataLabels = list(enabled = TRUE)
+    )
+  ) %>%
+  hc_add_series(
+    name = "Balanza Comercial, exportaciones e importaciones",
+    colorByPoint = TRUE,
+    data = ds
+  )
+
+impo <- tibble(
+  name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
+  y = c(22718,3767,9084,1727,3921,3324,735,160),
+  drilldown = tolower(name)
+)
+
+expo <- tibble(
+  name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
+  y = c(32291,10886,12479,6959,1967),
+  drilldown = tolower(name)
+)
+
+balanza<-tibble(
+name=c("Mercosur","Chile","Resto de ALADI","SICA","NAFTA","Unión Europea","Reino Unido",
+"Suiza","CEI","ASEAN","China","República de Corea","Japón","India","Medio Oriente",
+"Magreb y Egipto","SACU","Oceanía","Resto del Mundo"),
+y = saldozonas[,4],
+ drilldown = tolower(name)
+)
+
+
+pri<-tibble( 
+ name = c(
+  "Animales vivos",
+  "Pescados y mariscos sin elaborar",
+  "Miel",
+  "Hortalizas y legumbres sin elaborar",
+  "Frutas frescas",
+  "Cereales",
+  "Semillas y frutos oleaginosos",
+  "Tabaco sin elaborar",
+  "Lanas sucias",
+  "Fibras de algodón",
+  "Minerales metalíferos, escorias y cenizas",
+  "Resto de productos primarios"),
+y = c(23,845,89,320,507,5952,1621,127,43,64,214,74))
+
+moa<-tibble(
+name = c("Carnes y sus preparados",
+  "Pescados y mariscos elaborados",
+  "Productos lácteos",
+  "Otros productos de origen animal",
+  "Frutas secas o procesadas",
+  "Café, té, yerba mate y especias",
+  "Productos de molinería y sus preparaciones",
+  "Grasas y aceites",
+  "Azúcar, cacao y artículos de confitería",
+  "Preparados de hortalizas, legumbres y frutas",
+  "Bebidas, líquidos alcohólicos y vinagre",
+  "Residuos y desperdicios de la industria alimenticia",
+  "Extractos curtientes y tintóreos",
+  "Pieles y cueros",
+  "Lanas elaboradas",
+  "Resto de MOA"),
+y=c(1902,176,346,41,67,103,437,2816,137,628,491,5637,141,349,109,232))
+
+moi<-tibble(
+name= c(  "Productos químicos y conexos",
+  "Materias plásticas y sus manufacturas",
+  "Caucho y sus manufacturas",
+  "Manufacturas de cuero, marroquinería, etc.",
+  "Papel, cartón, impresos y publicaciones",
+  "Textiles y confecciones",
+  "Calzado y sus partes componentes",
+  "Manufacturas de piedra, yeso, vidrio, etc.",
+  "Piedras, metales preciosos y sus manufacturas, monedas",
+  "Metales comunes y sus manufacturas",
+  "Máquinas y aparatos, material eléctrico",
+  "Material de transporte terrestre",
+  "Vehículos de navegación aérea, marítima y fluvial",
+  "Resto de MOI"),
+y= c(2138,525,164,15,286,84,6,88,1441,1134,791,3660,84,160))
+
+
+
+cye<-tibble(
+name= c("Petróleo crudo",
+  "Carburantes",
+  "Grasas y aceites lubricantes",
+  "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
+  "Resto de combustibles"),
+y= c(910,1088,30,485,63))
+
+
+bk<- tibble(
+name= c("Máquinas, aparatos y material eléctrico; sus partes", 
+"Material de transporte",
+"Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
+"Resto de bienes de capital"),
+y=c(2674,535,435,123))
+
+bi<-tibble(
+name=c("Productos del reino vegetal", 
+"Productos minerales",
+"Productos de industrias químicas y conexas",
+"Plástico, caucho y sus manufacturas",
+"Pasta de madera, papel,cartón",
+"Materias textiles y sus manufacturas",
+"Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
+"Metales comunes y sus manufacturas",
+"Resto de bienes intermedios"),
+y=c(1374,264,3673,1177,464,340,179,951,663))
+
+
+cyl<- tibble(
+name=c("Productos minerales",
+"Resto de combustibles y lubricantes"),
+y=c(1598,129))
+
+
+pya<- tibble(
+name=c("Máquinas, aparatos y material eléctrico; sus partes",
+"Material de transporte",
+"Resto de piezas y accesorios"),
+y=c(2661,942,318))
+
+bco<-tibble(
+name=c("Animales vivos y productos del reino animal", 
+"Productos del reino vegetal", 
+"Productos alimenticios, bebidas y tabaco", 
+"Productos de industrias químicas y conexas", 
+"Plástico, caucho y sus manufacturas", 
+"Materias textiles y sus manufacturas",  
+"Calzado, paraguas, fores artifciales y otros", 
+"Máquinas, aparatos y material eléctrico; sus partes", 
+"Material de transporte", 
+"Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
+"Mercancías y productos diversos",
+"Resto de bienes de consumo"),
+y=c(85,247,325,1257,145,300,179,237,111,90,171,179))
+
+
+merco<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[1,2],saldozonas[1,3]))
+
+chile<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[2,2],saldozonas[2,3]))
+
+aladi<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[3,2],saldozonas[3,3]))
+
+sica<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[4,2],saldozonas[4,3]))
+
+nafta<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[5,2],saldozonas[5,3]))
+
+union<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[6,2],saldozonas[6,3]))
+
+reino<- tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[7,2],saldozonas[7,3]))
+
+medio<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[15,2],saldozonas[15,3]))
+
+magreb<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[16,2],saldozonas[16,3]))
+
+asean<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[10,2],saldozonas[10,3]))
+
+china<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[11,2],saldozonas[11,3]))
+
+corea<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[12,2],saldozonas[12,3]))
+
+japon<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[13,2],saldozonas[13,3]))
+
+india<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[14,2],saldozonas[14,3]))
+
+suiza<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[8,2],saldozonas[8,3]))
+
+cei<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[9,2],saldozonas[9,3]))
+
+sacu<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[17,2],saldozonas[17,3]))
+
+oceania<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[17,2],saldozonas[17,3]))
+
+restom<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[18,2],saldozonas[18,3]))
+
+
+
+
+
+
+
+dbalanza<-list_parse(balanza)
+dimpo<-list_parse(impo)
+dexpo<-list_parse(expo)
+dpri<-list_parse(pri)
+dmoa<-list_parse(moa)
+dmoi<-list_parse(moi)
+dcye<-list_parse(cye)
+dbk<-list_parse(bk)
+dbi<-list_parse(bi)
+dcyl<-list_parse(cyl)
+dpya<-list_parse(pya)
+dbco<-list_parse(bco)
+dmerco<-list_parse(merco)
+dchile<-list_parse(chile)
+daladi<-list_parse(aladi)
+dsica<-list_parse(sica)
+dnafta<-list_parse(nafta)
+dreino<-list_parse(reino)
+dunion<-list_parse(union)
+dmedio<-list_parse(medio)
+dmagreb<-list_parse(magreb)
+dasean<-list_parse(asean)
+dchina<-list_parse(china)
+dcorea<-list_parse(corea)
+djapon<-list_parse(japon)
+dindia<-list_parse(india)
+dsuiza<-list_parse(suiza)
+dcei<-list_parse(cei)
+dsacu<-list_parse(sacu)
+doceania<-list_parse(oceania)
+drestom<-list_parse(restom)
+
+
+
+```
+
+
+```{r graf6 }
+
+
+hc %>%
+  hc_drilldown(
+    allowPointDrilldown = TRUE,
+    series = list(
+      list(
+        id = "saldo balanza comercial",
+        data = dbalanza
+      ),
+      list(
+        id = "mercosur",
+        data = dmerco
+      ),
+      list(
+        id = "chile",
+        data = dchile
+      ), 
+      list(
+        id = "resto de aladi",
+        data = daladi
+      ),
+      list(
+        id = "sica",
+        data = dsica
+      ),
+      list(
+        id = "nafta",
+        data = dnafta
+      ),
+      list(
+        id = "unión europea",
+        data = dunion
+      ),
+      list(
+        id = "reino unido",
+        data = dreino
+      ),
+      list(
+        id = "medio oriente",
+        data = dmedio
+      ),
+      list(
+        id = "magreb y egipto",
+        data = dmagreb
+      ),
+      list(
+        id = "asean",
+        data = dasean
+      ),
+      list(
+        id = "china",
+        data = dchina
+      ),
+      list(
+        id = "república de corea",
+        data = dcorea
+      ),
+      list(
+        id = "japón",
+        data = djapon
+      ),
+      list(
+        id = "india",
+        data = dindia
+      ),
+      list(
+        id = "suiza",
+        data = dsuiza
+      ),
+      list(
+        id = "cei",
+        data = dcei
+      ),
+      list(
+        id = "sacu",
+        data = dsacu
+      ),
+      list(
+        id = "oceanía",
+        data = doceania
+      ),
+      list(
+        id = "resto del mundo",
+        data = drestom
+      ),
+      list(
+        id = "exportaciones",
+        data = dexpo
+      ),
+      list(
+        id = "importaciones",
+        data = dimpo
+      ),
+      list(
+        id = "productos primarios",
+        data = dpri
+      ) ,
+      list(
+        id = "manufacturas de origen agropecuario (moa)",
+        data = dmoa
+      ) ,
+      list(
+        id = "manufacturas de origen industrial (moi)",
+        data = dmoi
+      ) ,
+      list(
+        id = "combustibles y energía",
+        data = dcye
+      ) ,
+      list(
+        id = "bienes de capital",
+        data = dbk
+      ),
+      list(
+        id = "bienes intermedios",
+        data = dbi
+      ),
+      list(
+        id = "combustibles y lubricantes",
+        data = dcyl
+      ),
+      list(
+        id = "piezas y accesorios para bienes de capital",
+        data = dpya
+      ),
+      list(
+        id = "bienes de consumo",
+        data = dbco
+      )       
+)
+  )%>%
+hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
+  hc_colors(cols3)%>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros siete meses del 2020",style = list( fontSize = '12px')) %>%
+hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_exporting(enabled = TRUE)
+
+```
+
+Saldo y comercio exterior total, por zona zona económica - 2020 {data-navmenu="Comercio Exterior"}
+=================================================================================
+
+
+
+```{r cof12,include=FALSE }
+
+
+
+hctreemapcolores = with(environment(hctreemap),
+   ## Modified `hctreemap`
+   ## names colorValue correctly for connection to `hc_colorAxis`
+function (tm, ...) 
+{
+    assertthat::assert_that(is.list(tm))
+    df <- tm$tm %>% tbl_df() %>% select_("-x0", "-y0", "-w", 
+        "-h", "-stdErr", "-vColorValue") %>% rename_(value = "vSize", 
+        colorValue = "vColor") %>% purrr::map_if(is.factor, as.character) %>% 
+        data.frame(stringsAsFactors = FALSE) %>% tbl_df()
+    ndepth <- which(names(df) == "value") - 1
+    ds <- map_df(seq(ndepth), function(lvl) {
+        df2 <- df %>% filter_(sprintf("level == %s", lvl)) %>% 
+            rename_(name = names(df)[lvl]) %>% mutate_(id = "highcharter::str_to_id(name)")
+        if (lvl > 1) {
+            df2 <- df2 %>% mutate_(parent = names(df)[lvl - 1], 
+                parent = "highcharter::str_to_id(parent)")
+        }
+        else {
+            df2 <- df2 %>% mutate_(parent = NA)
+        }
+        df2
+    })
+    ds <- list_parse(ds)
+    ds <- map(ds, function(x) {
+        if (is.na(x$parent)) 
+            x$parent <- NULL
+        x
+    })
+    hc_add_series(highchart(), data = ds, type = "treemap", ...)
+}
+)
+
+
+
+
+tm <- treemap(basezonas, index = c("Zona","País"),
+              vSize = "Comercio.total", vColor = "saldo",
+              type = "manual", palette = cols9,
+              draw = FALSE)
+mitree<- hctreemapcolores(tm, allowDrillToNode = TRUE,
+                        layoutAlgorithm = "squarified",
+                        levelIsConstant = FALSE,
+    levels = list(
+      list(level = 1, dataLabels = list(enabled = TRUE)),
+      list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
+hc_colorAxis(minColor =cols9[1],
+               maxColor = cols9[13],enabled = TRUE)%>%
+  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2020")%>%
+  hc_subtitle(text = "Datos estimados. Millones de dolares. Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao, Chile, Uruguay y Brasil, sus zonas francas.") %>% 
+  hc_credits(enabled=TRUE, text= " Fuente: INDEC. Sistema de Consulta del Comercio Exterior de Bienes ",href = "https://comex.indec.gob.ar") %>%
+hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
+                             Comercio total: {point.value:,.0f}<br>
+                             Saldo comercial: {point.colorValue:,.0f}")
+
+```							 
+							 
+```{r graf12,echo=FALSE }
+
+
+mitree
+
+```
+
+Total comerciado, por país y continente - 2020 {data-navmenu="Comercio Exterior"}
+=================================================================================
+
+
+## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2020
+
+
+
+```{r cont, include=FALSE }
+
+
+continente<-arrange(basezonas, (Continente))
+continente<-continente[,1:5]
+
+continente[199,]<-rbind(c(0,colSums(continente[,2:5])))
+continente[199,1]<-"Totales"
+
+continente2<-arrange(basezonas, (Continente))
+continente2<-continente2[,1:6]
+
+continente2[199,]<-rbind(c(0,colSums(continente2[,2:5]),0))
+continente2[199,1]<-"Totales"
+continente2[199,6]<-"Totales"
+
+continente3<-arrange(basezonas, (Continente))
+continente3<-continente3[,1:6]
+
+
+spanish<-'{
+	"sProcessing":     "Procesando...",
+	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2020",
+	"sZeroRecords":    "No se encontraron resultados",
+	"sEmptyTable":     "Ningún dato disponible en esta tabla",
+	"sInfo":           "Mostrando fila número _START_ a la _END_ de un total de _TOTAL_ filas",
+	"sInfoEmpty":      "Mostrando filas del 0 al 0 de un total de 0 filas",
+	"sInfoFiltered":   "(filtrado de un total de _MAX_ filas)",
+	"sInfoPostFix":    "",
+	"sSearch":         "Buscar:",
+	"sUrl":            "",
+	"sInfoThousands":  ",",
+	"sLoadingRecords": "Cargando...",
+     	"oPaginate": {
+		"sFirst":    "Primero",
+		"sLast":     "Último",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+	},
+	"oAria": {
+		"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+		"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+	}
+}'
+
+```
+
+```{r tabla8 , include= FALSE}
+kable(continente,digits = 3 ,col.names=c("PaÍs / Continente","Exportaciones","Importaciones","Saldo","Comercio total"),caption="Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2020") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"), full_width = F,fixed_thead = list(enabled = T, background = "skyblue")) %>%
+  pack_rows("África", 1, 45, label_row_css = "background-color: #666; color: #fff;")%>%
+  pack_rows("América", 46, 83, label_row_css = "background-color: #666; color: #fff;")%>%
+  pack_rows("Asia", 84, 127, label_row_css = "background-color: #666; color: #fff;")%>%
+  pack_rows("Europa", 128, 173, label_row_css = "background-color: #666; color: #fff;")%>%
+  pack_rows("Indeterminado", 174, 175, label_row_css = "background-color: #666; color: #fff;")%>%
+  pack_rows("Oceanía", 176, 182, label_row_css = "background-color: #666; color: #fff;")%>%
+row_spec(183, bold = T, color = "black", background = "skyblue")%>%
+column_spec(1:5, width = "10cm")%>%
+footnote(general ="Fuente: INDEC. Datos estimados. Millones de dolares.
+Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao, Chile, Uruguay y Brasil, sus zonas francas.",
+ general_title = "Nota: ",title_format = c("italic", "underline"),footnote_as_chunk = T,fixed_small_size = TRUE)
+
+```
+
+
+
+
+```{r tabla9 }
+
+
+
+datatable(continente2,rownames = FALSE,colnames = c("Continente / País","Exportaciones","Importaciones","Saldo","Comercio total","Continente"),
+class="compact display",extensions = c('RowGroup','Buttons','FixedHeader','Responsive'),
+options = list(columnDefs = list(list(targets = 5, visible = FALSE),list(className = 'dt-center',targets = 0)),
+rowGroup = list(dataSrc = 5),pageLength = 25, searching=T,
+dom = 'Blfrtip',
+buttons = list(
+              list(
+                  extend = "copy",
+                  text = "Copiar",
+				  className = "copiar"
+                  ),
+              list(
+        extend = 'collection',
+        buttons = c('csv', 'excel', 'pdf'),
+        text = 'Descargar',
+		className = "descargar"
+      ),
+              list(
+                  extend = "print",
+                  text = "Imprimir",
+				  className = "imprimir"
+                  )),fixedHeader = TRUE,
+lengthMenu = c(25, 50, 100,200),
+language = fromJSON(spanish)))%>% formatRound(2:5, 3)%>%
+formatStyle(
+  1,
+  target = 'row',
+  backgroundColor = styleEqual("Totales", "lightblue", default = "")
+) 
+```
+
+Row {data-height=100}
+-------------------------------------
+
+- Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
+- Datos Estimados.  Millones de dólares. 
+- Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
+- Última actualización: 26/8/2020.
+
+
+
+
+Resultado Fiscal, base caja {data-navmenu="Resultado Fiscal"}
+=================================================================================
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+
+### Julio 2020
+
+```{r , include= FALSE }
+
+rf <- tibble(
+  name = c("Ingresos Totales", "Gastos Primarios", "Resultado Primario","Intereses Netos","Resultado Financiero"),
+  y = c(basecaja[1,2],basecaja[20,2] ,basecaja[62,2],basecaja[63,2],basecaja[64,2]),
+  drilldown = tolower(name)
+)
+
+rfc <- list_parse(rf)
+names(rfc) <- NULL
+
+
+hcrs <- highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(type = "category") %>%
+  hc_legend(enabled = FALSE) %>%
+  hc_plotOptions(
+    series = list(
+      boderWidth = 0,
+      dataLabels = list(enabled = TRUE)
+    )
+  ) %>%
+  hc_add_series(
+    name = "Resultado Fiscal- Base Caja",
+    colorByPoint = TRUE,
+    data = rfc
+  ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-julio_20.xls")
+
+
+
+IT<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[15,1],basecaja[19,1]),
+y=c(basecaja[2,2],basecaja[12,2],basecaja[15,2],basecaja[19,2]),
+drilldown = tolower(name))
+
+
+GP<-tibble(name=c(basecaja[21,1],basecaja[43,1]),
+y=c(basecaja[21,2],basecaja[43,2]),
+drilldown = tolower(name))
+
+
+GCP<-tibble(name=c(basecaja[22,1],basecaja[29,1],basecaja[33,1],basecaja[36,1],basecaja[41,1],basecaja[42,1]),
+y=c(basecaja[22,2],basecaja[29,2],basecaja[33,2],basecaja[36,2],basecaja[41,2],basecaja[42,2]),
+drilldown = tolower(name))
+
+
+GC<-tibble(name=c(basecaja[44,1],basecaja[47,1],basecaja[50,1],basecaja[53,1],basecaja[56,1],basecaja[59,1]),
+y=c(basecaja[44,2],basecaja[47,2],basecaja[50,2],basecaja[53,2],basecaja[56,2],basecaja[59,2]))
+
+
+Tri<-tibble(name=c(basecaja[3:11,1]),
+y=c(basecaja[3:11,2]))
+
+Ren<-tibble(name=c(basecaja[13:14,1]),
+y=c(basecaja[13:14,2]))
+
+oic<-tibble(name=c(basecaja[16:18,1]),
+y=c(basecaja[16:18,2]))
+
+
+pre<-tibble(name=c(basecaja[23:28,1]),
+y=c(basecaja[23:28,2]))
+
+
+sub<-tibble(name=c(basecaja[30:32,1]),
+y=c(basecaja[30:32,2]))
+
+gas<-tibble(name=c(basecaja[34:35,1]),
+y=c(basecaja[34:35,2]))
+
+transc<-tibble(name=c(basecaja[37:40,1]),
+y=c(basecaja[37:40,2]))
+
+
+
+
+
+dIT<-list_parse(IT)
+dGP<-list_parse(GP)
+dGCP<-list_parse(GCP)
+dGC<-list_parse(GC)
+
+dTri<-list_parse(Tri)
+dRen<-list_parse(Ren)
+doic<-list_parse(oic)
+dpre<-list_parse(pre)
+dsub<-list_parse(sub)
+dgas<-list_parse(gas)
+dtransc<-list_parse(transc)
+
+```
+
+
+```{r graf13 }
+
+hcrs %>%
+  hc_drilldown(
+    allowPointDrilldown = TRUE,
+    series = list(
+      list(
+        id = "ingresos totales",
+        data = dIT
+      ) ,
+      list(
+        id = "gastos primarios",
+        data = dGP
+      ) ,
+      list(
+        id = "gastos corrientes primarios",
+        data = dGCP
+      ) ,
+      list(
+        id = "gastos de capital",
+        data = dGC
+      ),
+      list(
+        id = "tributarios",
+        data = dTri
+      ),
+      list(
+        id = "rentas de la propiedad",
+        data = dRen
+      ),
+      list(
+        id = "otros ingresos corrientes",
+        data = doic
+      ),
+      list(
+        id = "prestaciones sociales",
+        data = dpre
+      ),
+      list(
+        id = "subsidios económicos",
+        data = dsub
+      ),
+      list(
+        id = "gastos de funcionamiento y otros",
+        data = dgas
+      ),
+      list(
+        id = "transferencias corrientes a provincias",
+        data = dtransc
+      ) 
+)
+  )%>%
+hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
+hc_colors(cols12[7:12])%>%
+hc_title(text="Resultado Fiscal- Base Caja- Julio 2020.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_exporting(enabled = TRUE)
+
+
+```
+
+
+### Variaciones anuales
+
+```{r , include= FALSE }
+
+rf2 <- tibble(
+  name = c("Ingresos Totales", "Gastos Primarios", "Resultado Primario","Intereses Netos","Resultado Financiero"),
+  y = c(basecaja[1,3],basecaja[20,3] ,basecaja[62,3],basecaja[63,3],basecaja[64,3]),
+  drilldown = tolower(name)
+)
+
+rfs2 <- list_parse(rf2)
+names(rfs2) <- NULL
+
+
+hcrs2 <- highchart() %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(type = "category") %>%
+  hc_legend(enabled = FALSE) %>%
+  hc_plotOptions(
+    series = list(
+      boderWidth = 0,
+      dataLabels = list(enabled = TRUE)
+    )
+  ) %>%
+  hc_add_series(
+    name = "Resultado Fiscal- Base Caja",
+    colorByPoint = TRUE,
+    data = rfs2
+  ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-julio_20.xls")
+
+
+
+IT2<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[15,1],basecaja[19,1]),
+y=c(basecaja[2,3],basecaja[12,3],basecaja[15,3],basecaja[19,3]),
+drilldown = tolower(name))
+
+
+GP2<-tibble(name=c(basecaja[21,1],basecaja[43,1]),
+y=c(basecaja[21,3],basecaja[43,3]),
+drilldown = tolower(name))
+
+
+GCP2<-tibble(name=c(basecaja[22,1],basecaja[29,1],basecaja[33,1],basecaja[36,1],basecaja[41,1],basecaja[42,1]),
+y=c(basecaja[22,3],basecaja[29,3],basecaja[33,3],basecaja[36,3],basecaja[41,3],basecaja[42,3]),
+drilldown = tolower(name))
+
+
+GC2<-tibble(name=c(basecaja[44,1],basecaja[47,1],basecaja[50,1],basecaja[53,1],basecaja[56,1],basecaja[59,1]),
+y=c(basecaja[44,3],basecaja[47,3],basecaja[50,3],basecaja[53,3],basecaja[56,3],basecaja[59,3]))
+
+
+Tri2<-tibble(name=c(basecaja[3:11,1]),
+y=c(basecaja[3:11,3]))
+
+Ren2<-tibble(name=c(basecaja[13:14,1]),
+y=c(basecaja[13:14,3]))
+
+oic2<-tibble(name=c(basecaja[16:18,1]),
+y=c(basecaja[16:18,3]))
+
+
+pre2<-tibble(name=c(basecaja[23:28,1]),
+y=c(basecaja[23:28,3]))
+
+
+sub2<-tibble(name=c(basecaja[30:32,1]),
+y=c(basecaja[30:32,3]))
+
+gas2<-tibble(name=c(basecaja[34:35,1]),
+y=c(basecaja[34:35,3]))
+
+transc2<-tibble(name=c(basecaja[37:40,1]),
+y=c(basecaja[37:40,3]))
+
+
+
+
+
+dIT2<-list_parse(IT2)
+dGP2<-list_parse(GP2)
+dGCP2<-list_parse(GCP2)
+dGC2<-list_parse(GC2)
+
+dTri2<-list_parse(Tri2)
+dRen2<-list_parse(Ren2)
+doic2<-list_parse(oic2)
+dpre2<-list_parse(pre2)
+dsub2<-list_parse(sub2)
+dgas2<-list_parse(gas2)
+dtransc2<-list_parse(transc2)
+
+```
+
+
+```{r graf14 }
+
+hcrs2 %>%
+  hc_drilldown(
+    allowPointDrilldown = TRUE,
+    series = list(
+      list(
+        id = "ingresos totales",
+        data = dIT2
+      ) ,
+      list(
+        id = "gastos primarios",
+        data = dGP2
+      ) ,
+      list(
+        id = "gastos corrientes primarios",
+        data = dGCP2
+      ) ,
+      list(
+        id = "gastos de capital",
+        data = dGC2
+      ),
+      list(
+        id = "tributarios",
+        data = dTri2
+      ),
+      list(
+        id = "rentas de la propiedad",
+        data = dRen2
+      ),
+      list(
+        id = "otros ingresos corrientes",
+        data = doic2
+      ),
+      list(
+        id = "prestaciones sociales",
+        data = dpre2
+      ),
+      list(
+        id = "subsidios económicos",
+        data = dsub2
+      ),
+      list(
+        id = "gastos de funcionamiento y otros",
+        data = dgas2
+      ),
+      list(
+        id = "transferencias corrientes a provincias",
+        data = dtransc2
+      ) 
+)
+  )%>%
+hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
+hc_colors(cols13[2:7])%>%
+hc_title(text="Resultado Fiscal- Base Caja- Julio 2020- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_exporting(enabled = TRUE)
+
+
+```
+

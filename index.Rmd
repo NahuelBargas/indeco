@@ -1,0 +1,81 @@
+---
+title: "Indicadores Económicos"
+output:
+  flexdashboard::flex_dashboard:
+     includes:
+       in_header: header.html
+     theme : yeti
+     orientation : rows
+     social: [ "menu" ] 
+     css : coloresbotones.css
+     self_contained : TRUE
+     navbar:
+       - { title: "Consultas y comentarios", href: "http://nahuelbargas.github.io/indeco/index.html", align: right}
+       - { title: "Acceder al Dashboard", href: "http://nahuelbargas.github.io/indeco/indeco.html", align: left}
+---
+
+- Bienvenidos a la página que cree para compartir algunos [indicadores económicos seleccionados]("http://nahuelbargas.github.io/indeco/indeco.html")
+de la república Argentina. 
+
+- Mi nombre es Nahuel Bargas, tengo una licenciatura en economía, y me 
+interesan el análisis de datos, las estadísticas y 
+las técnicas de visualización.
+
+
+- En base a las librerías [Flexdashboard]("https://rstudio.github.io/flexdashboard") , [Rmarkdown]("http://rmarkdown.rstudio.com/"), [Knitr]("https://yihui.org/knitr/"), [Highcharter]("http://jkunst.com/highcharter/"),
+entre otros paquetes del universo R, 
+comparto un tablero actualizado con cuadros, gráficos dinámicos y 
+tablas sobre la tasa de inflación, las estimaciones del producto interno bruto,
+valor agregado bruto, desigualdad, pobreza, el resultado fiscal del sector público y la performance del comercio exterior 
+argentino. 
+Principalmente utlizó estimaciones y datos provistos por el INDEC, pero también en 
+algunas secciones realizo mis propios cálculos.
+
+
+- No duden en enviarme sus inquietudes o sugerencias al correo electrónico: nahuelbargas@hotmail.com  
+
+- Cualquier comentario que sea útil para corregir o mejorar el sitio será muy valorado.
+
+
+- También pueden contactarme en los siguientes medios,desde ya les agradezco por haberlo visitado.
+
+
+Rows {data-height=50}
+-------------------------------------
+
+
+
+```{r botones}
+
+downloadthis::download_link(
+  link = "https://twitter.com/Nahuel_Sef",
+  button_label = "Twitter",
+  button_type = "info",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-twitter"
+)  
+
+
+
+downloadthis::download_link(
+  link = "https://linkedin.com/in/nahuel-bargas/",
+  button_label = "Linkedin",
+  button_type = "primary",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-linkedin"
+)  
+
+
+downloadthis::download_link(
+  link = "https://telegram.me/Nahuel_Sef",
+  button_label = "Telegram",
+  button_type = "info",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-telegram"
+)  
+
+```
+
