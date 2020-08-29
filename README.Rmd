@@ -1,0 +1,57 @@
+
+---
+title: "Indicadores económicos seleccionados"
+output: github_document
+always_allow_html: true
+---
+
+
+
+
+```{r logo, echo=FALSE,out.width = "10%",fig.align = 'left' }
+
+include_graphics("logo.png")
+```
+
+
+
+- Presento un dashboard realizado en base a las librerías [Flexdashboard]("https://rstudio.github.io/flexdashboard") , [Rmarkdown]("http://rmarkdown.rstudio.com/"), [Knitr]("https://yihui.org/knitr/"), [Highcharter]("http://jkunst.com/highcharter/"),
+entre otros paquetes del universo R. 
+
+- En cada semana trato de sumar nuevas estadísticas económicas relacionadas con la Argentina. 
+
+- Son bienvenidos si desean realizar cualquier sugerencia o comentario.
+
+También pueden encontrarme en los siguientes sitios:
+
+```{r botones, echo=FALSE}
+
+downloadthis::download_link(
+  link = "https://twitter.com/Nahuel_Sef",
+  button_label = "Twitter",
+  button_type = "info",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-twitter"
+)  
+
+
+
+downloadthis::download_link(
+  link = "https://linkedin.com/in/nahuel-bargas/",
+  button_label = "Linkedin",
+  button_type = "primary",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-linkedin"
+)  
+
+
+downloadthis::download_link(
+  link = "https://telegram.me/Nahuel_Sef",
+  button_label = "Telegram",
+  button_type = "info",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-telegram"
+)  
