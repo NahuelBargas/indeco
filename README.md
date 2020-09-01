@@ -1,11 +1,7 @@
 Indicadores económicos seleccionados
 ================
 
-<div style="float:right;position: relative;width: 10%; top: 1px; ">
-
-![](logo.png)
-
-</div>
+<img align="right" width= "10%" src="logo.png">
 
   - Presento un dashboard realizado en base a las librerías
     [Flexdashboard](%22https://rstudio.github.io/flexdashboard%22) ,

@@ -8,10 +8,7 @@ always_allow_html: true
 
 
 
-<div style= "float:right;position: relative;width: 10%; top: 1px; ">
-![](logo.png)
-</div>  
-
+<img align="right" width= "10%" src="logo.png">
 
 
 
