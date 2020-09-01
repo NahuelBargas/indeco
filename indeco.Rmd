@@ -2,8 +2,6 @@
 title: " Indicadores Económicos "
 output:
   flexdashboard::flex_dashboard:
-     includes:
-       in_header: header.html
      theme : yeti
      orientation : rows
      social: [ "menu" ] 
@@ -18,8 +16,6 @@ output:
 
 ```{r setup, include=FALSE}
 
-# Nota: "El archivo header. html no se encuentra cargado en el repositiorio
-#         deberá quitarlo del YAML para replicar el documento"
 
 
 # Librerías
