@@ -2,16 +2,17 @@
 ---
 title: "Indicadores económicos seleccionados"
 output: github_document
+css: micss.css
 always_allow_html: true
 ---
 
 
 
+<div style= "float:right;position: relative;width: 10%; top: 1px; ">
+![](logo.png)
+</div>  
 
-```{r logo, echo=FALSE,out.width = "10%",fig.align = 'left' }
 
-include_graphics("logo.png")
-```
 
 
 
@@ -20,11 +21,13 @@ entre otros paquetes del universo R.
 
 - En cada semana trato de sumar nuevas estadísticas económicas relacionadas con la Argentina. 
 
-- Son bienvenidos si desean realizar cualquier sugerencia o comentario.
+- Son bienvenidos si desean realizar cualquier <a href="mailto:nahuelbargas@hotmail.com">sugerencia o comentario.</a> 
 
 También pueden encontrarme en los siguientes sitios:
+ 
 
-```{r botones, echo=FALSE}
+
+```{r botones,echo=FALSE}
 
 downloadthis::download_link(
   link = "https://twitter.com/Nahuel_Sef",
@@ -55,3 +58,7 @@ downloadthis::download_link(
   has_icon = TRUE, 
   icon = "fa fa-telegram"
 )  
+
+```
+
+

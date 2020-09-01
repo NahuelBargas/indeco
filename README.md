@@ -1,7 +1,11 @@
 Indicadores económicos seleccionados
 ================
 
-<img src="logo.png" width="10%" style="display: block; margin: auto auto auto 0;" />
+<div style="float:right;position: relative;width: 10%; top: 1px; ">
+
+![](logo.png)
+
+</div>
 
   - Presento un dashboard realizado en base a las librerías
     [Flexdashboard](%22https://rstudio.github.io/flexdashboard%22) ,
@@ -13,8 +17,9 @@ Indicadores económicos seleccionados
   - En cada semana trato de sumar nuevas estadísticas económicas
     relacionadas con la Argentina.
 
-  - Son bienvenidos si desean realizar cualquier sugerencia o
-    comentario.
+  - Son bienvenidos si desean realizar cualquier
+    <a href="mailto:nahuelbargas@hotmail.com">sugerencia o
+    comentario.</a>
 
 También pueden encontrarme en los siguientes sitios:
 
