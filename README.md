@@ -1,6 +1,8 @@
 Indicadores económicos seleccionados
 ================
 
+<link rel="stylesheet" href="css/social-circles.min.css">
+
 <img align="right" width= "10%" src="logo.png">
 
   - Presento un dashboard realizado en base a las librerías
@@ -19,14 +21,37 @@ Indicadores económicos seleccionados
 
 También pueden encontrarme en los siguientes sitios:
 
-<!--html_preserve-->
+<style type="text/css">
 
-<a href="https://twitter.com/Nahuel_Sef">
-<button class="btn btn-info"><i class="fa fa-twitter"></i>
-Twitter</button>
-</a><!--/html_preserve--><!--html_preserve--><a href="https://linkedin.com/in/nahuel-bargas/">
-<button class="btn btn-primary"><i class="fa fa-linkedin"></i>
-Linkedin</button>
-</a><!--/html_preserve--><!--html_preserve--><a href="https://telegram.me/Nahuel_Sef">
-<button class="btn btn-info"><i class="fa fa-telegram"></i>
-Telegram</button> </a><!--/html_preserve-->
+ol { 
+        list-style-type: none;
+        padding: 0;margin: 0;
+}
+
+ol li { 
+        display: inline-block;
+        margin: 4px;
+}
+
+.social-button.borderless {
+        padding: 0 16px;
+}
+
+
+</style>
+
+<ol>
+
+<li>
+
+<a class="icon-linkedin social-button borderless" href="https://linkedin.com/in/nahuel-bargas/"></a>
+
+</li>
+
+<li>
+
+<a class="icon-twitter social-button borderless" href="https://twitter.com/Nahuel_Sef"></a>
+
+</li>
+
+</ol>
