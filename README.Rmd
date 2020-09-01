@@ -5,7 +5,7 @@ output: github_document
 always_allow_html: true
 ---
 
-<link rel="stylesheet" href="css/social-circles.min.css">
+
 
 <img align="right" width= "10%" src="logo.png">
 
@@ -21,28 +21,39 @@ entre otros paquetes del universo R.
 
 También pueden encontrarme en los siguientes sitios:
  
-```{css, echo=FALSE}
 
-ol { 
-        list-style-type: none;
-        padding: 0;margin: 0;
-}
 
-ol li { 
-        display: inline-block;
-        margin: 4px;
-}
+```{r botones,echo=FALSE}
 
-.social-button.borderless {
-        padding: 0 16px;
-}
+downloadthis::download_link(
+  link = "https://twitter.com/Nahuel_Sef",
+  button_label = "Twitter",
+  button_type = "info",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-twitter"
+)  
 
+
+
+downloadthis::download_link(
+  link = "https://linkedin.com/in/nahuel-bargas/",
+  button_label = "Linkedin",
+  button_type = "primary",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-linkedin"
+)  
+
+
+downloadthis::download_link(
+  link = "https://telegram.me/Nahuel_Sef",
+  button_label = "Telegram",
+  button_type = "info",
+  self_contained = TRUE, 
+  has_icon = TRUE, 
+  icon = "fa fa-telegram"
+)  
 
 ```
-
-
-<ol>
-	<li><a class="icon-linkedin social-button borderless" href="https://linkedin.com/in/nahuel-bargas/"></a></li>
-    <li><a class="icon-twitter social-button borderless" href="https://twitter.com/Nahuel_Sef"></a></li>
-</ol>
 

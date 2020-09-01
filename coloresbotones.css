@@ -1,0 +1,37 @@
+.dt-button.copiar{    
+  background: blue;
+  color: white; 
+  border: 3px outset;
+}
+
+
+button.dt-button.buttons-copy.buttons-html5.copiar:hover {
+  background: lightblue;
+  border: 3px outset;
+
+}
+
+
+.dt-button.descargar{    
+  background: red;
+  color: white; 
+  border: 3px outset;
+}
+
+
+button.dt-button.buttons-collection.descargar:hover {
+    background: pink;
+    border: 3px outset;
+}
+
+
+.dt-button.imprimir{    
+  background: darkcyan;
+  color: white; 
+  border: 3px outset;
+}
+
+button.dt-button.buttons-print.imprimir:hover {
+    background: deepskyblue;
+    border: 3px outset;
+}

@@ -14,10 +14,12 @@ output:
        - { title: "Acceder al Dashboard", href: "http://nahuelbargas.github.io/indeco/indeco.html", align: left}
 ---
 
+<link rel="stylesheet" href="css/social-circles.min.css">
+
 - Bienvenidos a la página que cree para compartir algunos [indicadores económicos seleccionados]("http://nahuelbargas.github.io/indeco/indeco.html")
 de la república Argentina. 
 
-- Mi nombre es Nahuel Bargas, tengo una licenciatura en economía, y me 
+- Mi nombre es Nahuel Bargas, tengo una licenciatura en Economía, y me 
 interesan el análisis de datos, las estadísticas y 
 las técnicas de visualización.
 
@@ -40,42 +42,29 @@ algunas secciones realizo mis propios cálculos.
 - También pueden contactarme en los siguientes medios,desde ya les agradezco por haberlo visitado.
 
 
-Rows {data-height=50}
--------------------------------------
+```{css, echo=FALSE}
 
+ol { 
+        list-style-type: none;
+        padding: 0;margin: 0;
+}
 
+ol li { 
+        display: inline-block;
+        margin: 4px;
+}
 
-```{r botones}
+.social-button.borderless {
+        padding: 0 16px;
+}
 
-downloadthis::download_link(
-  link = "https://twitter.com/Nahuel_Sef",
-  button_label = "Twitter",
-  button_type = "info",
-  self_contained = TRUE, 
-  has_icon = TRUE, 
-  icon = "fa fa-twitter"
-)  
-
-
-
-downloadthis::download_link(
-  link = "https://linkedin.com/in/nahuel-bargas/",
-  button_label = "Linkedin",
-  button_type = "primary",
-  self_contained = TRUE, 
-  has_icon = TRUE, 
-  icon = "fa fa-linkedin"
-)  
-
-
-downloadthis::download_link(
-  link = "https://telegram.me/Nahuel_Sef",
-  button_label = "Telegram",
-  button_type = "info",
-  self_contained = TRUE, 
-  has_icon = TRUE, 
-  icon = "fa fa-telegram"
-)  
 
 ```
+
+
+<ol>
+	<li><a class="icon-linkedin social-button borderless" href="https://linkedin.com/in/nahuel-bargas/"></a></li>
+    <li><a class="icon-twitter social-button borderless" href="https://twitter.com/Nahuel_Sef"></a></li>
+	<li><a class="icon-github social-button borderless" href="https://github.com/NahuelBargas"></a></li>
+</ol>
 
