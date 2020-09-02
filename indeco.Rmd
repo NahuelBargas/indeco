@@ -2,13 +2,14 @@
 title: " Indicadores Económicos "
 output:
   flexdashboard::flex_dashboard:
+     includes:
+       in_header: header.html
      theme : yeti
-     orientation : rows
-     social: [ "menu" ] 
+     orientation : rows 
      css : coloresbotones.css
      self_contained : TRUE
      navbar:
-       - { title: "Consultas y comentarios", href: "http://nahuelbargas.github.io/indeco/index.html", align: right} 
+       - { title: "Consultas y comentarios", href: "http://nahuelbargas.github.io/indeco/index.html", align: right}
 ---
 
 
