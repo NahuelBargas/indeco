@@ -14,7 +14,7 @@ output:
        - { title: "Acceder al Dashboard", href: "http://nahuelbargas.github.io/indeco/indeco.html", align: left}
 ---
 
-<link rel="stylesheet" href="css/social-circles.min.css">
+
 
 - Bienvenidos a la página que cree para compartir algunos [indicadores económicos seleccionados]("http://nahuelbargas.github.io/indeco/indeco.html")
 de la república Argentina. 
@@ -66,5 +66,6 @@ ol li {
 	<li><a class="icon-linkedin social-button borderless" href="https://linkedin.com/in/nahuel-bargas/"></a></li>
     <li><a class="icon-twitter social-button borderless" href="https://twitter.com/Nahuel_Sef"></a></li>
 	<li><a class="icon-github social-button borderless" href="https://github.com/NahuelBargas"></a></li>
+    <li><a class="icon-telegram social-button borderless" href="https://telegram.me/Nahuel_Sef"></a></li>
 </ol>
 
