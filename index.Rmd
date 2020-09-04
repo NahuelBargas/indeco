@@ -15,7 +15,7 @@ output:
 
 
 
-- Bienvenidos a la página que cree para compartir algunos [indicadores económicos seleccionados]("http://nahuelbargas.github.io/indeco/indeco.html")
+- Bienvenidos a la página que cree para compartir algunos  <a href="https://nahuelbargas.github.io/indeco/indeco.html"> indicadores económicos seleccionados </a>
 de la república Argentina. 
 
 - Mi nombre es Nahuel Bargas, tengo una licenciatura en Economía, y me 
@@ -23,7 +23,7 @@ interesan el análisis de datos, las estadísticas y
 las técnicas de visualización.
 
 
-- En base a las librerías [Flexdashboard]("https://rstudio.github.io/flexdashboard") , [Rmarkdown]("http://rmarkdown.rstudio.com/"), [Knitr]("https://yihui.org/knitr/"), [Highcharter]("http://jkunst.com/highcharter/"),
+- En base a las librerías <a href="https://rstudio.github.io/flexdashboard"> Flexdashboard </a>,  <a href="http://rmarkdown.rstudio.com/"> Rmarkdown </a>, <a href="https://yihui.org/knitr/"> Knitr </a> ,  <a href="http://jkunst.com/highcharter/"> Highcharter </a> ,
 entre otros paquetes del universo R, 
 comparto un tablero actualizado con cuadros, gráficos dinámicos y 
 tablas sobre la tasa de inflación, las estimaciones del producto interno bruto,
@@ -31,7 +31,7 @@ valor agregado bruto, desigualdad, pobreza, el resultado fiscal del sector públ
 argentino. 
 Principalmente utilizó estimaciones y datos provistos por el INDEC, pero también en 
 algunas secciones realizo mis propios cálculos. 
-En el [repositorio]("https://github.com/NahuelBargas/indeco") podrán encontrar los códigos con los comandos utilizados, les pido que 
+En el <a href="https://github.com/NahuelBargas/indeco"> repositorio <a/> podrán encontrar los códigos con los comandos utilizados, les pido que 
 si el panel les resulta interesante, o les ayuda con sus propios proyectos, tengan la amabilidad de compartir mi trabajo.
 
 
