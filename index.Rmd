@@ -29,19 +29,30 @@ comparto un tablero actualizado con cuadros, gráficos dinámicos y
 tablas sobre la tasa de inflación, las estimaciones del producto interno bruto,
 valor agregado bruto, desigualdad, pobreza, el resultado fiscal del sector público y la performance del comercio exterior 
 argentino. 
-Principalmente utlizó estimaciones y datos provistos por el INDEC, pero también en 
-algunas secciones realizo mis propios cálculos.
+Principalmente utilizó estimaciones y datos provistos por el INDEC, pero también en 
+algunas secciones realizo mis propios cálculos. 
+En el [repositorio]("https://github.com/NahuelBargas/indeco") podrán encontrar los códigos con los comandos utilizados, les pido que 
+si el panel les resulta interesante, o les ayuda con sus propios proyectos, tengan la amabilidad de compartir mi trabajo.
 
 
 - No duden en enviarme sus inquietudes o sugerencias al correo electrónico: nahuelbargas@hotmail.com  
 
 - Cualquier comentario que sea útil para corregir o mejorar el sitio será muy valorado.
 
-
 - También pueden contactarme en los siguientes medios,desde ya les agradezco por haberlo visitado.
 
 
+
+
 ```{css, echo=FALSE}
+
+/*
+Pueden dirigirse a http://janhuenermann.github.io/social-circles/ para 
+conocer cómo implementar los botones para redes sociales en su documento.
+En mi caso, adapte la fuente y css provistas por el autor para utilizar Ionicons.
+Ver fonts/ionicons.ttf y css/social-circles.min2.css en mi repositorio.
+*/
+
 
 ol { 
         list-style-type: none;
