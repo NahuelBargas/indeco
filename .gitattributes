@@ -1,6 +1,6 @@
 *.html linguist-detectable=false
 *.Rmd  linguist-detectable=true
-*.Rs   linguist-detectable=true
+*.Rds  linguist-detectable=true
 *.css  linguist-detectable=true
 *.png  linguist-detectable=true
 *.xlsx linguist-detectable=true
