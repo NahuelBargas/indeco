@@ -130,7 +130,6 @@ cols13<-inferno(7, alpha=0.8, direction=-1)
 
 cols14<-substring(viridis(5,dir= -1), 0, 7)
 
-
 cols15<-substring(plasma(20,dir= -1), 0, 7)
 
 ```
@@ -1539,9 +1538,112 @@ Column {data-width = 500}
 
 ### Exportaciones por grandes rubros: PP, CyE, MOA y MOI.
 
-```{r mapa,  }
+```{r origen , include= FALSE }
 
-knitr::include_url("Map2.html",height= "600px")
+dta_clss<-regiones %>% 
+  group_by(Regiones) %>% 
+  summarise(value = sum(Expo.Totales)) %>% 
+  arrange(value) %>% 
+  rename(name = Regiones, from = value) %>% 
+  mutate(to = from + 500) %>% 
+  mutate(color = cols14)%>% 
+  mutate(name = paste0(name," : ",from, " mill. USD")) %>%
+  list_parse()
+
+
+regiones<- left_join(regiones, regiones %>% 
+  group_by(Regiones) %>% 
+  summarise(value = sum(Expo.Totales)),by = "Regiones")
+
+regiones<-rename(regiones,ExpoToT=Expo.Totales)
+regiones<-regiones %>% arrange(Provincias)
+
+
+nombre<- numeric()
+
+for (i in 1:24) {
+nombre[i]<- provincias$`features`[[i]]$`properties`$iso_nombre
+}
+
+
+longitud<- numeric()
+
+for (i in 1:24) {
+longitud[i]<- provincias$`features`[[i]]$geometry$`coordinates`[[1]]
+}
+
+latitud<- numeric()
+
+for (i in 1:24) {
+latitud[i]<- provincias$`features`[[i]]$geometry$`coordinates`[[2]]
+}
+
+
+provincia<-tibble(name=nombre,lat=latitud,lon=longitud)
+provincia<- provincia %>%
+arrange(name)
+provincia<-provincia %>% mutate(z = regiones$ExpoToT)
+
+
+provincia$lat[23]<- -54.75071 # "y" es latitud
+provincia$lon[23]<- -66.73785 # "x" es longitud
+
+
+provincia$PP<-regiones$PP
+provincia$MOA<-regiones$MOA
+provincia$MOI<-regiones$MOI
+provincia$CYE<-regiones$CYE
+
+```
+
+
+```{r mapa, echo=FALSE }
+
+highchart(type="map") %>%
+hc_add_series(mapData = argentina,regiones,joinBy = c("name", "Provincias"),name="Región",
+value="value",showInLegend = TRUE,
+borderColor = "#FAFAFA",
+  borderWidth = 0.1,tooltip = list(useHTML = TRUE,
+      pointFormat = "<b><i>{point.Regiones}</i></b>"))%>%
+hc_add_series(
+    data = provincia, 
+    type = "mapbubble",
+    name = "Detalle-Provincias", 
+    minSize = "1%",
+    maxSize = "8%",
+    color="red",
+    showInLegend = TRUE,
+    tooltip = list(useHTML = TRUE,
+      pointFormat = "<b><i>{point.name}</i></b> <br>
+      <b>Exportaciones totales</b> {point.z:,.2f} mill. USD <br>
+      <b>PP:</b> {point.PP:,.2f} mill. USD <br> 
+      <b>MOA:</b> {point.MOA:,.2f} mill. USD <br>
+      <b>MOI:</b> {point.MOI:,.2f} mill. USD <br>
+      <b>CyE:</b> {point.CYE:,.2f} mill. USD",
+	 allowPointSelect= TRUE)
+  )%>%
+hc_subtitle(text=" <b>Exportaciones por regiones económicas y provincias, grandes rubros. </b>",
+ align = "center")%>%
+ hc_legend(
+    layout = "vertical",
+    align = "right",
+    verticalAlign = "bottom",
+    floating = TRUE,
+    x = 10,
+    y = -20,
+bubbleLegend = list(
+            enabled = "TRUE",
+            sizeBy = "width",
+            ranges = list(list(color='#e4d354'), list(), list()),
+            labels= list(format="{value:.2f} mill. USD"))) %>%
+hc_colorAxis(
+    dataClassColor = "category",
+    dataClasses = dta_clss
+    ) %>%
+hc_yAxis(gridLineWidth=0)%>%
+hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
+hc_credits(enabled=TRUE, text=" Primer semestre 2020.Fuente: INDEC", position =list( align ="left", x=20))
+
 
 ```
 

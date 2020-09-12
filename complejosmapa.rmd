@@ -137,7 +137,7 @@ hc_add_series(mapData = argentina,regiones,joinBy = c("name", "Provincias"),name
 value="value",showInLegend = FALSE,
 borderColor = "#FAFAFA",
   borderWidth = 0.1,tooltip = list(useHTML = TRUE,
-      pointFormat = "<b><i>{point.Regiones}</i></b>"),legendIndex= 2)%>%
+      pointFormat = "<b><i>{point.Regiones}</i></b>"))%>%
 hc_add_series(
     data = provincia, 
     type = "mapbubble",
@@ -146,7 +146,6 @@ hc_add_series(
     maxSize = "8%",
     color="red",
     showInLegend = TRUE,
-    legendIndex= 1,
     tooltip = list(useHTML = TRUE,
       pointFormat = "<b><i>{point.name}</i></b> <br>
       <b>Exportaciones totales</b> {point.z:,.2f} mill. USD <br>
@@ -154,7 +153,7 @@ hc_add_series(
       <b>MOA:</b> {point.MOA:,.2f} mill. USD <br>
       <b>MOI:</b> {point.MOI:,.2f} mill. USD <br>
       <b>CyE:</b> {point.CYE:,.2f} mill. USD",
-     crosshairs = TRUE)
+	 allowPointSelect= TRUE)
   )%>%
 hc_subtitle(text=" <b>Exportaciones por regiones económicas y provincias, grandes rubros. </b>",
  align = "center")%>%
@@ -168,7 +167,6 @@ hc_subtitle(text=" <b>Exportaciones por regiones económicas y provincias, grand
 bubbleLegend = list(
             enabled = "TRUE",
             sizeBy = "width",
-            legendIndex= 2,
             ranges = list(list(color='#e4d354'), list(), list()),
             labels= list(format="{value:.2f} mill. USD"))) %>%
 hc_colorAxis(
