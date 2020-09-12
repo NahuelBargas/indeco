@@ -1,0 +1,264 @@
+
+```{r setup, include=FALSE}
+
+
+## Librerías
+
+library(highcharter)
+library(flexdashboard)
+library(openxlsx)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(viridisLite)
+library(tidyverse)
+library(mFilter)
+library(treemap)
+library(jsonlite)
+library(DT)
+library(htmltools)
+
+```
+
+```{r opc  hc, include=FALSE}
+hcopts <- getOption("highcharter.lang")
+
+
+hcopts$drillUpText<- "Volver"
+hcopts$downloadCSV <- "Descargar CSV"
+hcopts$downloadJPEG <- "Descargar imágen JPEG"
+hcopts$downloadPDF <- "Descargar documento PDF"
+hcopts$downloadPNG  <- "Descargar imágen PNG"
+hcopts$downloadSVG  <- "Descargar imágen SVG"
+hcopts$downloadXLS  <- "Descargar XLS"
+hcopts$loading  <- "Procesando..."
+hcopts$months<-c("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre")
+hcopts$noData <- "No existen datos para mostrar"
+hcopts$numericSymbols <-c("mil", "M", "G", "T", "P", "E") 
+hcopts$printChart <- "Imprimir Gráfico"
+hcopts$shortMonths<-c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic")
+hcopts$resetZoom <- "Restablecer zoom"
+hcopts$resetZoomTitle <- "Restablecer nivel del zoom 1:1"
+hcopts$thousandsSep <- ","
+hcopts$viewData <- "Mostrar tabla de datos"
+
+
+options(highcharter.lang = hcopts)
+
+
+## Origen Exportaciones
+
+argentina<-jsonlite::fromJSON("bases/argentina.geo.json", simplifyVector = FALSE)
+
+regiones<-read.xlsx("bases/opex 1er semestre 2020.xlsx",sheet=1)
+
+provincias<-jsonlite::fromJSON("bases/provincias.geojson", simplifyVector = FALSE)
+
+complejos<-read.xlsx("bases/opex 1er semestre 2020.xlsx",sheet=2)
+
+cols14<-substring(viridis(5,dir= -1), 0, 7)
+
+
+cols15<-substring(plasma(20,dir= -1), 0, 7)
+
+
+```
+
+
+
+
+Origen provincial de las exportaciones y complejos exportadores - 2020 {data-orientation=columns data-navmenu="Comercio Exterior"}
+==================================================================================================================================
+
+Column {}
+-------------------------------------
+
+
+### Exportaciones por grandes rubros: PP, CyE, MOA y MOI.
+
+```{r , echo= FALSE }
+
+dta_clss<-regiones %>% 
+  group_by(Regiones) %>% 
+  summarise(value = sum(Expo.Totales)) %>% 
+  arrange(value) %>% 
+  rename(name = Regiones, from = value) %>% 
+  mutate(to = from + 500) %>% 
+  mutate(color = cols14)%>% 
+  mutate(name = paste0(name," : ",from, " mill. USD")) %>%
+  list_parse()
+
+
+regiones<- left_join(regiones, regiones %>% 
+  group_by(Regiones) %>% 
+  summarise(value = sum(Expo.Totales)),by = "Regiones")
+
+regiones<-rename(regiones,ExpoToT=Expo.Totales)
+regiones<-regiones %>% arrange(Provincias)
+
+
+nombre<- numeric()
+
+for (i in 1:24) {
+nombre[i]<- provincias$`features`[[i]]$`properties`$iso_nombre
+}
+
+
+longitud<- numeric()
+
+for (i in 1:24) {
+longitud[i]<- provincias$`features`[[i]]$geometry$`coordinates`[[1]]
+}
+
+latitud<- numeric()
+
+for (i in 1:24) {
+latitud[i]<- provincias$`features`[[i]]$geometry$`coordinates`[[2]]
+}
+
+
+provincia<-tibble(name=nombre,lat=latitud,lon=longitud)
+provincia<- provincia %>%
+arrange(name)
+provincia<-provincia %>% mutate(z = regiones$ExpoToT)
+
+
+provincia$lat[23]<- -54.75071 # "y" es latitud
+provincia$lon[23]<- -66.73785 # "x" es longitud
+
+
+provincia$PP<-regiones$PP
+provincia$MOA<-regiones$MOA
+provincia$MOI<-regiones$MOI
+provincia$CYE<-regiones$CYE
+
+```
+
+``` { r origen, echo=FALSE }
+
+mapa<-highchart(type="map") %>%
+hc_add_series(mapData = argentina,regiones,joinBy = c("name", "Provincias"),name="Región",
+value="value",showInLegend = FALSE,
+borderColor = "#FAFAFA",
+  borderWidth = 0.1,tooltip = list(useHTML = TRUE,
+      pointFormat = "<b><i>{point.Regiones}</i></b>"),legendIndex= 2)%>%
+hc_add_series(
+    data = provincia, 
+    type = "mapbubble",
+    name = "Detalle-Provincias", 
+    minSize = "1%",
+    maxSize = "8%",
+    color="red",
+    showInLegend = TRUE,
+    legendIndex= 1,
+    tooltip = list(useHTML = TRUE,
+      pointFormat = "<b><i>{point.name}</i></b> <br>
+      <b>Exportaciones totales</b> {point.z:,.2f} mill. USD <br>
+      <b>PP:</b> {point.PP:,.2f} mill. USD <br> 
+      <b>MOA:</b> {point.MOA:,.2f} mill. USD <br>
+      <b>MOI:</b> {point.MOI:,.2f} mill. USD <br>
+      <b>CyE:</b> {point.CYE:,.2f} mill. USD",
+     crosshairs = TRUE)
+  )%>%
+hc_subtitle(text=" <b>Exportaciones por regiones económicas y provincias, grandes rubros. </b>",
+ align = "center")%>%
+ hc_legend(
+    layout = "vertical",
+    align = "right",
+    verticalAlign = "bottom",
+    floating = TRUE,
+    x = 10,
+    y = -20,
+bubbleLegend = list(
+            enabled = "TRUE",
+            sizeBy = "width",
+            legendIndex= 2,
+            ranges = list(list(color='#e4d354'), list(), list()),
+            labels= list(format="{value:.2f} mill. USD"))) %>%
+hc_colorAxis(
+    dataClassColor = "category",
+    dataClasses = dta_clss
+    ) %>%
+hc_yAxis(gridLineWidth=0)%>%
+hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
+hc_credits(enabled=TRUE, text=" Primer semestre 2020.Fuente: INDEC", position =list( align ="left", x=20))
+
+```
+
+
+Column {}
+-------------------------------------
+
+### Complejos Exportadores
+
+```{r , echo= FALSE }
+
+hctreemapcolores = with(environment(hctreemap),
+   ## Modified `hctreemap`
+   ## names colorValue correctly for connection to `hc_colorAxis`
+function (tm, ...) 
+{
+    assertthat::assert_that(is.list(tm))
+    df <- tm$tm %>% tbl_df() %>% select_("-x0", "-y0", "-w", 
+        "-h", "-stdErr", "-vColorValue") %>% rename_(value = "vSize", 
+        colorValue = "vColor") %>% purrr::map_if(is.factor, as.character) %>% 
+        data.frame(stringsAsFactors = FALSE) %>% tbl_df()
+    ndepth <- which(names(df) == "value") - 1
+    ds <- map_df(seq(ndepth), function(lvl) {
+        df2 <- df %>% filter_(sprintf("level == %s", lvl)) %>% 
+            rename_(name = names(df)[lvl]) %>% mutate_(id = "highcharter::str_to_id(name)")
+        if (lvl > 1) {
+            df2 <- df2 %>% mutate_(parent = names(df)[lvl - 1], 
+                parent = "highcharter::str_to_id(parent)")
+        }
+        else {
+            df2 <- df2 %>% mutate_(parent = NA)
+        }
+        df2
+    })
+    ds <- list_parse(ds)
+    ds <- map(ds, function(x) {
+        if (is.na(x$parent)) 
+            x$parent <- NULL
+        x
+    })
+    hc_add_series(highchart(), data = ds, type = "treemap", ...)
+}
+)
+
+
+complejos<-complejos[-c(1,2,7,12,17,24,32),-2]
+
+complejos<-complejos %>%
+pivot_longer(-Complejos,names_to= "Regiones",values_to= "Exportaciones")
+
+tm3 <- treemap(complejos, index = c("Complejos","Regiones"),
+              vSize = "Exportaciones",vColor="Exportaciones",
+              type = "manual", palette = cols15,draw = FALSE)
+
+
+complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
+                        layoutAlgorithm = "squarified",
+                        levelIsConstant = FALSE,
+    levels = list(
+      list(level = 1, dataLabels = list(enabled = TRUE)),
+      list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
+hc_colorAxis(minColor =cols15[1],
+               maxColor = cols15[20],enabled = TRUE)%>%
+  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. semestre del 2020")%>%
+  hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
+  hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros.xls") %>%
+hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
+                             Exportaciones: {point.value:,.0f}")
+							 
+```
+
+```{r complejosgraf, echo = false }
+
+complejostree
+
+mapa %>% save_html(file = "Map2.html",lib="mapa")
+
+
+```
+
