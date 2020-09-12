@@ -202,6 +202,7 @@ highchart() %>%
   hc_xAxis(type = "datetime")%>%
   hc_yAxis(title=list(text = "Porcentaje"))%>%    
   hc_tooltip(pointFormat =  "{point.y} %", crosshairs = TRUE) %>%
+  hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
@@ -307,6 +308,7 @@ hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
   hc_yAxis(title=list(text = "Porcentaje %"))%>% 
     hc_colors(cols6)%>%
    hc_tooltip(pointFormat =  "{point.y:.2f}% ")%>%
+      hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%
     hc_subtitle(text = "En base a datos obtenidos de la EPH-INDEC - Estimaciones vía Bootstrap de mil repeticiones.",
               align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '10px'))%>%
   hc_exporting(enabled = TRUE)
