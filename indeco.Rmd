@@ -1539,9 +1539,9 @@ Column {data-width = 500}
 
 ### Exportaciones por grandes rubros: PP, CyE, MOA y MOI.
 
-```{r mapa, out.height= "600px" }
+```{r mapa,  }
 
-knitr::include_url("Map2.html")
+knitr::include_url("Map2.html",height= "600px")
 
 ```
 
