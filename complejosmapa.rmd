@@ -67,11 +67,7 @@ cols15<-substring(plasma(20,dir= -1), 0, 7)
 
 
 
-Origen provincial de las exportaciones y complejos exportadores - 2020 {data-orientation=columns data-navmenu="Comercio Exterior"}
-==================================================================================================================================
 
-Column {}
--------------------------------------
 
 
 ### Exportaciones por grandes rubros: PP, CyE, MOA y MOI.
@@ -186,8 +182,7 @@ hc_credits(enabled=TRUE, text=" Primer semestre 2020.Fuente: INDEC", position =l
 ```
 
 
-Column {}
--------------------------------------
+
 
 ### Complejos Exportadores
 
