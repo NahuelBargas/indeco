@@ -229,15 +229,7 @@ kable_styling(bootstrap_options = c("bordered","responsive")) %>%
 row_spec(1, bold = T, color = "white", background = "lightseagreen")%>%
 footnote("INDEC",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
 
-ipcmensualdiv%>% 
- downloadthis::download_this(
-    output_name = "Variación mensual según divisiones",
-    output_extension = ".xlsx",
-    button_label = "Descargar la tabla en formato xlsx",
-    button_type = "info",
-    self_contained = FALSE, 
-    has_icon = FALSE 
-  )
+
 
 ```
 
@@ -245,17 +237,27 @@ ipcmensualdiv%>%
 
 colnames(ipcmensualdiv)[1]<-"Divisiones"
 
+ipcmensualdivreact<-ipcmensualdiv
+
+
+for (i in 1:13) {
+ipcmensualdivreact$Divisiones[i]<- paste0("<span title=","'",ipcmensualdiv$Divisiones[i],"'",">", ipcmensualdiv$Divisiones[i], "</span>")
+}
+
+
+
 sticky_style <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
                      borderRight = "1px solid #eee")
 
 reactable(
-  ipcmensualdiv,
+  ipcmensualdivreact,
 pagination = FALSE,
    highlight = TRUE,
    wrap = FALSE,
 compact = TRUE,
 columns = list(
     Divisiones = colDef(
+	  html = TRUE,
       style = sticky_style,
       headerStyle = sticky_style
     )
@@ -295,17 +297,25 @@ ipcintdiv%>%
 
 colnames(ipcintdiv)[1]<-"Divisiones"
 
+ipcintdivreact<-ipcintdiv
+
+
+for (i in 1:13) {
+ipcintdivreact$Divisiones[i]<- paste0("<span title=","'",ipcintdiv$Divisiones[i],"'",">", ipcmensualdiv$Divisiones[i], "</span>")
+}
+
 sticky_style <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
                      borderRight = "1px solid #eee")
 
 reactable(
-  ipcintdiv,
+  ipcintdivreact,
 pagination = FALSE,
    highlight = TRUE,
    wrap = FALSE,
 compact = TRUE,
 columns = list(
     Divisiones = colDef(
+	  html= TRUE,
       style = sticky_style,
       headerStyle = sticky_style
     )
@@ -314,8 +324,18 @@ columnGroups = list(
     colGroup(name = "Regiones", 
 columns = c("GBA","Pampeana","Noreste","Noroeste","Cuyo","Patagonia"))),
 rowStyle = function(index) {
-  if (index == 1) list(fontWeight = "bold",color="white",background = "lightseagreen")
+  if (index == 1) list(fontWeight = "bold",color="white",background = "orangered")
 })
+
+ipcintdiv%>% 
+ downloadthis::download_this(
+    output_name = "Variación interanual según divisiones",
+    output_extension = ".xlsx",
+    button_label = "Descargar la tabla en formato xlsx",
+    button_type = "info",
+    self_contained = FALSE, 
+    has_icon = FALSE 
+  )
 
 
 ```
