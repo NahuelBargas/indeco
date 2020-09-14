@@ -33,6 +33,7 @@ library(mFilter)
 library(treemap)
 library(jsonlite)
 library(DT)
+library(reactable)
 
 
 
@@ -201,7 +202,8 @@ highchart() %>%
   hc_add_series(ipcmensual, "line", hcaes(x = Período, y =Regulados ),name="Regulados")%>%
   hc_xAxis(type = "datetime")%>%
   hc_yAxis(title=list(text = "Porcentaje"))%>%    
-  hc_tooltip(pointFormat =  "{point.y} %", crosshairs = TRUE) %>%
+  hc_tooltip(pointFormat =  "{series.name} <br>
+  {point.y} %", crosshairs = TRUE) %>%
   hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
@@ -220,7 +222,7 @@ Row {.tabset .tabset-fade}
 
 ### Variación mensual según divisiones
 
-```{r tabla1}
+```{r tabla1, include=FALSE, eval=FALSE}
 kable(ipcmensualdiv) %>%
 kable_styling(bootstrap_options = c("bordered","responsive")) %>%
   add_header_above(c(" " = 2, "Regiones" = 6))%>%
@@ -239,9 +241,39 @@ ipcmensualdiv%>%
 
 ```
 
+```{r tabla1react,}
+
+colnames(ipcmensualdiv)[1]<-"Divisiones"
+
+sticky_style <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
+                     borderRight = "1px solid #eee")
+
+reactable(
+  ipcmensualdiv,
+pagination = FALSE,
+   highlight = TRUE,
+   wrap = FALSE,
+compact = TRUE,
+columns = list(
+    Divisiones = colDef(
+      style = sticky_style,
+      headerStyle = sticky_style
+    )
+  ),
+columnGroups = list(
+    colGroup(name = "Regiones", 
+columns = c("GBA","Pampeana","Noreste","Noroeste","Cuyo","Patagonia"))),
+rowStyle = function(index) {
+  if (index == 1) list(fontWeight = "bold",color="white",background = "lightseagreen")
+})
+
+
+
+```
+
 ### Variación interanual según divisiones
 
-```{r tabla2}
+```{r tabla2, include=FALSE,eval=FALSE}
 kable(ipcintdiv) %>%
 kable_styling(bootstrap_options = c("bordered","responsive")) %>%
 add_header_above(c(" " = 2, "Regiones" = 6))%>%
@@ -257,6 +289,34 @@ ipcintdiv%>%
     self_contained = FALSE, 
     has_icon = FALSE 
   )
+```
+
+```{r tabla2react, }
+
+colnames(ipcintdiv)[1]<-"Divisiones"
+
+sticky_style <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
+                     borderRight = "1px solid #eee")
+
+reactable(
+  ipcintdiv,
+pagination = FALSE,
+   highlight = TRUE,
+   wrap = FALSE,
+compact = TRUE,
+columns = list(
+    Divisiones = colDef(
+      style = sticky_style,
+      headerStyle = sticky_style
+    )
+  ),
+columnGroups = list(
+    colGroup(name = "Regiones", 
+columns = c("GBA","Pampeana","Noreste","Noroeste","Cuyo","Patagonia"))),
+rowStyle = function(index) {
+  if (index == 1) list(fontWeight = "bold",color="white",background = "lightseagreen")
+})
+
 
 ```
 
@@ -307,7 +367,8 @@ hc_add_series(gini_ts3, type = "line", hcaes(x = trimestre2, y = gini),
 hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
   hc_yAxis(title=list(text = "Porcentaje %"))%>% 
     hc_colors(cols6)%>%
-   hc_tooltip(pointFormat =  "{point.y:.2f}% ")%>%
+   hc_tooltip(pointFormat =  "{series.name} <br>
+   {point.y:.2f}% ")%>%
       hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%
     hc_subtitle(text = "En base a datos obtenidos de la EPH-INDEC - Estimaciones vía Bootstrap de mil repeticiones.",
               align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '10px'))%>%
@@ -450,7 +511,8 @@ highchart() %>%
     )
   )
 )%>%   
-  hc_tooltip(pointFormat =  "{point.y:.3f} ")%>%
+  hc_tooltip(pointFormat =  "{series.name} <br>
+                             {point.y:.3f} ")%>%
   hc_colors(cols7)%>%
     hc_subtitle(text = "Fuente: INDEC",
               align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '8px'))%>%
@@ -480,7 +542,8 @@ highchart() %>%
   hc_add_series(emae, "line", hcaes(x = Fecha, y =Desestacionalizada),name="Serie Desestacionalizada",dashStyle ="ShortDash")%>%
   hc_xAxis(type = "datetime")%>%
   hc_yAxis(title=list(text = "Índice"))%>%    
-  hc_tooltip(pointFormat =  "{point.y:.3f}") %>%
+  hc_tooltip(pointFormat =  "{series.name} <br>
+                             {point.y:.3f}") %>%
   hc_colors(cols3)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC - Consultar aquí la serie completa y las variaciones porcentuales ",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
@@ -1678,7 +1741,7 @@ hc_colorAxis(minColor =cols15[1],
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
-                             Exportaciones: {point.value:,.0f}")
+                             Exportaciones: {point.value:,.0f} millones de dólares")
 							 
 ```
 
