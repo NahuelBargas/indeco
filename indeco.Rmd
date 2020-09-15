@@ -34,6 +34,7 @@ library(treemap)
 library(jsonlite)
 library(DT)
 library(reactable)
+library(htmltools)
 
 
 
@@ -229,7 +230,15 @@ kable_styling(bootstrap_options = c("bordered","responsive")) %>%
 row_spec(1, bold = T, color = "white", background = "lightseagreen")%>%
 footnote("INDEC",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
 
-
+ipcmensualdiv%>% 
+ downloadthis::download_this(
+    output_name = "Variación mensual según divisiones",
+    output_extension = ".xlsx",
+    button_label = "Descargar la tabla en formato xlsx",
+    button_type = "info",
+    self_contained = FALSE, 
+    has_icon = FALSE 
+  )
 
 ```
 
@@ -245,8 +254,14 @@ ipcmensualdivreact$Divisiones[i]<- paste0("<span title=","'",ipcmensualdiv$Divis
 }
 
 
+ipcmensualdivreact$Divisiones[1]<- "<span style =  'background : lightseagreen ;fontWeight : bold;  color : white' ><span title='Nivel General'>Nivel General</span> </span>"
 
-sticky_style <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
+
+
+sticky_style <- list(position = "sticky", left = 0, background = "lightseagreen", zIndex = 1,color = "white",
+                     borderRight = "1px solid #eee")
+
+sticky_styleh <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
                      borderRight = "1px solid #eee")
 
 reactable(
@@ -259,7 +274,7 @@ columns = list(
     Divisiones = colDef(
 	  html = TRUE,
       style = sticky_style,
-      headerStyle = sticky_style
+      headerStyle = sticky_styleh
     )
   ),
 columnGroups = list(
@@ -304,8 +319,14 @@ for (i in 1:13) {
 ipcintdivreact$Divisiones[i]<- paste0("<span title=","'",ipcintdiv$Divisiones[i],"'",">", ipcmensualdiv$Divisiones[i], "</span>")
 }
 
-sticky_style <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
+ipcintdivreact$Divisiones[1]<- "<span style =  'background : darkorange ;fontWeight : bold;  color : white' ><span title='Nivel General'>Nivel General</span> </span>"
+
+sticky_style <- list(position = "sticky", left = 0, background = "darkorange", zIndex = 1,color = "white",
                      borderRight = "1px solid #eee")
+
+sticky_styleh <- list(position = "sticky", left = 0, background = "#fff", zIndex = 1,
+                     borderRight = "1px solid #eee")
+
 
 reactable(
   ipcintdivreact,
@@ -317,25 +338,17 @@ columns = list(
     Divisiones = colDef(
 	  html= TRUE,
       style = sticky_style,
-      headerStyle = sticky_style
+      headerStyle = sticky_styleh
     )
   ),
 columnGroups = list(
     colGroup(name = "Regiones", 
 columns = c("GBA","Pampeana","Noreste","Noroeste","Cuyo","Patagonia"))),
 rowStyle = function(index) {
-  if (index == 1) list(fontWeight = "bold",color="white",background = "orangered")
+  if (index == 1) list(fontWeight = "bold",color="white",background = "darkorange")
 })
 
-ipcintdiv%>% 
- downloadthis::download_this(
-    output_name = "Variación interanual según divisiones",
-    output_extension = ".xlsx",
-    button_label = "Descargar la tabla en formato xlsx",
-    button_type = "info",
-    self_contained = FALSE, 
-    has_icon = FALSE 
-  )
+
 
 
 ```
