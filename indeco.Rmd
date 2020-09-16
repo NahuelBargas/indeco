@@ -172,20 +172,20 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox("1.9 %", caption = "Inflación del mes de Julio-2020", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("2.7 %", caption = "Inflación del mes de Agosto-2020", icon="glyphicon-arrow-up",color="skyblue")
 ```
 
 ### Interanual
 
 
 ```{r}
-valueBox("42.4 %", caption = "Variación interanual", icon="glyphicon-arrow-down",color="orangered")
+valueBox("40.7 %", caption = "Variación interanual", icon="glyphicon-arrow-down",color="orangered")
 ```
 
 ### Acumulada en el año.
 
 ```{r}
-valueBox("15.8 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("18.9 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -209,7 +209,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_08_207BFCDEE221.pdf")%>%
+             href = "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_09_20D39002C437.pdf")%>%
   hc_exporting(enabled = TRUE)
 ```
 
@@ -221,7 +221,7 @@ Tasa de Inflación mensual e Interanual por región   {data-navmenu="Inflación 
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Variación mensual según divisiones
+### Variación mensual según divisiones-Agosto 2020
 
 ```{r tabla1, include=FALSE, eval=FALSE}
 kable(ipcmensualdiv) %>%
@@ -288,7 +288,7 @@ rowStyle = function(index) {
 
 ```
 
-### Variación interanual según divisiones
+### Variación interanual según divisiones-Agosto 2020
 
 ```{r tabla2, include=FALSE,eval=FALSE}
 kable(ipcintdiv) %>%
