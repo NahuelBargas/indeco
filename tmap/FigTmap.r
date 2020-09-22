@@ -20,7 +20,7 @@ library(viridisLite)
 ### https://www.indec.gob.ar/ftp/cuadros/economia/CNA2018_resultados_preliminares_ganaderia.xls
 
 
-censo<-read.xlsx("https://nahuelbargas.github.io/indeco/ganprovincia.xlsx")
+censo<-read.xlsx("https://nahuelbargas.github.io/indeco/tmap/ganprovincia.xlsx")
 
 
 ### Descargar el shapefile del país desde http://www.indec.gov.ar/ftp/cuadros/territorio/codgeo/Codgeo_Pais_x_prov_datos.zip

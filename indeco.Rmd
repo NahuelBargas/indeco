@@ -63,10 +63,10 @@ gini_ts3<-data.frame(trimestre,trimestre2,gini_ts[,1:3])
 
 producto<-read.xlsx("bases/indicadores.xlsx", sheet=4,detectDates = TRUE)
 
-producto$Fecha <- as.yearqtr(2004 + seq(0, 64)/4)
+producto$Fecha <- as.yearqtr(2004 + seq(0, 65)/4)
 producto$Fecha <-format(producto$Fecha,  "%q %Y")
-producto$fecha1<-seq(as.Date("2004-01-01"), length = 65, by = "3 months")
-producto$fecha2<-format(as.yearqtr(2004 + seq(0, 64)/4),  "%q %Y")
+producto$fecha1<-seq(as.Date("2004-01-01"), length = 66, by = "3 months")
+producto$fecha2<-format(as.yearqtr(2004 + seq(0, 65)/4),  "%q %Y")
 producto$fecha3<-paste(producto$Año,"-",producto$Trimestre)
 
 PBI.ts<-ts(producto$PIB.DESEST, frequency = 4, start = c(2004, 1))
@@ -89,7 +89,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
 emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado-fiscal-julio_20.xlsx", sheet=2,startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado-fiscal-agosto20.xlsx", sheet=2,startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -483,7 +483,7 @@ PIB  {data-navmenu="Producto"}
 
 ```{r graf3, include= FALSE  }
 
-png("tamaño completo.png", width=1024, height=483)
+png("tamaño completo.png", width=1024, height=483,pointsize = 14)
 
 print(ggplot(producto,aes(fecha1,PBI/1000,group=1,color="PIB"))+
 geom_line()+
@@ -577,6 +577,7 @@ highchart() %>%
   hc_yAxis(title=list(text = "Índice"))%>%    
   hc_tooltip(pointFormat =  "{series.name} <br>
                              {point.y:.3f}") %>%
+  hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%							 
   hc_colors(cols3)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC - Consultar aquí la serie completa y las variaciones porcentuales ",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
@@ -627,7 +628,7 @@ Valor agregado bruto a precios básicos {data-navmenu="Producto"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### VAB Primer trimestre 2020
+### VAB Segundo trimestre 2020
 
 
 ```{r , include= FALSE }
@@ -657,10 +658,10 @@ highchart() %>%
     colorByPoint = TRUE,
     data = vab
   ) %>%
-hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
+hc_tooltip(pointFormat =  "{point.y:.3f} millones de pesos") %>%
 hc_colors(cols8)%>%
-hc_title(text=" Valor agregado bruto a precios básicos,por categorías, primer trimestre del 2020",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="El VAB total asciende a 522,595 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_title(text=" Valor agregado bruto a precios básicos,por categorías, segundo trimestre del 2020",style = list(color = "black", fontSize = '14px')) %>%
+hc_subtitle(text="El VAB total asciende a 606.993 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
 ```
@@ -678,10 +679,10 @@ highchart() %>%
     colorByPoint = TRUE,
     data = vabvar
   ) %>%
-hc_tooltip(pointFormat =  "{point.y} por ciento") %>%
+hc_tooltip(pointFormat =  "{point.y:.2f} por ciento") %>%
 hc_colors(c("black",cols8[-1]))%>%
 hc_title(text=" Variación porcentual respecto al mismo trimestre del año anterior, categorías VAB.",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="Fuente: INDEC - Datos preliminares. Primer trimestre 2020. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
+hc_subtitle(text="Fuente: INDEC - Datos preliminares. Segundo trimestre 2020. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
 hc_exporting(enabled = TRUE)
 
 ```
@@ -1314,7 +1315,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Julio 2020
+### Agosto 2020
 
 ```{r , include= FALSE }
 
@@ -1343,7 +1344,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-julio_20.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-agosto20.xls")
 
 
 
@@ -1463,7 +1464,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Julio 2020.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Agosto 2020.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1500,7 +1501,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-julio_20.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-agosto20.xls")
 
 
 
@@ -1620,7 +1621,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Julio 2020- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Agosto 2020- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
