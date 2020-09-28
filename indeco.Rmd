@@ -608,7 +608,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("7.4 %", caption = "Aumento del EMAE desestacionalizado de Junio-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("1.1 %", caption = "Aumento del EMAE desestacionalizado de Julio-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -616,7 +616,7 @@ valueBox("7.4 %", caption = "Aumento del EMAE desestacionalizado de Junio-20 con
 
 ```{r boxes2,}
 
-valueBox("-12.9 %", caption = "Variación acumulada del año(Primeros seis meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-12.6 %", caption = "Variación acumulada del año(Primeros siete meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
