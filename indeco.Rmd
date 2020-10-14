@@ -221,7 +221,7 @@ Tasa de Inflación mensual e Interanual por región   {data-navmenu="Inflación 
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Variación mensual según divisiones-Agosto 2020
+### Variación mensual según divisiones-Septiembre 2020
 
 ```{r tabla1, include=FALSE, eval=FALSE}
 kable(ipcmensualdiv) %>%
@@ -288,7 +288,7 @@ rowStyle = function(index) {
 
 ```
 
-### Variación interanual según divisiones-Agosto 2020
+### Variación interanual según divisiones-Septiembre 2020
 
 ```{r tabla2, include=FALSE,eval=FALSE}
 kable(ipcintdiv) %>%
