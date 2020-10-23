@@ -89,7 +89,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
 emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado-fiscal-agosto20.xlsx", sheet=2,startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_sep20.xlsx", sheet=2,startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -602,7 +602,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("1.1 %", caption = "Aumento del EMAE desestacionalizado de Julio-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("1.1 %", caption = "Aumento del EMAE desestacionalizado de Agosto-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -610,7 +610,7 @@ valueBox("1.1 %", caption = "Aumento del EMAE desestacionalizado de Julio-20 con
 
 ```{r boxes2,}
 
-valueBox("-12.6 %", caption = "Variación acumulada del año(Primeros siete meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-12.5 %", caption = "Variación acumulada del año(Primeros ocho meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
@@ -685,14 +685,14 @@ Balanza comercial, acumulado en 2020 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primeros ocho meses del 2020
+### Balanza comercial, primeros nueve meses del 2020
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(37229, 26245,10984),
+  y = c(41940, 30378,11562),
   drilldown = tolower(name)
 )
 
@@ -718,13 +718,13 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(26245,4347,10530,1991,4478,3821,877,201),
+  y = c(30378,5072,12139,2248,5200,4402,1072,245),
   drilldown = tolower(name)
 )
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(37229,12548,14310,8191,2180),
+  y = c(41940,13642,16302,9576,2419),
   drilldown = tolower(name)
 )
 
@@ -751,7 +751,7 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(12,958,125,488,548,7122,2907,94,16,58,148,73))
+y = c(13,1112,137,553,576,7717,3057,120,17,72,183,86))
 
 moa<-tibble(
 name = c("Carnes y sus preparados",
@@ -770,7 +770,7 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(2226,141,572,44,62,109,448,3198,131,478,555,5698,125,221,52,251))
+y=c(2530,156,676,50,77,122,509,3632,151,544,639,6490,143,245,56,282))
 
 moi<-tibble(
 name= c(  "Productos químicos y conexos",
@@ -787,7 +787,7 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(2075,478,106,10,247,61,2,62,1290,857,649,2122,65,167))
+y= c(2435,535,120,11,272,70,3,72,1463,966,750,2606,75,198))
 
 
 
@@ -797,7 +797,7 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(708,999,25,393,54))
+y= c(824,1086,29,420,61))
 
 
 bk<- tibble(
@@ -805,7 +805,7 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(3079,619,508,141))
+y=c(3583,744,586,160))
 
 bi<-tibble(
 name=c("Productos del reino vegetal", 
@@ -817,20 +817,20 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(1571,305,4314,1347,529,390,208,1099,768))
+y=c(1823,346,4975,1532,598,452,244,1285,885))
 
 
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(1857,134))
+y=c(2107,141))
 
 
 pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(3038,1078,362))
+y=c(3532,1255,414))
 
 bco<-tibble(
 name=c("Animales vivos y productos del reino animal", 
@@ -845,7 +845,7 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(93,292,374,1453,169,328,201,268,137,102,198,205))
+y=c(104,346,424,1684,197,360,228,311,161,117,232,238))
 
 
 merco<-tibble(
@@ -1102,7 +1102,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros ocho meses del 2020",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros nueve meses del 2020",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1309,7 +1309,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Agosto 2020
+### Septiembre 2020
 
 ```{r , include= FALSE }
 
@@ -1338,7 +1338,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-agosto20.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado_fiscal_sep20.xls")
 
 
 
@@ -1458,7 +1458,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Agosto 2020.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Septiembre 2020.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1495,7 +1495,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado-fiscal-agosto20.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado_fiscal_sep20.xls")
 
 
 
@@ -1615,7 +1615,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Agosto 2020- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Septiembre 2020- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
