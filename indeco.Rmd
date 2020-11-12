@@ -172,20 +172,20 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox("2.8 %", caption = "Inflación del mes de Septiembre-2020", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("3.8 %", caption = "Inflación del mes de Octubre-2020", icon="glyphicon-arrow-up",color="skyblue")
 ```
 
 ### Interanual
 
 
 ```{r}
-valueBox("36.6 %", caption = "Variación interanual", icon="glyphicon-arrow-down",color="orangered")
+valueBox("37.2 %", caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
 ```
 
 ### Acumulada en el año.
 
 ```{r}
-valueBox("22.3 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("26.9 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -221,7 +221,7 @@ Tasa de Inflación mensual e Interanual por región   {data-navmenu="Inflación 
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Variación mensual según divisiones-Septiembre 2020
+### Variación mensual según divisiones-Octubre 2020
 
 ```{r tabla1, include=FALSE, eval=FALSE}
 kable(ipcmensualdiv) %>%
