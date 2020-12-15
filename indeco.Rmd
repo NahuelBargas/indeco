@@ -172,20 +172,20 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox("3.8 %", caption = "Inflación del mes de Octubre-2020", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("3.2 %", caption = "Inflación del mes de Noviembre-2020", icon="glyphicon-arrow-down",color="skyblue")
 ```
 
 ### Interanual
 
 
 ```{r}
-valueBox("37.2 %", caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
+valueBox("35.8 %", caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
 ```
 
 ### Acumulada en el año.
 
 ```{r}
-valueBox("26.9 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("30.9 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
