@@ -685,14 +685,14 @@ Balanza comercial, acumulado en 2020 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primeros diez meses del 2020
+### Balanza comercial, primeros once meses del 2020
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(46556, 34385,12171),
+  y = c(50996, 38449,12497),
   drilldown = tolower(name)
 )
 
@@ -718,13 +718,13 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(34385,5768,13808,2385,5942,4938,1257,287),
+  y = c(38499,6571,15341,2542,6805,5487,1427,327),
   drilldown = tolower(name)
 )
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(46556,14688,18444,10817,2608),
+  y = c(50996,15452,20665,11986,2893),
   drilldown = tolower(name)
 )
 
@@ -751,7 +751,8 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(13,1303,150,596,613,8238,3212,163,19,83,201,97))
+y = c(15,1389,162,635,645,8603,3327,210,23,108,227,108) )
+
 
 moa<-tibble(
 name = c("Carnes y sus preparados",
@@ -770,7 +771,7 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(2837,179,787,56,94,135,579,4150,191,609,724,7288,167,269,65,314))
+y=c(3165,203,902,62,110,151,646,4659,214,678,810,8159,189,299,69,349))
 
 moi<-tibble(
 name= c(  "Productos químicos y conexos",
@@ -787,7 +788,7 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(2695,593,7134,13,301,80,3,85,1668,1064,849,3031,75,225))
+y= c(2937,653,149,15,332,89,4,97,1871,1151,965,3394,76,253))
 
 
 
@@ -797,7 +798,7 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(876,1177,34,455,66))
+y= c(1010,1257,40,512,73))
 
 
 bk<- tibble(
@@ -805,7 +806,7 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(4074,852,663,178))
+y=c(4657,966,747,200))
 
 bi<-tibble(
 name=c("Productos del reino vegetal", 
@@ -817,20 +818,20 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(2024,411,5657,1739,668,521,283,1513,992))
+y=c(2134,460,6253,1968,744,589,322,1753,1117))
 
 
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(2237,148))
+y=c(2387,155))
 
 
 pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(4028,1445,469))
+y=c(4605,1679,521))
 
 bco<-tibble(
 name=c("Animales vivos y productos del reino animal", 
@@ -845,7 +846,7 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(118,398,480,1854,228,383,252,354,200,130,269,271))
+y=c(134,451,538,2019,265,407,278,394,231,147,317,304))
 
 
 merco<-tibble(
