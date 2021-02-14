@@ -35,6 +35,7 @@ library(jsonlite)
 library(DT)
 library(reactable)
 library(htmltools)
+library(stringr)
 
 
 
@@ -48,11 +49,15 @@ colnames(ipcmensualdiv)[1]<-""
 ipcintdiv<-read.xlsx("bases/indicadores.xlsx", sheet=3)
 colnames(ipcintdiv)[1]<-""
 
+aperturas <- read.xlsx("bases/indicadores.xlsx", sheet="Aperturas")
+
+aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", values_to= "variación_mensual")
+
 ## Gini
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 17,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 18,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -172,20 +177,20 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox("3.2 %", caption = "Inflación del mes de Noviembre-2020", icon="glyphicon-arrow-down",color="skyblue")
+valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Inflación del mes de ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-down",color="skyblue")
 ```
 
 ### Interanual
 
 
 ```{r}
-valueBox("35.8 %", caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
+valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
 ```
 
 ### Acumulada en el año.
 
 ```{r}
-valueBox("30.9 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("4 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -209,7 +214,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_09_20D39002C437.pdf")%>%
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_02_21.xls")%>%
   hc_exporting(enabled = TRUE)
 ```
 
@@ -219,9 +224,10 @@ Tasa de Inflación mensual e Interanual por región   {data-navmenu="Inflación 
 
 
 Row {.tabset .tabset-fade}
--------------------------------------
+-----------------------------
 
-### Variación mensual según divisiones-Octubre 2020
+### `r paste0("Variación mensual según divisiones","-",str_to_title(format(max(ipcmensual$Período),"%b-%y"))) `
+
 
 ```{r tabla1, include=FALSE, eval=FALSE}
 kable(ipcmensualdiv) %>%
@@ -288,7 +294,8 @@ rowStyle = function(index) {
 
 ```
 
-### Variación interanual según divisiones-Septiembre 2020
+### `r paste0("Variación interanual según divisiones","-",str_to_title(format(max(ipcmensual$Período),"%b-%y"))) `
+
 
 ```{r tabla2, include=FALSE,eval=FALSE}
 kable(ipcintdiv) %>%
@@ -353,7 +360,48 @@ rowStyle = function(index) {
 
 ```
 
+Tasa de Inflación mensual. Aperturas seleccionadas de la división Alimentos y bebidas no alcohólicas    {data-navmenu="Inflación e Ingresos"}
+====================================================================================================
 
+
+Column {.tabset .tabset-fade style="width:65pc;height:80pc"}
+--------------------------------------------------------------
+
+
+### `r paste0("Variación mensual según aperturas seleccionadas","-",str_to_title(format(max(ipcmensual$Período),"%b-%y"))) `
+
+
+ ```{r grafAper, }
+
+#polarcolumn
+  map(unique(aperturas$Aperturas), function(niveles){
+  highchart() %>%
+  hc_chart(type = "column", polar = TRUE) %>% 
+  hc_xAxis(categories = aperturas$Region,
+  labels=list(distance=13)) %>% 
+  hc_yAxis(labels=list (formatter = JS(paste0("function() {
+                       return this.value + '%'
+					   }"
+					  )
+		))) %>%
+  hc_add_series(
+     name = niveles,
+     data = aperturas[aperturas$Aperturas== niveles,]$variación_mensual,
+     colorByPoint = TRUE,
+     type = "column",
+     group = aperturas[aperturas$Aperturas== niveles,]$Region,
+     showInLegend = FALSE,
+	 dataLabels=  list(enabled = FALSE,inside=FALSE,format='{point.y:.1f}',y=-12,x= -7, padding=4)
+   )%>%
+   	 hc_title(text = niveles)%>%
+    hc_tooltip(pointFormat =  "{series.name} <br>
+      {point.y:.1f}%")%>%	
+     hc_colors(coloresAperturas)
+}) %>% 
+  hw_grid(rowheight = 260, ncol = 3)  %>% browsable()
+
+```
+  
 Distribución del ingreso y pobreza {data-navmenu="Inflación e Ingresos"}
 ===================================== 
 
@@ -602,7 +650,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("1.9 %", caption = "Aumento del EMAE desestacionalizado de Octubre-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("1.4 %", caption = "Aumento del EMAE desestacionalizado de Noviembre-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -610,7 +658,7 @@ valueBox("1.9 %", caption = "Aumento del EMAE desestacionalizado de Octubre-20 c
 
 ```{r boxes2,}
 
-valueBox("-11.3 %", caption = "Variación acumulada del año(Primeros diez meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-10.6 %", caption = "Variación acumulada del año(Primeros once meses - 20) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
