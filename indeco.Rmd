@@ -139,6 +139,8 @@ cols14<-substring(viridis(5,dir= -1), 0, 7)
 
 cols15<-substring(plasma(20,dir= -1), 0, 7)
 
+coloresAperturas<- viridis(7, alpha=0.8,direction=1)
+
 ```
 
 ```{r opc  hc, include=FALSE}
@@ -364,7 +366,7 @@ Tasa de Inflación mensual. Aperturas seleccionadas de la división Alimentos y 
 ====================================================================================================
 
 
-Column {.tabset .tabset-fade style="width:65pc;height:80pc"}
+Column {.tabset .tabset-fade style="width:85pc;height:80pc"}
 --------------------------------------------------------------
 
 
