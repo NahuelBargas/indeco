@@ -742,7 +742,7 @@ Balanza comercial, acumulado en 2021 {data-navmenu="Comercio Exterior"}
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(4912,3844,8756),
+  y = c(4912,3844,1068),
   drilldown = tolower(name)
 )
 
