@@ -50,11 +50,12 @@ options(highcharter.lang = hcopts)
 
 argentina<-jsonlite::fromJSON("bases/argentina.geo.json", simplifyVector = FALSE)
 
-regiones<-read.xlsx("bases/opex 1er semestre 2020.xlsx",sheet=1)
+regiones<-read.xlsx("bases/opex 2ndo semestre 2020.xlsx",sheet=1)
 
 provincias<-jsonlite::fromJSON("bases/provincias.geojson", simplifyVector = FALSE)
 
-complejos<-read.xlsx("bases/opex 1er semestre 2020.xlsx",sheet=2)
+complejos<-read.xlsx("bases/opex 2ndo semestre 2020.xlsx",sheet=2)
+
 
 cols14<-substring(viridis(5,dir= -1), 0, 7)
 
@@ -175,7 +176,7 @@ hc_colorAxis(
     ) %>%
 hc_yAxis(gridLineWidth=0)%>%
 hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
-hc_credits(enabled=TRUE, text=" Primer semestre 2020.Fuente: INDEC", position =list( align ="left", x=20))
+hc_credits(enabled=TRUE, text=" Segundo semestre 2020.Fuente: INDEC", position =list( align ="left", x=20))
 
 ```
 
@@ -238,7 +239,7 @@ complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols15[1],
                maxColor = cols15[20],enabled = TRUE)%>%
-  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. semestre del 2020")%>%
+  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 2ndo. semestre del 2020")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
@@ -248,7 +249,7 @@ hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
 
 ```{r complejosgraf, echo = false }
 
-complejostree
+complejostree %>% save_html(file = "Complejosexpo.html",lib="mapa")
 
 mapa %>% save_html(file = "Map2.html",lib="mapa")
 
