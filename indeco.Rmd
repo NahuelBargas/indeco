@@ -36,6 +36,7 @@ library(DT)
 library(reactable)
 library(htmltools)
 library(stringr)
+library(jsonlite)
 
 
 
@@ -81,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas9.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas10.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -164,6 +165,9 @@ hcopts$resetZoom <- "Restablecer zoom"
 hcopts$resetZoomTitle <- "Restablecer nivel del zoom 1:1"
 hcopts$thousandsSep <- ","
 hcopts$viewData <- "Mostrar tabla de datos"
+hcopts$viewFullscreen <- "Ver en pantalla completa"
+hcopts$exitFullscreen <- "Salir de la pantalla completa"
+hcopts$contextButtonTitle<- "Ver opciones"
 
 
 options(highcharter.lang = hcopts)
@@ -735,14 +739,14 @@ Balanza comercial, acumulado en 2021 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer mes del 2021
+### Balanza comercial, primer bimestre del 2021
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(4912,3844,1068),
+  y = c(9687,7556,2131),
   drilldown = tolower(name)
 )
 
@@ -768,13 +772,13 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(3844,725,1416,266,744,501,41.1,32),
+  y = c(7556,1445,2825,440,1488,950,331,67),
   drilldown = tolower(name)
 )
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(4912,1079,2460,1022,350),
+  y = c(9687,2155,4563,2296,674),
   drilldown = tolower(name)
 )
 
@@ -801,7 +805,7 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(2,87,11,49,21,779,81,8,4,3,26,8) )
+y = c(4,223,29,91,69,1459,165,24,8,10,54,18) )
 
 
 moa<-tibble(
@@ -821,7 +825,7 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(254,16,122,6,5,10,70,660,17,42,66,1104,20,31,7,30))
+y=c(496,33,193,11,9,25,119,1186,36,92,132,2053,38,61,18,59))
 
 moi<-tibble(
 name= c(  "Productos químicos y conexos",
@@ -838,7 +842,7 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(265,64,17,2,34,9,0,10,151,64,87,294,3,22))
+y= c(559,112,29,4,64,17,1,20,325,168,177,713,3,104))
 
 
 
@@ -848,7 +852,7 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(105,96,5,136,8))
+y= c(206,203,11,236,19))
 
 
 bk<- tibble(
@@ -856,7 +860,7 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(532,101,76,16))
+y=c(1059,212,149,34))
 
 bi<-tibble(
 name=c("Productos del reino vegetal", 
@@ -868,20 +872,20 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(48,72,527,210,62,65,41,278,112))
+y=c(83,178,1050,418,121,136,81,530,227))
 
 
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(257,9))
+y=c(421,18))
 
 
 pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(520,180,44))
+y=c(998,396,94))
 
 bco<-tibble(
 name=c("Animales vivos y productos del reino animal", 
@@ -896,7 +900,7 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(17,47,46,172,30,18,17,40,29,20,34,31))
+y=c(31,87,104,295,62,39,41,78,57,34,60,61))
 
 
 merco<-tibble(
@@ -1153,13 +1157,13 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer mes del 2021",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer bimestre del 2021",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
 ```
 
-Saldo y comercio exterior total, por zona zona económica - 2020 {data-navmenu="Comercio Exterior"}
+Saldo y comercio exterior total, por zona zona económica - 2021 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
@@ -1216,7 +1220,7 @@ mitree<- hctreemapcolores(tm, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols9[1],
                maxColor = cols9[13],enabled = TRUE)%>%
-  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2020")%>%
+  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2021")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao, Chile, Uruguay y Brasil, sus zonas francas.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC. Sistema de Consulta del Comercio Exterior de Bienes ",href = "https://comex.indec.gob.ar") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
@@ -1232,11 +1236,11 @@ mitree
 
 ```
 
-Total comerciado, por país y continente - 2020 {data-navmenu="Comercio Exterior"}
+Total comerciado, por país y continente - 2021 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
-## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2020
+## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2021
 
 
 
@@ -1246,15 +1250,15 @@ Total comerciado, por país y continente - 2020 {data-navmenu="Comercio Exterior
 continente<-arrange(basezonas, (Continente))
 continente<-continente[,1:5]
 
-continente[199,]<-rbind(c(0,colSums(continente[,2:5])))
-continente[199,1]<-"Totales"
+continente[nrow(continente)+1,1]<-"Totales"
+continente[nrow(continente),2:5]<-rbind(c(colSums(continente[,2:5],,na.rm=TRUE)))
 
 continente2<-arrange(basezonas, (Continente))
 continente2<-continente2[,1:6]
 
-continente2[199,]<-rbind(c(0,colSums(continente2[,2:5]),0))
-continente2[199,1]<-"Totales"
-continente2[199,6]<-"Totales"
+continente2[nrow(continente2)+1,1]<-"Totales"
+continente2[nrow(continente2),6]<-"Totales"
+continente2[nrow(continente2),2:5]<-rbind(c(colSums(continente2[,2:5],na.rm=TRUE)))
 
 continente3<-arrange(basezonas, (Continente))
 continente3<-continente3[,1:6]
@@ -1262,7 +1266,7 @@ continente3<-continente3[,1:6]
 
 spanish<-'{
 	"sProcessing":     "Procesando...",
-	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2020",
+	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2021",
 	"sZeroRecords":    "No se encontraron resultados",
 	"sEmptyTable":     "Ningún dato disponible en esta tabla",
 	"sInfo":           "Mostrando fila número _START_ a la _END_ de un total de _TOTAL_ filas",
@@ -1348,7 +1352,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 20/2/2020.
+- Última actualización: 27/3/2021.
 
 
 
