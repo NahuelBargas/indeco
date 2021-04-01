@@ -462,30 +462,38 @@ hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
   hc_exporting(enabled = TRUE)
 ```
 
-### Tasa de incidencia de la pobreza e indigencia- 1er Semestre 2020- Aglomerados
+### Tasa de incidencia de la pobreza e indigencia- 2ndo Semestre 2020- Aglomerados
 
 
 ```{r preppob, include= FALSE  }
 pobrezaaglo<-read.xlsx("bases/indicadores.xlsx", sheet=5,startRow=2,rowNames = TRUE)
 
+pobrezaaglo[31,]<-c(rep(".",4))
 
 
+pobrezaaglo_footnote <- pobrezaaglo
+
+row.names(pobrezaaglo_footnote)[31] <- paste0(row.names(pobrezaaglo_footnote)[31], 
+                                footnote_marker_symbol(1))
 
 
 
 pobrezareg<-read.xlsx("bases/indicadores.xlsx", sheet=6,startRow=2,rowNames = TRUE)
 
+pobrezareg_footnote <- pobrezareg
 
+row.names(pobrezareg_footnote)[7] <- paste0(row.names(pobrezareg_footnote)[7], 
+                                footnote_marker_symbol(1))
 
 
 ```
 
 ```{r tabla3}
-kable(pobrezaaglo,escape = F) %>%
+kable(pobrezaaglo_footnote,escape = F) %>%
 kable_styling(bootstrap_options = c("bordered","condensed"),full_width= FALSE) %>%
   add_header_above(c(" " = 1, "Pobreza(%)" = 2,"Indigencia(%)" = 2 ))%>%
 row_spec(1, bold = T, color = "white", background = "lightseagreen")%>%
-footnote("INDEC",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
+footnote("INDEC", symbol = "Debido a dificultades en el relevamiento de la información del tercer trimestre, se excluyen los datos del segundo semestre del aglomerado Ushuaia-Río Grande en el informe del INDEC.",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
 
 data.frame(row.names(pobrezaaglo),pobrezaaglo)%>% 
  downloadthis::download_this(
@@ -500,14 +508,14 @@ data.frame(row.names(pobrezaaglo),pobrezaaglo)%>%
 
 ```
 
-### Pobreza e indigencia-1er semestre 2020-Regiones
+### Pobreza e indigencia-2ndo semestre 2020-Regiones
 
 ```{r tabla4}
-kable(pobrezareg,escape = F) %>%
+kable(pobrezareg_footnote,escape = F) %>%
 kable_styling(bootstrap_options = c("bordered","condensed"),full_width= FALSE) %>%
   add_header_above(c(" " = 1, "Pobreza(%)" = 2,"Indigencia(%)" = 2 ))%>%
 row_spec(1, bold = T, color = "white", background = "orangered")%>%
-footnote("INDEC",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
+footnote("INDEC",symbol = "Debido a dificultades en el relevamiento de la información del tercer trimestre, se excluyen los datos del segundo semestre del aglomerado Ushuaia-Río Grande en el informe del INDEC.",general_title="Fuente: ",footnote_as_chunk = F, title_format = c("italic", "underline"),fixed_small_size= T)
 
 data.frame(row.names(pobrezareg),pobrezareg)%>% 
  downloadthis::download_this(
@@ -656,7 +664,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.9 %", caption = "Aumento del EMAE desestacionalizado de Diciembre-20 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("1.9 %", caption = "Aumento del EMAE desestacionalizado de Enero-21 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -664,7 +672,7 @@ valueBox("0.9 %", caption = "Aumento del EMAE desestacionalizado de Diciembre-20
 
 ```{r boxes2,}
 
-valueBox("-10 %", caption = "Variación acumulada del año(2020) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-2 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
