@@ -664,7 +664,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("1.9 %", caption = "Aumento del EMAE desestacionalizado de Enero-21 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("-1.0 %", caption = "Descenso del EMAE desestacionalizado de Febrero-21 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 ```
 
@@ -672,7 +672,7 @@ valueBox("1.9 %", caption = "Aumento del EMAE desestacionalizado de Enero-21 con
 
 ```{r boxes2,}
 
-valueBox("-2 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-2.4 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
@@ -747,14 +747,14 @@ Balanza comercial, acumulado en 2021 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer bimestre del 2021
+### Balanza comercial, primer trimeste del 2021
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(9687,7556,2131),
+  y = c(15407,12876,2531),
   drilldown = tolower(name)
 )
 
@@ -780,13 +780,15 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(7556,1445,2825,440,1488,950,331,67),
+  y = c(12876,2308,5075,744,2537,1603,497,112
+),
   drilldown = tolower(name)
 )
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(9687,2155,4563,2296,674),
+  y = c(15407,3688,6997,3755,967
+),
   drilldown = tolower(name)
 )
 
@@ -813,7 +815,8 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(4,223,29,91,69,1459,165,24,8,10,54,18) )
+y = c(7,363,52,138,122,2501,297,41,13,18,104,32
+) )
 
 
 moa<-tibble(
@@ -833,7 +836,7 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(496,33,193,11,9,25,119,1186,36,92,132,2053,38,61,18,59))
+y=c(781,56,274,17,13,41,180,1781,58,146,209,3161,62,94,28,95))
 
 moi<-tibble(
 name= c(  "Productos químicos y conexos",
@@ -850,7 +853,7 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(559,112,29,4,64,17,1,20,325,168,177,713,3,104))
+y= c(936,174,45,6,97,27,1,33,477,245,290,1287,3,135))
 
 
 
@@ -860,7 +863,8 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(206,203,11,236,19))
+y= c(315,298,17,299,37
+))
 
 
 bk<- tibble(
@@ -868,7 +872,8 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(1059,212,149,34))
+y=c(1700,310,244,54
+))
 
 bi<-tibble(
 name=c("Productos del reino vegetal", 
@@ -880,20 +885,20 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(83,178,1050,418,121,136,81,530,227))
+y=c(581,303,1738,676,191,230,131,862,365))
 
 
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(421,18))
+y=c(714,30))
 
 
 pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(998,396,94))
+y=c(1696,674,167))
 
 bco<-tibble(
 name=c("Animales vivos y productos del reino animal", 
@@ -908,7 +913,7 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(31,87,104,295,62,39,41,78,57,34,60,61))
+y=c(53,136,171,515,106,77,79,124,93,50,100,98))
 
 
 merco<-tibble(
@@ -1165,7 +1170,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer bimestre del 2021",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer trimestre del 2021",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
