@@ -3,7 +3,9 @@ Indicadores económicos seleccionados
 
 <img align="right" width= "10%" src="logo.png">
 
-  - Presento un dashboard realizado en base a las librerías
+  - Presento un
+    [dashboard](%22https://nahuelbargas.github.io/indeco/indeco.html%22)
+    realizado en base a las librerías
     [Flexdashboard](%22https://rstudio.github.io/flexdashboard%22) ,
     [Rmarkdown](%22http://rmarkdown.rstudio.com/%22),
     [Knitr](%22https://yihui.org/knitr/%22),

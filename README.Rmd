@@ -12,7 +12,7 @@ always_allow_html: true
 
 
 
-- Presento un dashboard realizado en base a las librerías [Flexdashboard]("https://rstudio.github.io/flexdashboard") , [Rmarkdown]("http://rmarkdown.rstudio.com/"), [Knitr]("https://yihui.org/knitr/"), [Highcharter]("http://jkunst.com/highcharter/"),
+- Presento un [dashboard]("https://nahuelbargas.github.io/indeco/indeco.html") realizado en base a las librerías [Flexdashboard]("https://rstudio.github.io/flexdashboard") , [Rmarkdown]("http://rmarkdown.rstudio.com/"), [Knitr]("https://yihui.org/knitr/"), [Highcharter]("http://jkunst.com/highcharter/"),
 entre otros paquetes del universo R. 
 
 - En cada semana trato de sumar nuevas estadísticas económicas relacionadas con la Argentina. 

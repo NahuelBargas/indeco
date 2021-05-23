@@ -370,7 +370,7 @@ Tasa de Inflación mensual. Aperturas seleccionadas de la división Alimentos y 
 ====================================================================================================
 
 
-Column {.tabset .tabset-fade style="width:85pc;height:80pc"}
+Column {.tabset .tabset-fade style="width:85pc;height:90pc"}
 --------------------------------------------------------------
 
 
@@ -539,31 +539,33 @@ PIB  {data-navmenu="Producto"}
 
 ```{r graf3, include= FALSE  }
 
-png("tamaño completo.png", width=1024, height=483,pointsize = 14)
+ppi<-300
+
+png("tamaño completo.png", width=12*ppi, height=6*ppi,res=ppi,pointsize = 14)
 
 print(ggplot(producto,aes(fecha1,PBI/1000,group=1,color="PIB"))+
 geom_line()+
 geom_point(color=cols3[1])+
 geom_line(aes(y=PIB.DESEST/1000,color="PIB desestacionalizado"))+
-geom_line(aes(y=(PBI.hp$trend)/1000,color="PIB tendencia"))+
+geom_line(aes(y=(PBI.hp$trend)/1000,color="PIB tendencia"),linetype="dashed")+
 geom_point(aes(y=PIB.DESEST/1000),color=cols3[2])+
 geom_point(aes(y=(PBI.hp$trend)/1000),color=cols3[3])+
-geom_vline(xintercept=producto$fecha1[4],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[8],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[12],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[16],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[20],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[24],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[28],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[32],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[36],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[40],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[44],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[48],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[52],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[56],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[60],color="grey",size=0.1,linetype="dashed")+
-geom_vline(xintercept=producto$fecha1[64],color="grey",size=0.1,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[4],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[8],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[12],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[16],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[20],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[24],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[28],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[32],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[36],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[40],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[44],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[48],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[52],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[56],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[60],color="grey",size=0.3,linetype="dashed")+
+geom_vline(xintercept=producto$fecha1[64],color="grey",size=0.3,linetype="dashed")+
 scale_x_date(name="Trimestres",breaks=producto$fecha1,labels=producto$Trimestre,sec.axis = sec_axis(~.,labels = scales::date_format("%Y"),breaks=seq(as.Date("2004-06-01"), length = 19, by = "12 months")))+
 theme_classic()+
 scale_colour_manual(name=" ",values=cols5)+
