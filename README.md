@@ -4,12 +4,12 @@ Indicadores económicos seleccionados
 <img align="right" width= "10%" src="logo.png">
 
   - Presento un
-    [dashboard](%22https://nahuelbargas.github.io/indeco/indeco.html%22)
+    [dashboard](https://nahuelbargas.github.io/indeco/indeco.html)
     realizado en base a las librerías
-    [Flexdashboard](%22https://rstudio.github.io/flexdashboard%22) ,
-    [Rmarkdown](%22http://rmarkdown.rstudio.com/%22),
+    [Flexdashboard](https://rstudio.github.io/flexdashboard) ,
+    [Rmarkdown](http://rmarkdown.rstudio.com/),
     [Knitr](%22https://yihui.org/knitr/%22),
-    [Highcharter](%22http://jkunst.com/highcharter/%22), entre otros
+    [Highcharter](http://jkunst.com/highcharter/), entre otros
     paquetes del universo R.
 
   - En cada semana trato de sumar nuevas estadísticas económicas
