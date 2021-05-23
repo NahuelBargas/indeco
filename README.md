@@ -8,7 +8,7 @@ Indicadores económicos seleccionados
     realizado en base a las librerías
     [Flexdashboard](https://rstudio.github.io/flexdashboard) ,
     [Rmarkdown](http://rmarkdown.rstudio.com/),
-    [Knitr](%22https://yihui.org/knitr/%22),
+    [Knitr](https://yihui.org/knitr/),
     [Highcharter](http://jkunst.com/highcharter/), entre otros
     paquetes del universo R.
 
