@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 18,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 19,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas11.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas12.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -95,7 +95,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
 emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_marzo_2021.xlsx", sheet=2,startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_abril21.xlsx", sheet=2,startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -183,7 +183,7 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Inflación del mes de ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-up",color="skyblue")
+valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Inflación del mes de ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-down",color="skyblue")
 ```
 
 ### Interanual
@@ -196,7 +196,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("13.0 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("17.6 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -220,7 +220,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_04_21.xls")%>%
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_05_21.xls")%>%
   hc_exporting(enabled = TRUE)
 ```
 
@@ -664,7 +664,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-1.0 %", caption = "Descenso del EMAE desestacionalizado de Febrero-21 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("-0.2 %", caption = "Descenso del EMAE desestacionalizado de Marzo-21 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 ```
 
@@ -672,7 +672,7 @@ valueBox("-1.0 %", caption = "Descenso del EMAE desestacionalizado de Febrero-21
 
 ```{r boxes2,}
 
-valueBox("-2.4 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("2.4 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
 
 ```
 
@@ -747,14 +747,14 @@ Balanza comercial, acumulado en 2021 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer trimeste del 2021
+### Balanza comercial, primer cuatrimestre del 2021
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(15407,12876,2531),
+  y = c(21550,17549,4001),
   drilldown = tolower(name)
 )
 
@@ -780,14 +780,16 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(12876,2308,5075,744,2537,1603,497,112
+  y = c(17549,3047, 7020, 1030, 3485, 2156, 655, 157 
+
 ),
   drilldown = tolower(name)
 )
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(15407,3688,6997,3755,967
+  y = c(21550,5518,9853,5013,1166
+
 ),
   drilldown = tolower(name)
 )
@@ -815,7 +817,8 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(7,363,52,138,122,2501,297,41,13,18,104,32
+y = c(10,474,73,182,180,3711,624,49,18,22,131,44
+
 ) )
 
 
@@ -836,7 +839,8 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(781,56,274,17,13,41,180,1781,58,146,209,3161,62,94,28,95))
+y=c(1046,74,333,22,19,52,247,2627,77,200,280,4502,79,127,40,130
+))
 
 moi<-tibble(
 name= c(  "Productos químicos y conexos",
@@ -853,7 +857,8 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(936,174,45,6,97,27,1,33,477,245,290,1287,3,135))
+y= c(1183,244,60,8,130,35,2,46,653,402,402,1672,8,167
+))
 
 
 
@@ -863,7 +868,8 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(315,298,17,299,37
+y= c(358,400,22,338,48
+
 ))
 
 
@@ -872,7 +878,8 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(1700,310,244,54
+y=c(2215,425,334,73
+
 ))
 
 bi<-tibble(
@@ -885,20 +892,23 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(581,303,1738,676,191,230,131,862,365))
+y=c(977,417,2415,901,250,305,167,1110,477
+))
 
 
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(714,30))
+y=c(987,43
+))
 
 
 pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(1696,674,167))
+y=c(2300,947,237
+))
 
 bco<-tibble(
 name=c("Animales vivos y productos del reino animal", 
@@ -913,7 +923,7 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(53,136,171,515,106,77,79,124,93,50,100,98))
+y=c(71,177,228,684,151,111,116,163,134,67,126,129))
 
 
 merco<-tibble(
@@ -1170,7 +1180,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer trimestre del 2021",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer cuatrimestre del 2021",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1365,7 +1375,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 24/4/2021.
+- Última actualización: 22/5/2021.
 
 
 
@@ -1377,7 +1387,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Marzo 2021
+### Abril 2021
 
 ```{r , include= FALSE }
 
@@ -1406,7 +1416,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado_fiscal_marzo_2021.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2021/05/resultado-fiscal-abril21.xls")
 
 
 
@@ -1526,7 +1536,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Marzo 2021.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Abril 2021.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1563,7 +1573,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/resultado_fiscal_marzo_2021.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2021/05/resultado-fiscal-abril21.xls")
 
 
 
@@ -1683,7 +1693,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Marzo 2021- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Abril 2021- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
