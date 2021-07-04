@@ -375,7 +375,7 @@ Tasa de Inflación mensual. Aperturas seleccionadas de la división Alimentos y 
 ====================================================================================================
 
 
-Column {.tabset .tabset-fade style="width:85pc;height:90pc"}
+Column {style="width:85pc;height:90pc"}
 --------------------------------------------------------------
 
 
@@ -671,7 +671,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-0.2 %", caption = "Descenso del EMAE desestacionalizado de Marzo-21 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("-1.2 %", caption = "Descenso del EMAE desestacionalizado de Abril-21 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 ```
 
@@ -679,7 +679,7 @@ valueBox("-0.2 %", caption = "Descenso del EMAE desestacionalizado de Marzo-21 c
 
 ```{r boxes2,}
 
-valueBox("2.4 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("8.2 %", caption = "Variación acumulada del año(2021) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
 
 ```
 
