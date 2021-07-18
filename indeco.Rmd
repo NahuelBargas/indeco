@@ -16,6 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 
+Sys.setlocale("LC_TIME","Spanish") #para que los meses al abreviarlos no tengan un punto al final
 
 
 # Librerías
@@ -375,17 +376,15 @@ Tasa de Inflación mensual. Aperturas seleccionadas de la división Alimentos y 
 ====================================================================================================
 
 
-Column {style="width:85pc;height:90pc"}
---------------------------------------------------------------
+Column {.tabset .tabset-fade}
+----------------------------
 
-
-### `r paste0("Variación mensual según aperturas seleccionadas","-",str_to_title(format(max(ipcmensual$Período),"%b-%y"))) `
 
 
  ```{r grafAper, }
 
 #polarcolumn
-  map(unique(aperturas$Aperturas), function(niveles){
+ aperturas_graf<- map(unique(aperturas$Aperturas), function(niveles){
   highchart() %>%
   hc_chart(type = "column", polar = TRUE) %>% 
   hc_xAxis(categories = aperturas$Region,
@@ -405,11 +404,81 @@ Column {style="width:85pc;height:90pc"}
 	 dataLabels=  list(enabled = FALSE,inside=FALSE,format='{point.y:.1f}',y=-12,x= -7, padding=4)
    )%>%
    	 hc_title(text = niveles)%>%
+	 hc_subtitle(text=paste0("Variación mensual - aperturas seleccionadas","-",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))))%>%
     hc_tooltip(pointFormat =  "{series.name} <br>
       {point.y:.1f}%")%>%	
      hc_colors(coloresAperturas)
-}) %>% 
-  hw_grid(rowheight = 130, ncol = 3)  %>% browsable()
+})  
+```
+
+### Pan y cereales
+
+```{r , }
+
+aperturas_graf[[1]]
+
+```
+
+### Carnes y derivados
+
+```{r , }
+
+aperturas_graf[[2]]
+
+```
+
+### Leche, productos lácteos y huevos
+
+```{r , }
+
+aperturas_graf[[3]]
+
+```
+
+### Aceites, grasas y manteca
+
+```{r , }
+
+aperturas_graf[[4]]
+
+```
+
+### Frutas
+
+```{r , }
+
+aperturas_graf[[5]]
+
+```
+
+### Verduras, tubérculos y legumbres
+```{r , }
+
+aperturas_graf[[6]]
+
+```
+
+### Azúcar, dulces, chocolates, etc.
+
+```{r , }
+
+aperturas_graf[[7]]
+
+```
+
+### Café, té, yerba y cacaco
+
+```{r , }
+
+aperturas_graf[[8]]
+
+```
+
+### Aguas minerales, bebidas gaseosas y jugos
+
+```{r , }
+
+aperturas_graf[[9]]
 
 ```
   
