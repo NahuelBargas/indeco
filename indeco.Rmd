@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas14.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas15.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -1488,7 +1488,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 21/8/2021.
+- Última actualización: 24/9/2021.
 
 
 
