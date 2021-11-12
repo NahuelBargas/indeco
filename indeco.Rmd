@@ -190,13 +190,13 @@ valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = pas
 
 
 ```{r}
-valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
+valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="glyphicon-arrow-down",color="orangered")
 ```
 
 ### Acumulada en el año.
 
 ```{r}
-valueBox("37.0 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("41.8 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -220,7 +220,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_10_21.xls")%>%
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_11_21.xls")%>%
   hc_exporting(enabled = TRUE)
 ```
 
@@ -410,7 +410,7 @@ Column {.tabset .tabset-fade}
      hc_colors(coloresAperturas)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_08_21.xls")%>%
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_11_21.xls")%>%
   hc_exporting(enabled = TRUE)
 })  
 ```
@@ -470,7 +470,7 @@ aperturas_graf[[7]]
 
 ```
 
-### Café, té, yerba y cacaco
+### Café, té, yerba y cacao
 
 ```{r , }
 
