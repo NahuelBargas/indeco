@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas18.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas19.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -95,7 +95,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
 emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_noviembre21.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_diciembre21.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -835,14 +835,14 @@ Balanza comercial, acumulado en 2021 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primeros once meses del 2021
+### Balanza comercial, doce meses del 2021
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(71320,56968,14352),
+  y = c(77934,63184,14750),
   drilldown = tolower(name)
 )
 
@@ -868,7 +868,8 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(56968,9013,23468,5135,10763,6497,1556,536
+  y = c(63184,10181,25758,5843,11890,7236,1692,584
+
 
 
 
@@ -882,7 +883,8 @@ impo <- tibble(
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(71320,20061,28629,18009,4620
+  y = c(77934,21828,30951,19940,5215
+
 
 
 
@@ -917,7 +919,8 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(22,1626,209,590,601,12326,3793,205,43,153,361,134
+y = c(24,1722,220,670,628,13659,3885,244,47,185,397,146
+
 
 
 ) )
@@ -940,7 +943,8 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(3188,221,1026,62,120,146,785,8134,265,712,890,11876,243,404,114,441
+y=c(3505,249,1144,67,133,159,847,8700,305,783,974,12746,273,451,128,486
+
 
 
 ))
@@ -960,7 +964,8 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(4663,928,212,26,415,109,8,141,2186,1614,1259,5867,160,420
+y= c(5013,1042,233,29,458,123,9,154,2561,1843,1377,6475,162,462
+
 
 
 
@@ -974,7 +979,8 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(1549,1422,70,1366,212
+y= c(1842,1536,75,1503,259
+
 
 
 
@@ -986,7 +992,8 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(6645,1088,1025,255
+y=c(7540,1206,1139,295
+
 
 
 
@@ -1006,7 +1013,8 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(2796,1253,9449,2862,819,901,505,3455,1427
+y=c(2931,1329,10341,3183,913,1025,572,3871,1593
+
 
 
 
@@ -1019,7 +1027,8 @@ y=c(2796,1253,9449,2862,819,901,505,3455,1427
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(5006,129
+y=c(5699,145
+
 
 
 
@@ -1033,7 +1042,8 @@ pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(6981,3061,721
+y=c(7715,3362,813
+
 
 
 
@@ -1055,7 +1065,8 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(220,508,644,2084,468,300,405,473,387,229,404,377
+y=c(250,572,710,2253,536,330,452,527,449,259,471,426
+
 
 
 
@@ -1318,7 +1329,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros once meses del 2021",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado doce meses del 2021",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1513,7 +1524,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 24/12/2021.
+- Última actualización: 25/1/2022.
 
 
 
@@ -1525,7 +1536,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Noviembre 2021
+### Diciembre 2021
 
 ```{r , include= FALSE }
 
@@ -1554,7 +1565,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2021/12/resultado-nov21.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/01/resultado_fiscal_diciembre_2021-1.xlsx")
 
 
 
@@ -1674,7 +1685,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Noviembre 2021.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Diciembre 2021.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
@@ -1711,7 +1722,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2021/12/resultado-nov21.xls")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/01/resultado_fiscal_diciembre_2021-1.xlsx")
 
 
 
@@ -1831,7 +1842,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Noviembre 2021- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2021- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
 hc_exporting(enabled = TRUE)
 
