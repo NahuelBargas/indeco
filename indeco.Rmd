@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 21,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 22,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -171,6 +171,15 @@ hcopts$contextButtonTitle<- "Ver opciones"
 
 
 options(highcharter.lang = hcopts)
+
+# Anado un tema por default para los gráficos en highcharter:
+temaclásico<- hc_theme(
+  colors = c("#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"),
+  chart = list(
+    backgroundColor = "white"
+  ))
+
+
 ```
 
 
@@ -221,7 +230,7 @@ highchart() %>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
              href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_22.xls")%>%
-  hc_exporting(enabled = TRUE)
+    hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
 
@@ -381,7 +390,7 @@ Column {.tabset .tabset-fade}
 
 
 
- ```{r grafAper, }
+```{r grafAper, }
 
 #polarcolumn
  aperturas_graf<- map(unique(aperturas$Aperturas), function(niveles){
@@ -411,7 +420,7 @@ Column {.tabset .tabset-fade}
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
              href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_12_21.xls")%>%
-  hc_exporting(enabled = TRUE)
+    hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 })  
 ```
 
@@ -537,7 +546,7 @@ hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
       hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%
     hc_subtitle(text = "En base a datos obtenidos de la EPH-INDEC - Estimaciones vía Bootstrap de mil repeticiones.",
               align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '10px'))%>%
-  hc_exporting(enabled = TRUE)
+    hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
 ### Tasa de incidencia de la pobreza e indigencia- 1er Semestre 2021- Aglomerados
@@ -693,7 +702,7 @@ highchart() %>%
   hc_colors(cols7)%>%
     hc_subtitle(text = "Fuente: INDEC",
               align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '8px'))%>%
-  hc_exporting(enabled = TRUE)%>% 
+    hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)%>% 
   hc_legend(align = "bottom", verticalAlign = "bottom",
             layout = "horizontal", x = 0, y = 20)
 
@@ -726,7 +735,7 @@ highchart() %>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC - Consultar aquí la serie completa y las variaciones porcentuales ",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
              href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_emae_mensual_base2004.xls")%>%
-  hc_exporting(enabled = TRUE)
+    hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
   
@@ -806,7 +815,7 @@ hc_tooltip(pointFormat =  "{point.y:.3f} millones de pesos") %>%
 hc_colors(cols8)%>%
 hc_title(text=" Valor agregado bruto a precios básicos,por categorías, tercer trimestre del 2021",style = list(color = "black", fontSize = '14px')) %>%
 hc_subtitle(text="El VAB total asciende a 569629 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
-hc_exporting(enabled = TRUE)
+  hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
 
@@ -827,7 +836,7 @@ hc_tooltip(pointFormat =  "{point.y:.2f} por ciento") %>%
 hc_colors(c("black",cols8[-1]))%>%
 hc_title(text=" Variación porcentual respecto al mismo trimestre del año anterior, categorías VAB.",style = list(color = "black", fontSize = '14px')) %>%
 hc_subtitle(text="Fuente: INDEC - Datos preliminares. Tercer trimestre 2021. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
-hc_exporting(enabled = TRUE)
+  hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
 
@@ -1331,7 +1340,7 @@ hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
 hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado doce meses del 2021",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
-hc_exporting(enabled = TRUE)
+  hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
 
@@ -1687,7 +1696,7 @@ hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
 hc_title(text="Resultado Fiscal- Base Caja- Diciembre 2021.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
-hc_exporting(enabled = TRUE)
+  hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 
 ```
@@ -1844,7 +1853,7 @@ hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
 hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2021- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
-hc_exporting(enabled = TRUE)
+  hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 
 ```
