@@ -69,10 +69,10 @@ gini_ts3<-data.frame(trimestre,trimestre2,gini_ts[,1:3])
 
 producto<-read.xlsx("bases/indicadores.xlsx", sheet=4,detectDates = TRUE)
 
-producto$Fecha <- as.yearqtr(2004 + seq(0, 70)/4)
+producto$Fecha <- as.yearqtr(2004 + seq(0, 71)/4)
 producto$Fecha <-format(producto$Fecha,  "%q %Y")
-producto$fecha1<-seq(as.Date("2004-01-01"), length = 71, by = "3 months")
-producto$fecha2<-format(as.yearqtr(2004 + seq(0, 70)/4),  "%q %Y")
+producto$fecha1<-seq(as.Date("2004-01-01"), length = 72, by = "3 months")
+producto$fecha2<-format(as.yearqtr(2004 + seq(0, 71)/4),  "%q %Y")
 producto$fecha3<-paste(producto$Año,"-",producto$Trimestre)
 
 PBI.ts<-ts(producto$PIB.DESEST, frequency = 4, start = c(2004, 1))
@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas20.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas21.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -95,7 +95,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
 emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_diciembre21.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado-fiscal_febrero_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -781,7 +781,7 @@ Valor agregado bruto a precios básicos {data-navmenu="Producto"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### VAB Tercer trimestre 2021
+### VAB Cuarto trimestre 2021
 
 
 ```{r , include= FALSE }
@@ -813,8 +813,8 @@ highchart() %>%
   ) %>%
 hc_tooltip(pointFormat =  "{point.y:.3f} millones de pesos") %>%
 hc_colors(cols8)%>%
-hc_title(text=" Valor agregado bruto a precios básicos,por categorías, tercer trimestre del 2021",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="El VAB total asciende a 569629 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_title(text=" Valor agregado bruto a precios básicos,por categorías, cuarto trimestre del 2021",style = list(color = "black", fontSize = '14px')) %>%
+hc_subtitle(text="El VAB total asciende a 580109 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
@@ -835,7 +835,7 @@ highchart() %>%
 hc_tooltip(pointFormat =  "{point.y:.2f} por ciento") %>%
 hc_colors(c("black",cols8[-1]))%>%
 hc_title(text=" Variación porcentual respecto al mismo trimestre del año anterior, categorías VAB.",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="Fuente: INDEC - Datos preliminares. Tercer trimestre 2021. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
+hc_subtitle(text="Fuente: INDEC - Datos preliminares. Cuarto trimestre 2021. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
@@ -844,14 +844,14 @@ Balanza comercial, acumulado en 2022 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer mes del 2022
+### Balanza comercial, primer bimestre del 2022
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(5547,5251,296),
+  y = c(11991,10886,1106),
   drilldown = tolower(name)
 )
 
@@ -877,7 +877,8 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(5251,998,2076,363,966,682,119,48
+  y = c(10886,1912,4031,1264,2009,1323,251,94
+
 
 
 
@@ -893,7 +894,8 @@ impo <- tibble(
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(5547,1927,1855,1341,424
+  y = c(11991,3738,4024,3036,1193
+
 
 
 
@@ -930,7 +932,8 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(3,95,14,56,19,1561,102,17,2,26,0,0
+y = c(6,211,35,122,72,2965,182,37,6,47,34,21
+
 
 
 
@@ -955,7 +958,8 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(264,15,123,4,4,14,68,490,17,45,49,658,24,38,6,38
+y=c(586,33,226,8,9,24,134,939,42,98,129,1587,40,72,17,80
+
 
 
 
@@ -977,7 +981,8 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(512,91,14,2,33,10,1,9,183,87,106,271,1,21
+y= c(1045,186,28,4,75,21,1,22,404,289,207,706,3,43
+
 
 
 
@@ -993,7 +998,8 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(185,116,5,93,25
+y= c(625,282,10,231,44
+
 
 
 
@@ -1006,7 +1012,8 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(792,69,97,39
+y=c(1473,172,196,71
+
 
 
 
@@ -1028,7 +1035,8 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(25,107,790,326,98,122,64,385,159
+y=c(144,189,1517,602,185,231,117,733,313
+
 
 
 
@@ -1043,7 +1051,8 @@ y=c(25,107,790,326,98,122,64,385,159
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(346,17
+y=c(1231,33
+
 
 
 
@@ -1059,7 +1068,8 @@ pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(628,258,79
+y=c(1323,535,152
+
 
 
 
@@ -1083,7 +1093,8 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(26,48,62,180,54,31,48,51,49,24,56,52
+y=c(53,104,118,372,94,64,90,96,94,47,95,96
+
 
 
 
@@ -1348,7 +1359,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer mes del 2022",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer bimestre del 2022",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1543,7 +1554,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 24/2/2022.
+- Última actualización: 25/3/2022.
 
 
 
@@ -1555,7 +1566,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Diciembre 2021
+### Febrero 2022
 
 ```{r , include= FALSE }
 
@@ -1584,7 +1595,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/01/resultado_fiscal_diciembre_2021-1.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/03/resultado-fiscal_febrero_2022.xlsx")
 
 
 
@@ -1704,7 +1715,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Diciembre 2021.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Febrero 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1741,7 +1752,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/01/resultado_fiscal_diciembre_2021-1.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/03/resultado-fiscal_febrero_2022.xlsx")
 
 
 
@@ -1861,7 +1872,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2021- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Febrero 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
