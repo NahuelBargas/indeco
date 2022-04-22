@@ -82,20 +82,23 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas21.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas22.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
+export<-read.xlsx("bases/indicadores.xlsx", sheet="Expo-ICA")
+import<-read.xlsx("bases/indicadores.xlsx", sheet="Impo-ICA")
+
 ## Valor agregado bruto
 
-VAB<-read.xlsx("bases/indicadores.xlsx", sheet=8)
+VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 
 ## EMAE
 
-emae<- read.xlsx("bases/indicadores.xlsx", sheet=9,detectDates = TRUE)
+emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado-fiscal_febrero_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado-fiscal_marzo_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -761,7 +764,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.5 %", caption = "Descenso del EMAE desestacionalizado de Enero-22 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("1.8 %", caption = "Descenso del EMAE desestacionalizado de Febrero-22 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -769,7 +772,7 @@ valueBox("0.5 %", caption = "Descenso del EMAE desestacionalizado de Enero-22 co
 
 ```{r boxes2,}
 
-valueBox("5.4 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("7.0 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
 
 ```
 
@@ -844,14 +847,14 @@ Balanza comercial, acumulado en 2022 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer bimestre del 2022
+### Balanza comercial, primer trimestre del 2022
 
 ```{r , include= FALSE }
 
 
 bc <- tibble(
   name = c("Exportaciones", "Importaciones", "Saldo Balanza Comercial"),
-  y = c(11991,10886,1106),
+  y = c(export[1,2],import[1,2],export[1,2] - import[1,2] ),
   drilldown = tolower(name)
 )
 
@@ -877,16 +880,7 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(10886,1912,4031,1264,2009,1323,251,94
-
-
-
-
-
-
-
-
-
+  y = c(import[1,2],import[2,2],import[7,2],import[17,2],import[20,2],import[24,2],import[37,2],import[39,2]
 
 ),
   drilldown = tolower(name)
@@ -894,16 +888,7 @@ impo <- tibble(
 
 expo <- tibble(
   name = c("Total","Productos primarios", "Manufacturas de origen agropecuario (MOA)", "Manufacturas de origen industrial (MOI)", "Combustibles y energía"),
-  y = c(11991,3738,4024,3036,1193
-
-
-
-
-
-
-
-
-
+  y = c(export[1,2],export[2,2],export[15,2],export[32,2],export[47,2]
 
 ),
   drilldown = tolower(name)
@@ -932,10 +917,7 @@ pri<-tibble(
   "Fibras de algodón",
   "Minerales metalíferos, escorias y cenizas",
   "Resto de productos primarios"),
-y = c(6,211,35,122,72,2965,182,37,6,47,34,21
-
-
-
+y = c(export[3:14,2]
 
 
 ) )
@@ -958,10 +940,7 @@ name = c("Carnes y sus preparados",
   "Pieles y cueros",
   "Lanas elaboradas",
   "Resto de MOA"),
-y=c(586,33,226,8,9,24,134,939,42,98,129,1587,40,72,17,80
-
-
-
+y=c(export[16:31,2]
 
 
 ))
@@ -981,11 +960,7 @@ name= c(  "Productos químicos y conexos",
   "Material de transporte terrestre",
   "Vehículos de navegación aérea, marítima y fluvial",
   "Resto de MOI"),
-y= c(1045,186,28,4,75,21,1,22,404,289,207,706,3,43
-
-
-
-
+y= c(export[33:46,2]
 
 
 ))
@@ -998,11 +973,7 @@ name= c("Petróleo crudo",
   "Grasas y aceites lubricantes",
   "Gas de petróleo, otros hidrocarburos gaseosos  y energía eléctrica",
   "Resto de combustibles"),
-y= c(625,282,10,231,44
-
-
-
-
+y= c(export[48:52,2]
 
 ))
 
@@ -1012,15 +983,7 @@ name= c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
 "Resto de bienes de capital"),
-y=c(1473,172,196,71
-
-
-
-
-
-
-
-
+y=c(import[3:6,2]
 
 
 ))
@@ -1035,14 +998,7 @@ name=c("Productos del reino vegetal",
 "Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
 "Metales comunes y sus manufacturas",
 "Resto de bienes intermedios"),
-y=c(144,189,1517,602,185,231,117,733,313
-
-
-
-
-
-
-
+y=c(import[8:16,2]
 
 
 ))
@@ -1051,15 +1007,7 @@ y=c(144,189,1517,602,185,231,117,733,313
 cyl<- tibble(
 name=c("Productos minerales",
 "Resto de combustibles y lubricantes"),
-y=c(1231,33
-
-
-
-
-
-
-
-
+y=c(import[18:19,2]
 
 ))
 
@@ -1068,15 +1016,7 @@ pya<- tibble(
 name=c("Máquinas, aparatos y material eléctrico; sus partes",
 "Material de transporte",
 "Resto de piezas y accesorios"),
-y=c(1323,535,152
-
-
-
-
-
-
-
-
+y=c(import[21:23,2]
 
 ))
 
@@ -1093,14 +1033,7 @@ name=c("Animales vivos y productos del reino animal",
 "Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
 "Mercancías y productos diversos",
 "Resto de bienes de consumo"),
-y=c(53,104,118,372,94,64,90,96,94,47,95,96
-
-
-
-
-
-
-
+y=c(import[25:36,2]
 
 ))
 
@@ -1359,7 +1292,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer bimestre del 2022",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer trimestre del 2022",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1554,7 +1487,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 25/3/2022.
+- Última actualización: 22/4/2022.
 
 
 
@@ -1566,7 +1499,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Febrero 2022
+### Marzo 2022
 
 ```{r , include= FALSE }
 
@@ -1715,7 +1648,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Febrero 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Marzo 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios, y se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1752,7 +1685,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/03/resultado-fiscal_febrero_2022.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/04/resultado-fiscal_marzo-2022.xlsx")
 
 
 
@@ -1872,7 +1805,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Febrero 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Marzo 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero incluye ingresos extraordinarios.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
