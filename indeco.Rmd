@@ -186,7 +186,7 @@ temaclásico<- hc_theme(
 ```
 
 
-Serie histórica del Nivel General-IPC {data-navmenu="Inflación e Ingresos"}
+Serie histórica del Nivel General-IPC-INDEC {data-navmenu="Índice de precios al consumidor e Ingresos"}
 =========================================
 
 Rows {data-height=150}
@@ -195,7 +195,7 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Inflación del mes de ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-up",color="skyblue")
+valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Variación mensual del IPC - ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-down",color="skyblue")
 ```
 
 ### Interanual
@@ -208,7 +208,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("23.1 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("29.3 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -232,12 +232,12 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_05_22.xls")%>%		 
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_06_22.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
 
-Tasa de Inflación mensual e Interanual por región   {data-navmenu="Inflación e Ingresos"}
+Variación mensual e Interanual del IPC-INDEC por región   {data-navmenu="Índice de precios al consumidor e Ingresos"}
 ==================================================
 
 
@@ -384,7 +384,7 @@ rowStyle = function(index) {
 }
 ```
 
-Tasa de Inflación mensual. Aperturas seleccionadas de la división Alimentos y bebidas no alcohólicas    {data-navmenu="Inflación e Ingresos"}
+Variación mensual del IPC-INDEC . Aperturas seleccionadas de la división Alimentos y bebidas no alcohólicas    {data-navmenu="Índice de precios al consumidor e Ingresos"}
 ====================================================================================================
 
 
@@ -498,7 +498,7 @@ aperturas_graf[[9]]
 
 ```
   
-Distribución del ingreso y pobreza {data-navmenu="Inflación e Ingresos"}
+Distribución del ingreso y pobreza {data-navmenu="Índice de precios al consumidor e Ingresos"}
 ===================================== 
 
 Row {.tabset .tabset-fade}
