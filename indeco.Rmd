@@ -69,10 +69,10 @@ gini_ts3<-data.frame(trimestre,trimestre2,gini_ts[,1:3])
 
 producto<-read.xlsx("bases/indicadores.xlsx", sheet=4,detectDates = TRUE)
 
-producto$Fecha <- as.yearqtr(2004 + seq(0, 71)/4)
+producto$Fecha <- as.yearqtr(2004 + seq(0, 72)/4)
 producto$Fecha <-format(producto$Fecha,  "%q %Y")
-producto$fecha1<-seq(as.Date("2004-01-01"), length = 72, by = "3 months")
-producto$fecha2<-format(as.yearqtr(2004 + seq(0, 71)/4),  "%q %Y")
+producto$fecha1<-seq(as.Date("2004-01-01"), length = 73, by = "3 months")
+producto$fecha2<-format(as.yearqtr(2004 + seq(0, 72)/4),  "%q %Y")
 producto$fecha3<-paste(producto$Año,"-",producto$Trimestre)
 
 PBI.ts<-ts(producto$PIB.DESEST, frequency = 4, start = c(2004, 1))
@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas23.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas24.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado-fiscal_abril_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado-fiscal_mayo_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -784,7 +784,7 @@ Valor agregado bruto a precios básicos {data-navmenu="Producto"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### VAB Cuarto trimestre 2021
+### VAB Primer trimestre 2022
 
 
 ```{r , include= FALSE }
@@ -817,7 +817,7 @@ highchart() %>%
 hc_tooltip(pointFormat =  "{point.y:.3f} millones de pesos") %>%
 hc_colors(cols8)%>%
 hc_title(text=" Valor agregado bruto a precios básicos,por categorías, cuarto trimestre del 2021",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="El VAB total asciende a 580109 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_subtitle(text="El VAB total asciende a 571371 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
@@ -838,7 +838,7 @@ highchart() %>%
 hc_tooltip(pointFormat =  "{point.y:.2f} por ciento") %>%
 hc_colors(c("black",cols8[-1]))%>%
 hc_title(text=" Variación porcentual respecto al mismo trimestre del año anterior, categorías VAB.",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="Fuente: INDEC - Datos preliminares. Cuarto trimestre 2021. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
+hc_subtitle(text="Fuente: INDEC - Datos preliminares. Primer trimestre 2022. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
@@ -847,7 +847,7 @@ Balanza comercial, acumulado en 2022 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer cuatrimestre del 2022
+### Balanza comercial, primeros cinco meses de 2022
 
 ```{r , include= FALSE }
 
@@ -1292,7 +1292,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer cuatrimestre del 2022",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros cinco meses de 2022",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1487,7 +1487,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 20/5/2022.
+- Última actualización: 27/6/2022.
 
 
 
@@ -1499,13 +1499,13 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Abril 2022
+### Mayo 2022
 
 ```{r , include= FALSE }
 
 rf <- tibble(
   name = c("Ingresos Totales", "Gastos Primarios", "Resultado Primario","Intereses Netos","Resultado Financiero"),
-  y = c(basecaja[1,2],basecaja[20,2] ,basecaja[62,2],basecaja[63,2],basecaja[64,2]),
+  y = c(basecaja[1,2],basecaja[21,2] ,basecaja[63,2],basecaja[64,2],basecaja[65,2]),
   drilldown = tolower(name)
 )
 
@@ -1528,51 +1528,51 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/05/resultado-fiscal_abril-2022.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/06/may-22.xlsx")
 
 
 
-IT<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[15,1],basecaja[19,1]),
-y=c(basecaja[2,2],basecaja[12,2],basecaja[15,2],basecaja[19,2]),
+IT<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[16,1],basecaja[20,1]),
+y=c(basecaja[2,2],basecaja[12,2],basecaja[16,2],basecaja[20,2]),
 drilldown = tolower(name))
 
 
-GP<-tibble(name=c(basecaja[21,1],basecaja[43,1]),
-y=c(basecaja[21,2],basecaja[43,2]),
+GP<-tibble(name=c(basecaja[22,1],basecaja[44,1]),
+y=c(basecaja[22,2],basecaja[44,2]),
 drilldown = tolower(name))
 
 
-GCP<-tibble(name=c(basecaja[22,1],basecaja[29,1],basecaja[33,1],basecaja[36,1],basecaja[41,1],basecaja[42,1]),
-y=c(basecaja[22,2],basecaja[29,2],basecaja[33,2],basecaja[36,2],basecaja[41,2],basecaja[42,2]),
+GCP<-tibble(name=c(basecaja[23,1],basecaja[30,1],basecaja[34,1],basecaja[37,1],basecaja[42,1],basecaja[43,1]),
+y=c(basecaja[23,2],basecaja[30,2],basecaja[34,2],basecaja[37,2],basecaja[42,2],basecaja[43,2]),
 drilldown = tolower(name))
 
 
-GC<-tibble(name=c(basecaja[44,1],basecaja[47,1],basecaja[50,1],basecaja[53,1],basecaja[56,1],basecaja[59,1]),
-y=c(basecaja[44,2],basecaja[47,2],basecaja[50,2],basecaja[53,2],basecaja[56,2],basecaja[59,2]))
+GC<-tibble(name=c(basecaja[45,1],basecaja[48,1],basecaja[51,1],basecaja[54,1],basecaja[57,1],basecaja[60,1]),
+y=c(basecaja[45,2],basecaja[48,2],basecaja[51,2],basecaja[54,2],basecaja[57,2],basecaja[60,2]))
 
 
 Tri<-tibble(name=c(basecaja[3:11,1]),
 y=c(basecaja[3:11,2]))
 
-Ren<-tibble(name=c(basecaja[13:14,1]),
-y=c(basecaja[13:14,2]))
+Ren<-tibble(name=c(basecaja[13:15,1]),
+y=c(basecaja[13:15,2]))
 
-oic<-tibble(name=c(basecaja[16:18,1]),
-y=c(basecaja[16:18,2]))
-
-
-pre<-tibble(name=c(basecaja[23:28,1]),
-y=c(basecaja[23:28,2]))
+oic<-tibble(name=c(basecaja[17:19,1]),
+y=c(basecaja[17:19,2]))
 
 
-sub<-tibble(name=c(basecaja[30:32,1]),
-y=c(basecaja[30:32,2]))
+pre<-tibble(name=c(basecaja[24:29,1]),
+y=c(basecaja[24:29,2]))
 
-gas<-tibble(name=c(basecaja[34:35,1]),
-y=c(basecaja[34:35,2]))
 
-transc<-tibble(name=c(basecaja[37:40,1]),
-y=c(basecaja[37:40,2]))
+sub<-tibble(name=c(basecaja[31:33,1]),
+y=c(basecaja[31:33,2]))
+
+gas<-tibble(name=c(basecaja[35:36,1]),
+y=c(basecaja[35:36,2]))
+
+transc<-tibble(name=c(basecaja[38:41,1]),
+y=c(basecaja[38:41,2]))
 
 
 
@@ -1648,7 +1648,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Abril 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Mayo 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1662,7 +1662,7 @@ hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los
 
 rf2 <- tibble(
   name = c("Ingresos Totales", "Gastos Primarios", "Resultado Primario","Intereses Netos","Resultado Financiero"),
-  y = c(basecaja[1,3],basecaja[20,3] ,basecaja[62,3],basecaja[63,3],basecaja[64,3]),
+  y = c(basecaja[1,3],basecaja[21,3] ,basecaja[63,3],basecaja[64,3],basecaja[65,3]),
   drilldown = tolower(name)
 )
 
@@ -1685,51 +1685,51 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/05/resultado-fiscal_abril-2022.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/06/may-22.xlsx")
 
 
 
-IT2<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[15,1],basecaja[19,1]),
-y=c(basecaja[2,3],basecaja[12,3],basecaja[15,3],basecaja[19,3]),
+IT2<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[16,1],basecaja[20,1]),
+y=c(basecaja[2,3],basecaja[12,3],basecaja[16,3],basecaja[20,3]),
 drilldown = tolower(name))
 
 
-GP2<-tibble(name=c(basecaja[21,1],basecaja[43,1]),
-y=c(basecaja[21,3],basecaja[43,3]),
+GP2<-tibble(name=c(basecaja[22,1],basecaja[44,1]),
+y=c(basecaja[22,3],basecaja[44,3]),
 drilldown = tolower(name))
 
 
-GCP2<-tibble(name=c(basecaja[22,1],basecaja[29,1],basecaja[33,1],basecaja[36,1],basecaja[41,1],basecaja[42,1]),
-y=c(basecaja[22,3],basecaja[29,3],basecaja[33,3],basecaja[36,3],basecaja[41,3],basecaja[42,3]),
+GCP2<-tibble(name=c(basecaja[23,1],basecaja[30,1],basecaja[34,1],basecaja[37,1],basecaja[42,1],basecaja[43,1]),
+y=c(basecaja[23,3],basecaja[30,3],basecaja[34,3],basecaja[37,3],basecaja[42,3],basecaja[43,3]),
 drilldown = tolower(name))
 
 
-GC2<-tibble(name=c(basecaja[44,1],basecaja[47,1],basecaja[50,1],basecaja[53,1],basecaja[56,1],basecaja[59,1]),
-y=c(basecaja[44,3],basecaja[47,3],basecaja[50,3],basecaja[53,3],basecaja[56,3],basecaja[59,3]))
+GC2<-tibble(name=c(basecaja[45,1],basecaja[48,1],basecaja[51,1],basecaja[54,1],basecaja[57,1],basecaja[60,1]),
+y=c(basecaja[45,3],basecaja[48,3],basecaja[51,3],basecaja[54,3],basecaja[57,3],basecaja[60,3]))
 
 
 Tri2<-tibble(name=c(basecaja[3:11,1]),
 y=c(basecaja[3:11,3]))
 
-Ren2<-tibble(name=c(basecaja[13:14,1]),
-y=c(basecaja[13:14,3]))
+Ren2<-tibble(name=c(basecaja[13:15,1]),
+y=c(basecaja[13:15,3]))
 
-oic2<-tibble(name=c(basecaja[16:18,1]),
-y=c(basecaja[16:18,3]))
-
-
-pre2<-tibble(name=c(basecaja[23:28,1]),
-y=c(basecaja[23:28,3]))
+oic2<-tibble(name=c(basecaja[17:19,1]),
+y=c(basecaja[17:19,3]))
 
 
-sub2<-tibble(name=c(basecaja[30:32,1]),
-y=c(basecaja[30:32,3]))
+pre2<-tibble(name=c(basecaja[24:29,1]),
+y=c(basecaja[24:29,3]))
 
-gas2<-tibble(name=c(basecaja[34:35,1]),
-y=c(basecaja[34:35,3]))
 
-transc2<-tibble(name=c(basecaja[37:40,1]),
-y=c(basecaja[37:40,3]))
+sub2<-tibble(name=c(basecaja[31:33,1]),
+y=c(basecaja[31:33,3]))
+
+gas2<-tibble(name=c(basecaja[35:36,1]),
+y=c(basecaja[35:36,3]))
+
+transc2<-tibble(name=c(basecaja[38:41,1]),
+y=c(basecaja[38:41,3]))
 
 
 
@@ -1805,7 +1805,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Abril 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Mayo 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
