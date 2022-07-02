@@ -764,7 +764,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.7 %", caption = "Descenso del EMAE desestacionalizado de Marzo-22 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("0.7 %", caption = "Aumento del EMAE desestacionalizado de Abril-22 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -772,7 +772,7 @@ valueBox("0.7 %", caption = "Descenso del EMAE desestacionalizado de Marzo-22 co
 
 ```{r boxes2,}
 
-valueBox("6.1 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("5.7 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
