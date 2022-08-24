@@ -764,7 +764,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.3 %", caption = "Aumento del EMAE desestacionalizado de Mayo-22 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("1.1 %", caption = "Aumento del EMAE desestacionalizado de Junio-22 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 ```
 
@@ -772,7 +772,7 @@ valueBox("0.3 %", caption = "Aumento del EMAE desestacionalizado de Mayo-22 con 
 
 ```{r boxes2,}
 
-valueBox("6.2 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("6.3 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
 
 ```
 
