@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_septiembre_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_octubre_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -764,7 +764,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.4 %", caption = "Variación del EMAE desestacionalizado de Agosto-22 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("-0.3 %", caption = "Variación del EMAE desestacionalizado de Septiembre-22 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 ```
 
@@ -772,7 +772,7 @@ valueBox("0.4 %", caption = "Variación del EMAE desestacionalizado de Agosto-22
 
 ```{r boxes2,}
 
-valueBox("6.4 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("6.2 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
@@ -847,7 +847,7 @@ Balanza comercial, acumulado en 2022 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primeros nueve meses de 2022
+### Balanza comercial, primeros diez meses de 2022
 
 ```{r , include= FALSE }
 
@@ -1292,7 +1292,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros nueve meses de 2022",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros diez meses de 2022",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1499,7 +1499,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Septiembre 2022
+### Octubre 2022
 
 ```{r , include= FALSE }
 
@@ -1528,7 +1528,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/10/sector_publico_base_caja_-_sept-22.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/11/resultado-fiscal_octubre-2022.xlsx")
 
 
 
@@ -1648,7 +1648,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Septiembre 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Octubre 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1685,7 +1685,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/10/sector_publico_base_caja_-_sept-22.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2022/11/resultado-fiscal_octubre-2022.xlsx")
 
 
 
@@ -1805,7 +1805,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Septiembre 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Octubre 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
