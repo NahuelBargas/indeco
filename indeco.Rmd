@@ -195,7 +195,7 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Variación mensual del IPC - ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-down",color="skyblue")
+valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Variación mensual del IPC - ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-up",color="skyblue")
 ```
 
 ### Interanual
@@ -208,7 +208,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("85.3 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("94.8 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
