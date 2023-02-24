@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas31.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas32.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_diciembre_2022.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_enero_2023.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -764,7 +764,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-0.7 %", caption = "Variación del EMAE desestacionalizado de Noviembre-22 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("-0.1 %", caption = "Variación del EMAE desestacionalizado de Diciembre-22 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 ```
 
@@ -772,7 +772,7 @@ valueBox("-0.7 %", caption = "Variación del EMAE desestacionalizado de Noviembr
 
 ```{r boxes2,}
 
-valueBox("5.9 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("5.2 %", caption = "Variación acumulada del año(2022) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
 
 ```
 
@@ -843,11 +843,11 @@ hc_subtitle(text="Fuente: INDEC - Datos preliminares. Tercer trimestre 2022. ",s
 
 ```
 
-Balanza comercial, acumulado en 2022 {data-navmenu="Comercio Exterior"}
+Balanza comercial, acumulado en 2023 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, doce meses de 2022
+### Balanza comercial, primer mes de 2023
 
 ```{r , include= FALSE }
 
@@ -1292,13 +1292,13 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado doce meses de 2022",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer mes de 2023",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
 
-Saldo y comercio exterior total, por zona zona económica - 2022 {data-navmenu="Comercio Exterior"}
+Saldo y comercio exterior total, por zona zona económica - 2023 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
@@ -1355,7 +1355,7 @@ mitree<- hctreemapcolores(tm, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols9[1],
                maxColor = cols9[13],enabled = TRUE)%>%
-  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2022")%>%
+  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2023")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao, Chile, Uruguay y Brasil, sus zonas francas.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC. Sistema de Consulta del Comercio Exterior de Bienes ",href = "https://comex.indec.gob.ar") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
@@ -1371,7 +1371,7 @@ mitree
 
 ```
 
-Total comerciado, por país y continente - 2022 {data-navmenu="Comercio Exterior"}
+Total comerciado, por país y continente - 2023 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
@@ -1487,7 +1487,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 21/01/2023.
+- Última actualización: 24/02/2023.
 
 
 
@@ -1499,7 +1499,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Diciembre 2022
+### Enero 2023
 
 ```{r , include= FALSE }
 
@@ -1528,7 +1528,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2023/01/sector_publico_base_caja_-_diciembre_2022_1.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2023/02/sector_publico_base_caja_-_enero_2023.xlsx")
 
 
 
@@ -1648,7 +1648,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Diciembre 2022.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja- Enero 2023.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1685,7 +1685,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2023/01/sector_publico_base_caja_-_diciembre_2022_1.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2023/02/sector_publico_base_caja_-_enero_2023.xlsx")
 
 
 
@@ -1805,7 +1805,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2022- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Enero 2023- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
