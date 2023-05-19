@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas34.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas35.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -819,7 +819,7 @@ highchart() %>%
   ) %>%
 hc_tooltip(pointFormat =  "{point.y:.3f} millones de pesos") %>%
 hc_colors(cols8)%>%
-hc_title(text=" Valor agregado bruto a precios básicos,por categorías, cuarto trimestre del 2021",style = list(color = "black", fontSize = '14px')) %>%
+hc_title(text=" Valor agregado bruto a precios básicos,por categorías, cuarto trimestre del 2022",style = list(color = "black", fontSize = '14px')) %>%
 hc_subtitle(text="El VAB total asciende a 593138 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -850,7 +850,7 @@ Balanza comercial, acumulado en 2023 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer trimestre de 2023
+### Balanza comercial, primer cuatrimestre de 2023
 
 ```{r , include= FALSE }
 
@@ -1295,7 +1295,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer trimestre de 2023",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer cuatrimestre de 2023",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1490,7 +1490,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 21/04/2023.
+- Última actualización: 19/05/2023.
 
 
 
