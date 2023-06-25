@@ -850,7 +850,7 @@ Balanza comercial, acumulado en 2023 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, primer cuatrimestre de 2023
+### Balanza comercial, primeros cinco meses de 2023
 
 ```{r , include= FALSE }
 
@@ -883,7 +883,7 @@ hc <- highchart() %>%
 
 impo <- tibble(
   name = c("Total","Bienes de capital", "Bienes intermedios", "Combustibles y lubricantes", "Piezas y accesorios para bienes de capital","Bienes de consumo","Vehículos automotores de pasajeros","Resto"),
-  y = c(import[1,2],import[2,2],import[7,2],import[17,2],import[20,2],import[24,2],import[37,2],import[39,2]
+  y = c(import[1,2],import[2,2],import[6,2],import[12,2],import[15,2],import[19,2],import[27,2],import[28,2]
 
 ),
   drilldown = tolower(name)
@@ -898,9 +898,27 @@ expo <- tibble(
 )
 
 balanza<-tibble(
-name=c("Mercosur","Chile","Resto de ALADI","SICA","USMCA (ex NAFTA)","Unión Europea","Reino Unido",
-"Suiza","CEI","ASEAN","China","República de Corea","Japón","India","Medio Oriente",
-"Magreb y Egipto","SACU","Oceanía","Resto del Mundo"),
+name=c("Mercosur",
+"Brasil",
+"Resto de ALADI",
+"Chile",
+"Perú",
+"USMCA",
+"Estados Unidos",
+"Unión Europea",
+"Alemania",
+"Países Bajos",
+"China",
+"India",
+"ASEAN",
+"Viet Nam",
+"Indonesia",
+"Medio Oriente",
+"Magreb y Egipto",
+"SACU",
+"Oceanía",
+"Resto del mundo"
+),
 y = saldozonas[,4],
  drilldown = tolower(name)
 )
@@ -982,61 +1000,51 @@ y= c(export[48:52,2]
 
 
 bk<- tibble(
-name= c("Máquinas, aparatos y material eléctrico; sus partes", 
-"Material de transporte",
-"Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música",
-"Resto de bienes de capital"),
-y=c(import[3:6,2]
+name= c("Bienes de capital excluido equipos de transporte", 
+"Computadoras y Telefonos",
+"Equipos de transporte industriales"),
+y=c(import[3:5,2]
 
 
 ))
 
 bi<-tibble(
-name=c("Productos del reino vegetal", 
-"Productos minerales",
-"Productos de industrias químicas y conexas",
-"Plástico, caucho y sus manufacturas",
-"Pasta de madera, papel,cartón",
-"Materias textiles y sus manufacturas",
-"Manufacturas de piedra, yeso, cemento, amianto, mica, cerámica y vidrio",
-"Metales comunes y sus manufacturas",
-"Resto de bienes intermedios"),
-y=c(import[8:16,2]
+name=c("Alimentos y bebidas basicos fundamentalmente para la industria", 
+"Alimentos y bebidas elaborados fundalmentalmente para la industria",
+"Suministros industriales basicos no especificados en otras partidas",
+"Suministros industriales elaborados no especificados en otras partidas",
+"Medicamentos"),
+y=c(import[8:11,2]
 
 
 ))
 
 
 cyl<- tibble(
-name=c("Productos minerales",
-"Resto de combustibles y lubricantes"),
-y=c(import[18:19,2]
+name=c("Combustibles y lubricantes basicos",
+"Combustibles y lubricantes elaborados"),
+y=c(import[13:14,2]
 
 ))
 
 
 pya<- tibble(
-name=c("Máquinas, aparatos y material eléctrico; sus partes",
-"Material de transporte",
-"Resto de piezas y accesorios"),
-y=c(import[21:23,2]
+name=c("Piezas y accesorios para bienes de capital",
+"Partes y piezas para computadoras y telefonos",
+"Piezas y accesorios para equipos de transporte"),
+y=c(import[16:18,2]
 
 ))
 
 bco<-tibble(
-name=c("Animales vivos y productos del reino animal", 
-"Productos del reino vegetal", 
-"Productos alimenticios, bebidas y tabaco", 
-"Productos de industrias químicas y conexas", 
-"Plástico, caucho y sus manufacturas", 
-"Materias textiles y sus manufacturas",  
-"Calzado, paraguas, fores artifciales y otros", 
-"Máquinas, aparatos y material eléctrico; sus partes", 
-"Material de transporte", 
-"Instrumentos de óptica, precisión, médico-quirúrgico, relojería y música", 
-"Mercancías y productos diversos",
-"Resto de bienes de consumo"),
-y=c(import[25:36,2]
+name=c("Alimentos y bebidas basicos fundalmentalmente para el hogar", 
+"Alimentos y bebidas elaborados fundalmentalmente para el hogar", 
+"Equipos de transporte no industriales", 
+"Articulos de consumo duraderos no especificados en otra partida", 
+"Articulos de consumo semiduraderos no especificados en otra partida", 
+"Articulos de consumo no duraderos no especificados en otra partida",  
+"Medicamentos"),
+y=c(import[20:26,2]
 
 ))
 
@@ -1295,7 +1303,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer cuatrimestre de 2023",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros cinco meses de 2023",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
