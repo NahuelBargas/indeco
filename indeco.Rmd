@@ -766,7 +766,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.1 %", caption = "Variación del EMAE desestacionalizado de Marzo-23 con respecto al mes anterior",icon="glyphicon-arrow-up",color="skyblue")
+valueBox("-1.9 %", caption = "Variación del EMAE desestacionalizado de Abril-23 con respecto al mes anterior",icon="glyphicon-arrow-down",color="skyblue")
 
 #Fue quitado , icon="glyphicon-arrow-up"
 ```
@@ -775,7 +775,7 @@ valueBox("0.1 %", caption = "Variación del EMAE desestacionalizado de Marzo-23 
 
 ```{r boxes2,}
 
-valueBox("1.5 %", caption = "Variación acumulada del año(2023) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="orangered")
+valueBox("-0.1 %", caption = "Variación acumulada del año(2023) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
