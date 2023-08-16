@@ -195,20 +195,20 @@ Rows {data-height=150}
 ### Mensual
 
 ```{r}
-valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Variación mensual del IPC - ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-down",color="skyblue")
+valueBox(paste(format(last(ipcmensual$IPC.General),digits=2),"%"), caption = paste0("Variación mensual del IPC - ",str_to_title(format(max(ipcmensual$Período),"%B-%Y"))), icon="glyphicon-arrow-up",color="skyblue")
 ```
 
 ### Interanual
 
 
 ```{r}
-valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="glyphicon-arrow-up",color="orangered")
+valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="glyphicon-arrow-down",color="orangered")
 ```
 
 ### Acumulada en el año.
 
 ```{r}
-valueBox("50.7 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("60.2 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -232,7 +232,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_07_23.xls")%>%		 
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_08_23.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -422,7 +422,7 @@ Column {.tabset .tabset-fade}
      hc_colors(coloresAperturas)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_07_23.xls")%>%
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_08_23.xls")%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 })  
 ```
