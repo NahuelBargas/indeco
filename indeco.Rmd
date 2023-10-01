@@ -552,7 +552,7 @@ hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
-### Tasa de incidencia de la pobreza e indigencia- 2ndo Semestre 2022- Aglomerados
+### Tasa de incidencia de la pobreza e indigencia- 1er Semestre 2023- Aglomerados
 
 
 ```{r preppob, include= FALSE  }
@@ -602,7 +602,7 @@ data.frame(row.names(pobrezaaglo),pobrezaaglo)%>%
 
 ```
 
-### Pobreza e indigencia-2ndo semestre 2022-Regiones
+### Pobreza e indigencia-1er semestre 2023-Regiones
 
 ```{r tabla4}
 kable(pobrezareg,escape = F) %>%
@@ -766,7 +766,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-0.2 %", caption = "Variación del EMAE desestacionalizado de Mayo-23 con respecto al mes anterior",icon="glyphicon-arrow-down",color="skyblue")
+valueBox("2.4 %", caption = "Variación del EMAE desestacionalizado de Julio-23 con respecto al mes anterior",icon="glyphicon-arrow-up",color="skyblue")
 
 #Fue quitado , icon="glyphicon-arrow-up"
 ```
@@ -775,7 +775,7 @@ valueBox("-0.2 %", caption = "Variación del EMAE desestacionalizado de Mayo-23 
 
 ```{r boxes2,}
 
-valueBox("-1.9 %", caption = "Variación acumulada del año(2023) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-1.8 %", caption = "Variación acumulada del año(2023) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
