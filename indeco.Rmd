@@ -766,16 +766,16 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("2.4 %", caption = "Variación del EMAE desestacionalizado de Julio-23 con respecto al mes anterior",icon="glyphicon-arrow-up",color="skyblue")
+valueBox("1.3 %", caption = "Variación del EMAE desestacionalizado de Agosto-23 con respecto al mes anterior",icon="glyphicon-arrow-up",color="skyblue")
 
-#Fue quitado , icon="glyphicon-arrow-up"
+
 ```
 
 ### Variación Acumulada
 
 ```{r boxes2,}
 
-valueBox("-1.8 %", caption = "Variación acumulada del año(2023) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-1.6 %", caption = "Variación acumulada del año(2023) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
