@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas41.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas42.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -1510,7 +1510,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 26/11/2023.
+- Última actualización: 24/12/2023.
 
 
 
@@ -1948,7 +1948,7 @@ hc_colorAxis(
     ) %>%
 hc_yAxis(gridLineWidth=0)%>%
 hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
-hc_credits(enabled=TRUE, text="1er. trimestre 2023.Fuente: INDEC", position =list( align ="left", x=20))
+hc_credits(enabled=TRUE, text="1er. semestre 2023.Fuente: INDEC", position =list( align ="left", x=20))
 
 
 ```
@@ -1978,7 +1978,7 @@ complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols15[1],
                maxColor = cols15[20],enabled = TRUE)%>%
-  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. trimestre del 2023")%>%
+  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. semestre del 2023")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_09_23.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
