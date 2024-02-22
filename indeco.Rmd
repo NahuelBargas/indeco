@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_diciembre_2023.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_enero2024.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -208,7 +208,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("211.4 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("20.6 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -232,7 +232,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_24.xls")%>%		 
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_02_24.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -846,11 +846,11 @@ hc_subtitle(text="Fuente: INDEC - Datos preliminares. Tercer trimestre 2023. ",s
 
 ```
 
-Balanza comercial, acumulado en 2023 {data-navmenu="Comercio Exterior"}
+Balanza comercial, acumulado en 2024 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, acumulado 2023
+### Balanza comercial, acumulado 2024
 
 ```{r , include= FALSE }
 
@@ -1315,7 +1315,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado doce meses de 2023",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer mes de 2024",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1522,13 +1522,13 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Diciembre 2023
+### Enero 2024
 
 ```{r , include= FALSE }
 
 rf <- tibble(
   name = c("Ingresos Totales", "Gastos Primarios", "Resultado Primario","Intereses Netos","Resultado Financiero"),
-  y = c(basecaja[1,2],basecaja[21,2] ,basecaja[63,2],basecaja[64,2],basecaja[65,2]),
+  y = c(basecaja[1,2],basecaja[20,2] ,basecaja[62,2],basecaja[63,2],basecaja[64,2]),
   drilldown = tolower(name)
 )
 
@@ -1551,51 +1551,51 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/01/diciembre-2023.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/02/sector_publico_base_caja_enero_2024.xlsx")
 
 
 
-IT<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[16,1],basecaja[20,1]),
-y=c(basecaja[2,2],basecaja[12,2],basecaja[16,2],basecaja[20,2]),
+IT<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[15,1],basecaja[19,1]),
+y=c(basecaja[2,2],basecaja[12,2],basecaja[15,2],basecaja[19,1]),
 drilldown = tolower(name))
 
 
-GP<-tibble(name=c(basecaja[22,1],basecaja[44,1]),
-y=c(basecaja[22,2],basecaja[44,2]),
+GP<-tibble(name=c(basecaja[21,1],basecaja[43,1]),
+y=c(basecaja[21,2],basecaja[43,2]),
 drilldown = tolower(name))
 
 
-GCP<-tibble(name=c(basecaja[23,1],basecaja[30,1],basecaja[34,1],basecaja[37,1],basecaja[42,1],basecaja[43,1]),
-y=c(basecaja[23,2],basecaja[30,2],basecaja[34,2],basecaja[37,2],basecaja[42,2],basecaja[43,2]),
+GCP<-tibble(name=c(basecaja[22,1],basecaja[29,1],basecaja[33,1],basecaja[36,1],basecaja[41,1],basecaja[42,1]),
+y=c(basecaja[22,2],basecaja[29,2],basecaja[33,2],basecaja[36,2],basecaja[41,2],basecaja[42,2]),
 drilldown = tolower(name))
 
 
-GC<-tibble(name=c(basecaja[45,1],basecaja[48,1],basecaja[51,1],basecaja[54,1],basecaja[57,1],basecaja[60,1]),
-y=c(basecaja[45,2],basecaja[48,2],basecaja[51,2],basecaja[54,2],basecaja[57,2],basecaja[60,2]))
+GC<-tibble(name=c(basecaja[44,1],basecaja[47,1],basecaja[50,1],basecaja[53,1],basecaja[56,1],basecaja[59,1]),
+y=c(basecaja[44,2],basecaja[47,2],basecaja[50,2],basecaja[53,2],basecaja[56,2],basecaja[59,2]))
 
 
 Tri<-tibble(name=c(basecaja[3:11,1]),
 y=c(basecaja[3:11,2]))
 
-Ren<-tibble(name=c(basecaja[13:15,1]),
-y=c(basecaja[13:15,2]))
+Ren<-tibble(name=c(basecaja[13:14,1]),
+y=c(basecaja[13:14,2]))
 
-oic<-tibble(name=c(basecaja[17:19,1]),
-y=c(basecaja[17:19,2]))
-
-
-pre<-tibble(name=c(basecaja[24:29,1]),
-y=c(basecaja[24:29,2]))
+oic<-tibble(name=c(basecaja[16:18,1]),
+y=c(basecaja[16:18,2]))
 
 
-sub<-tibble(name=c(basecaja[31:33,1]),
-y=c(basecaja[31:33,2]))
+pre<-tibble(name=c(basecaja[23:28,1]),
+y=c(basecaja[23:28,2]))
 
-gas<-tibble(name=c(basecaja[35:36,1]),
-y=c(basecaja[35:36,2]))
 
-transc<-tibble(name=c(basecaja[38:41,1]),
-y=c(basecaja[38:41,2]))
+sub<-tibble(name=c(basecaja[30:32,1]),
+y=c(basecaja[30:32,2]))
+
+gas<-tibble(name=c(basecaja[34:35,1]),
+y=c(basecaja[34:35,2]))
+
+transc<-tibble(name=c(basecaja[37:40,1]),
+y=c(basecaja[37:40,2]))
 
 
 
@@ -1671,7 +1671,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja- Diciembre 23.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Enero 24.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1685,7 +1685,7 @@ hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los
 
 rf2 <- tibble(
   name = c("Ingresos Totales", "Gastos Primarios", "Resultado Primario","Intereses Netos","Resultado Financiero"),
-  y = c(basecaja[1,3],basecaja[21,3] ,basecaja[63,3],basecaja[64,3],basecaja[65,3]),
+  y = c(basecaja[1,3],basecaja[20,3] ,basecaja[62,3],basecaja[63,3],basecaja[64,3]),
   drilldown = tolower(name)
 )
 
@@ -1708,51 +1708,51 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/01/diciembre-2023.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/02/sector_publico_base_caja_enero_2024.xlsx")
 
 
 
-IT2<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[16,1],basecaja[20,1]),
-y=c(basecaja[2,3],basecaja[12,3],basecaja[16,3],basecaja[20,3]),
+IT2<-tibble(name=c(basecaja[2,1],basecaja[12,1],basecaja[15,1],basecaja[19,1]),
+y=c(basecaja[2,3],basecaja[12,3],basecaja[15,3],basecaja[19,3]),
 drilldown = tolower(name))
 
 
-GP2<-tibble(name=c(basecaja[22,1],basecaja[44,1]),
-y=c(basecaja[22,3],basecaja[44,3]),
+GP2<-tibble(name=c(basecaja[21,1],basecaja[43,1]),
+y=c(basecaja[21,3],basecaja[43,3]),
 drilldown = tolower(name))
 
 
-GCP2<-tibble(name=c(basecaja[23,1],basecaja[30,1],basecaja[34,1],basecaja[37,1],basecaja[42,1],basecaja[43,1]),
-y=c(basecaja[23,3],basecaja[30,3],basecaja[34,3],basecaja[37,3],basecaja[42,3],basecaja[43,3]),
+GCP2<-tibble(name=c(basecaja[22,1],basecaja[29,1],basecaja[33,1],basecaja[36,1],basecaja[41,1],basecaja[42,1]),
+y=c(basecaja[22,3],basecaja[29,3],basecaja[33,3],basecaja[36,3],basecaja[41,3],basecaja[42,3]),
 drilldown = tolower(name))
 
 
-GC2<-tibble(name=c(basecaja[45,1],basecaja[48,1],basecaja[51,1],basecaja[54,1],basecaja[57,1],basecaja[60,1]),
-y=c(basecaja[45,3],basecaja[48,3],basecaja[51,3],basecaja[54,3],basecaja[57,3],basecaja[60,3]))
+GC2<-tibble(name=c(basecaja[44,1],basecaja[47,1],basecaja[50,1],basecaja[53,1],basecaja[56,1],basecaja[59,1]),
+y=c(basecaja[44,3],basecaja[47,3],basecaja[50,3],basecaja[53,3],basecaja[56,3],basecaja[59,3]))
 
 
 Tri2<-tibble(name=c(basecaja[3:11,1]),
 y=c(basecaja[3:11,3]))
 
-Ren2<-tibble(name=c(basecaja[13:15,1]),
-y=c(basecaja[13:15,3]))
+Ren2<-tibble(name=c(basecaja[13:14,1]),
+y=c(basecaja[13:14,3]))
 
-oic2<-tibble(name=c(basecaja[17:19,1]),
-y=c(basecaja[17:19,3]))
-
-
-pre2<-tibble(name=c(basecaja[24:29,1]),
-y=c(basecaja[24:29,3]))
+oic2<-tibble(name=c(basecaja[16:18,1]),
+y=c(basecaja[16:18,3]))
 
 
-sub2<-tibble(name=c(basecaja[31:33,1]),
-y=c(basecaja[31:33,3]))
+pre2<-tibble(name=c(basecaja[23:28,1]),
+y=c(basecaja[23:28,3]))
 
-gas2<-tibble(name=c(basecaja[35:36,1]),
-y=c(basecaja[35:36,3]))
 
-transc2<-tibble(name=c(basecaja[38:41,1]),
-y=c(basecaja[38:41,3]))
+sub2<-tibble(name=c(basecaja[30:32,1]),
+y=c(basecaja[30:32,3]))
+
+gas2<-tibble(name=c(basecaja[34:35,1]),
+y=c(basecaja[34:35,3]))
+
+transc2<-tibble(name=c(basecaja[37:40,1]),
+y=c(basecaja[37:40,3]))
 
 
 
@@ -1828,7 +1828,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2023- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Enero 2024- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
