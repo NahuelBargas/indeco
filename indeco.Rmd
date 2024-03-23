@@ -69,10 +69,10 @@ gini_ts3<-data.frame(trimestre,trimestre2,gini_ts[,1:3])
 
 producto<-read.xlsx("bases/indicadores.xlsx", sheet=4,detectDates = TRUE)
 
-producto$Fecha <- as.yearqtr(2004 + seq(0, 78)/4)
+producto$Fecha <- as.yearqtr(2004 + seq(0, 79)/4)
 producto$Fecha <-format(producto$Fecha,  "%q %Y")
-producto$fecha1<-seq(as.Date("2004-01-01"), length = 79, by = "3 months")
-producto$fecha2<-format(as.yearqtr(2004 + seq(0, 78)/4),  "%q %Y")
+producto$fecha1<-seq(as.Date("2004-01-01"), length = 80, by = "3 months")
+producto$fecha2<-format(as.yearqtr(2004 + seq(0, 79)/4),  "%q %Y")
 producto$fecha3<-paste(producto$Año,"-",producto$Trimestre)
 
 PBI.ts<-ts(producto$PIB.DESEST, frequency = 4, start = c(2004, 1))
@@ -787,7 +787,7 @@ Valor agregado bruto a precios básicos {data-navmenu="Producto"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### VAB Tercer trimestre de 2023
+### VAB Cuarto trimestre de 2023
 
 
 ```{r , include= FALSE }
@@ -819,8 +819,8 @@ highchart() %>%
   ) %>%
 hc_tooltip(pointFormat =  "{point.y:.3f} millones de pesos") %>%
 hc_colors(cols8)%>%
-hc_title(text=" Valor agregado bruto a precios básicos,por categorías, tercer trimestre del 2023",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="El VAB total asciende a 601421 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
+hc_title(text=" Valor agregado bruto a precios básicos,por categorías, cuarto trimestre del 2023",style = list(color = "black", fontSize = '14px')) %>%
+hc_subtitle(text="El VAB total asciende a 587548 millones de pesos y se obtiene de restarle al PIB los impuestos netos de subsidios, IVA y derechos de importación. <br> INDEC - Datos preliminares. Millones de pesos de 2004. ",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
@@ -841,7 +841,7 @@ highchart() %>%
 hc_tooltip(pointFormat =  "{point.y:.2f} por ciento") %>%
 hc_colors(c("black",cols8[-1]))%>%
 hc_title(text=" Variación porcentual respecto al mismo trimestre del año anterior, categorías VAB.",style = list(color = "black", fontSize = '14px')) %>%
-hc_subtitle(text="Fuente: INDEC - Datos preliminares. Tercer trimestre 2023. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
+hc_subtitle(text="Fuente: INDEC - Datos preliminares. Cuarto trimestre 2023. ",style = list(color = "#2b908f", fontSize = '10px'),align = "right") %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
@@ -1315,7 +1315,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer mes de 2024",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros dos meses de 2024",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
