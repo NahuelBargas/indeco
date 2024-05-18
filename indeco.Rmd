@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 30,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 31,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas43.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas44.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -208,7 +208,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("51.6 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("65.0 %", caption = "Acumulada en lo que va del año",  color="yellow")
 ```
 
 
@@ -232,7 +232,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_04_24.xls")%>%		 
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_05_24.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -1321,7 +1321,7 @@ hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para d
 
 ```
 
-Saldo y comercio exterior total, por zona zona económica - 2023 {data-navmenu="Comercio Exterior"}
+Saldo y comercio exterior total, por zona zona económica - 2024 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
@@ -1378,7 +1378,7 @@ mitree<- hctreemapcolores(tm, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols9[1],
                maxColor = cols9[13],enabled = TRUE)%>%
-  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2023")%>%
+  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2024")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao, Chile, Uruguay y Brasil, sus zonas francas.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC. Sistema de Consulta del Comercio Exterior de Bienes ",href = "https://comex.indec.gob.ar") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
@@ -1394,11 +1394,11 @@ mitree
 
 ```
 
-Total comerciado, por país y continente - 2023 {data-navmenu="Comercio Exterior"}
+Total comerciado, por país y continente - 2024 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
-## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2023
+## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2024
 
 
 
@@ -1424,7 +1424,7 @@ continente3<-continente3[,1:6]
 
 spanish<-'{
 	"sProcessing":     "Procesando...",
-	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2023",
+	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2024",
 	"sZeroRecords":    "No se encontraron resultados",
 	"sEmptyTable":     "Ningún dato disponible en esta tabla",
 	"sInfo":           "Mostrando fila número _START_ a la _END_ de un total de _TOTAL_ filas",
@@ -1510,7 +1510,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 25/1/2024.
+- Última actualización: 18/5/2024.
 
 
 
@@ -1522,7 +1522,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Febrero 2024
+### Abril 2024
 
 ```{r , include= FALSE }
 
@@ -1551,7 +1551,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/04/imig_marzo_2024.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/05/sector_publico_base_caja_abril_2024.xlsx")
 
 
 
@@ -1671,7 +1671,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Marzo 24.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Abril 24.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1708,7 +1708,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/04/imig_marzo_2024.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/05/sector_publico_base_caja_abril_2024.xlsx")
 
 
 
@@ -1828,7 +1828,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Marzo 2024- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Abril 2024- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
