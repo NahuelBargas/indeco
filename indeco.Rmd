@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas45.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas46.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_abril2024.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_mayo2024.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -906,8 +906,6 @@ name=c("Mercosur",
 "USMCA",
 "Estados Unidos",
 "Unión Europea",
-"Alemania",
-"Países Bajos",
 "China",
 "India",
 "ASEAN",
@@ -1082,55 +1080,48 @@ union<-tibble(
 name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[8,2],saldozonas[8,3]))
 
-ale<- tibble(
-name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[9,2],saldozonas[9,3]))
-
-paisesb<- tibble(
-name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[10,2],saldozonas[10,3]))
 
 china<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[11,2],saldozonas[11,3]))
+y=c(saldozonas[9,2],saldozonas[9,3]))
 
 india<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[12,2],saldozonas[12,3]))
+y=c(saldozonas[10,2],saldozonas[10,3]))
 
 asean<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[13,2],saldozonas[13,3]))
+y=c(saldozonas[11,2],saldozonas[11,3]))
 
 vietnam<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[14,2],saldozonas[14,3]))
+y=c(saldozonas[12,2],saldozonas[12,3]))
 
 indonesia<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[15,2],saldozonas[15,3]))
+y=c(saldozonas[13,2],saldozonas[13,3]))
 
 
 medio<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[16,2],saldozonas[16,3]))
+y=c(saldozonas[14,2],saldozonas[14,3]))
 
 magreb<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[17,2],saldozonas[17,3]))
+y=c(saldozonas[15,2],saldozonas[15,3]))
 
 
 sacu<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[18,2],saldozonas[18,3]))
+y=c(saldozonas[16,2],saldozonas[16,3]))
 
 oceania<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[19,2],saldozonas[19,3]))
+y=c(saldozonas[17,2],saldozonas[17,3]))
 
 restom<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[20,2],saldozonas[20,3]))
+y=c(saldozonas[18,2],saldozonas[18,3]))
 
 
 
@@ -1166,8 +1157,6 @@ drestom<-list_parse(restom)
 dbrasil<-list_parse(brasil)
 dperu<-list_parse(peru)
 dusa<-list_parse(usa)
-dale<-list_parse(ale)
-dpaisesb<-list_parse(paisesb)
 dvietnam<-list_parse(vietnam)
 dindonesia<-list_parse(indonesia)
 
@@ -1218,14 +1207,6 @@ hc %>%
       list(
         id = "unión europea",
         data = dunion
-      ),
-      list(
-        id = "alemania",
-        data = dale
-      ),
-	  list(
-        id = "paises bajos",
-        data = dpaisesb
       ),
       list(
         id = "china",
@@ -1315,7 +1296,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer cuatrimestre de 2024",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros cinco meses de 2024",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1510,7 +1491,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 25/5/2024.
+- Última actualización: 21/6/2024.
 
 
 
@@ -1551,7 +1532,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/05/sector_publico_base_caja_abril_2024.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/06/sector_publico_base_caja_mayo_2024.xlsx")
 
 
 
@@ -1671,7 +1652,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Abril 24.Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Mayo 24.Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1708,7 +1689,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/05/sector_publico_base_caja_abril_2024.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2024/06/sector_publico_base_caja_mayo_2024.xlsx")
 
 
 
@@ -1828,7 +1809,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Abril 2024- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Mayo 2024- Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
