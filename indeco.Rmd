@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 31,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 32,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -515,7 +515,7 @@ geom_point(aes(y=ciupper,colour="Intervalos de  Confianza-95%",group=1))+
 geom_line(aes(colour="Coeficiente de Gini", group=1))+
 geom_point(aes(colour="Coeficiente de Gini", group=1))+
 geom_text(aes(label=round(gini,2)),data=gini_ts3,nudge_y=0.13,size=2.8,alpha=1)+
-labs(x="Trimestres",y="Coeficientes estimados (%)",colour="",linetype="",caption = "En base a datos obtenidos de la EPH-INDEC")+
+labs(x="Trimestres",y="Coeficientes estimados (%)",colour="",linetype="",caption = "En base a datos obtenidos de la EPH-INDEC(www.indec.gob.ar)")+
 theme_classic()+
 scale_colour_manual(values=cols2)+
 scale_x_date(breaks=trimestre,labels=trimestre2)+
@@ -547,7 +547,7 @@ hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
    hc_tooltip(pointFormat =  "{series.name} <br>
    {point.y:.2f}% ")%>%
       hc_plotOptions(series=list(states=list(inactive=list(opacity= 0.6))))%>%
-    hc_subtitle(text = "En base a datos obtenidos de la EPH-INDEC - Estimaciones vía Bootstrap de mil repeticiones.",
+    hc_subtitle(text = "En base a datos obtenidos de la EPH-INDEC (www.indec.gob.ar) - Estimaciones vía Bootstrap de mil repeticiones.",
               align = "right",verticalAlign = "bottom", style = list(color = "#2b908f", fontSize = '10px'))%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
