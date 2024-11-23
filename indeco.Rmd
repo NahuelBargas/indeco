@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas49.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas50.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -768,7 +768,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.2 %", caption = "Variación del EMAE desestacionalizado de Ago-24 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("-0.3 %", caption = "Variación del EMAE desestacionalizado de Sept-24 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 
 ```
@@ -1298,7 +1298,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros nueve meses de 2024",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros diez meses de 2024",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1493,7 +1493,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 19/10/2024.
+- Última actualización: 23/11/2024.
 
 
 
