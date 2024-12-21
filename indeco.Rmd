@@ -768,7 +768,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-0.3 %", caption = "Variación del EMAE desestacionalizado de Sept-24 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("0.6 %", caption = "Variación del EMAE desestacionalizado de Oct-24 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 
 ```
@@ -777,7 +777,7 @@ valueBox("-0.3 %", caption = "Variación del EMAE desestacionalizado de Sept-24 
 
 ```{r boxes2,}
 
-valueBox("-3.1 %", caption = "Variación acumulada del año(2024) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
+valueBox("-2.7 %", caption = "Variación acumulada del año(2024) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="orangered")
 
 ```
 
