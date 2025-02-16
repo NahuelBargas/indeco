@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 33,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 34,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -208,7 +208,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("117.8 %", caption = "Acumulada en lo que va del año",  color="yellow")
+valueBox("2.2 %", caption = "Acumulada en lo que va del año",  color="skyblue")
 ```
 
 
@@ -232,7 +232,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_25.xls")%>%		 
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_02_25.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
