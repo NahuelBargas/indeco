@@ -111,11 +111,11 @@ basecaja<- basecaja %>%
 
 argentina<-jsonlite::fromJSON("bases/argentina.geo.json", simplifyVector = FALSE)
 
-regiones<-read.xlsx("bases/opex 1er semestre 2024.xlsx",sheet=1)
+regiones<-read.xlsx("bases/opex 2ndo semestre 2024.xlsx",sheet=1)
 
 provincias<-jsonlite::fromJSON("bases/provincias.geojson", simplifyVector = FALSE)
 
-complejos<-read.xlsx("bases/opex 1er semestre 2024.xlsx",sheet=2)
+complejos<-read.xlsx("bases/opex 2ndo semestre 2024.xlsx",sheet=2)
 
 
 
@@ -1936,7 +1936,7 @@ hc_colorAxis(
     ) %>%
 hc_yAxis(gridLineWidth=0)%>%
 hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
-hc_credits(enabled=TRUE, text="1er semestre 2024.Fuente: INDEC", position =list( align ="left", x=20))
+hc_credits(enabled=TRUE, text="2ndo semestre 2024.Fuente: INDEC", position =list( align ="left", x=20))
 
 
 ```
@@ -1948,7 +1948,7 @@ Column {data-width = 500}
 
 ```{r , include=FALSE  , warn=FALSE }
 
-complejos<-complejos[-c(1,2,7,13,17,24,33),-2]
+complejos<-complejos[-c(1,2,7,14,21,24,33),-2]
 
 complejos<-complejos %>% rename("Extranjero y plataforma continental"="Extranjero.y.plataforma.continental")%>%
 pivot_longer(-Complejos,names_to= "Regiones",values_to= "Exportaciones")
@@ -1966,7 +1966,7 @@ complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols15[1],
                maxColor = cols15[20],enabled = TRUE)%>%
-  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er semestre 2024")%>%
+  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 2ndo semestre 2024")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_09_24.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
