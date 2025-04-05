@@ -557,7 +557,7 @@ hc_xAxis(type = "category",title=list(text = "Trimestres"))%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
-### Tasa de incidencia de la pobreza e indigencia- 1er Semestre 2024- Aglomerados
+### Tasa de incidencia de la pobreza e indigencia- 2ndo Semestre 2024- Aglomerados
 
 
 ```{r preppob, include= FALSE  }
@@ -607,7 +607,7 @@ data.frame(row.names(pobrezaaglo),pobrezaaglo)%>%
 
 ```
 
-### Pobreza e indigencia-1er semestre 2024-Regiones
+### Pobreza e indigencia-2ndo semestre 2024-Regiones
 
 ```{r tabla4}
 kable(pobrezareg,escape = F) %>%
