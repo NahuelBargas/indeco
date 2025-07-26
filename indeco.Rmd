@@ -773,7 +773,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("1.9 %", caption = "Variación del EMAE desestacionalizado de Abr-25 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("-0.1 %", caption = "Variación del EMAE desestacionalizado de May-25 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 
 ```
@@ -782,7 +782,7 @@ valueBox("1.9 %", caption = "Variación del EMAE desestacionalizado de Abr-25 co
 
 ```{r boxes2,}
 
-valueBox("6.3 %", caption = "Variación acumulada del año(2025) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("6.1 %", caption = "Variación acumulada del año(2025) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")
 
 ```
 
