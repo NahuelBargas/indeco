@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 35,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 36,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
