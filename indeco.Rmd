@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas55.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas56.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_junio2025.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_julio2025.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -773,7 +773,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-0.1 %", caption = "Variación del EMAE desestacionalizado de May-25 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("-0.7 %", caption = "Variación del EMAE desestacionalizado de Jun-25 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 
 ```
@@ -782,7 +782,7 @@ valueBox("-0.1 %", caption = "Variación del EMAE desestacionalizado de May-25 c
 
 ```{r boxes2,}
 
-valueBox("6.1 %", caption = "Variación acumulada del año(2025) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")
+valueBox("6.2 %", caption = "Variación acumulada del año(2025) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")
 
 ```
 
@@ -907,6 +907,8 @@ expo <- tibble(
 balanza<-tibble(
 name=c("Mercosur",
 "Brasil",
+"Uruguay",
+"Paraguay",
 "Resto de ALADI",
 "Chile",
 "Perú",
@@ -916,8 +918,10 @@ name=c("Mercosur",
 "China",
 "India",
 "ASEAN",
-"Viet Nam",
 "Indonesia",
+"Malasia",
+"Tailandia",
+"Viet Nam",
 "Medio Oriente",
 "Magreb y Egipto",
 "SACU",
@@ -1062,73 +1066,91 @@ brasil<-tibble(
 name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[2,2],saldozonas[2,3]))
 
-aladi<-tibble(
+uruguay<-tibble(
 name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[3,2],saldozonas[3,3]))
+
+paraguay<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[4,2],saldozonas[4,3]))
+
+
+aladi<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[5,2],saldozonas[5,3]))
 
 
 chile<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[4,2],saldozonas[4,3]))
+y=c(saldozonas[6,2],saldozonas[6,3]))
 
 peru<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[5,2],saldozonas[5,3]))
+y=c(saldozonas[7,2],saldozonas[7,3]))
 
 nafta<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[6,2],saldozonas[6,3]))
+y=c(saldozonas[8,2],saldozonas[8,3]))
 
 usa<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[7,2],saldozonas[7,3]))
+y=c(saldozonas[9,2],saldozonas[9,3]))
 
 union<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[8,2],saldozonas[8,3]))
+y=c(saldozonas[10,2],saldozonas[10,3]))
 
 
 china<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[9,2],saldozonas[9,3]))
+y=c(saldozonas[11,2],saldozonas[11,3]))
 
 india<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[10,2],saldozonas[10,3]))
-
-asean<-tibble(
-name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[11,2],saldozonas[11,3]))
-
-vietnam<-tibble(
-name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[12,2],saldozonas[12,3]))
 
-indonesia<-tibble(
+asean<-tibble(
 name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[13,2],saldozonas[13,3]))
 
 
-medio<-tibble(
+indonesia<-tibble(
 name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[14,2],saldozonas[14,3]))
 
-magreb<-tibble(
+malasia<-tibble(
 name=c("Exportaciones","Importaciones"),
 y=c(saldozonas[15,2],saldozonas[15,3]))
+
+tailandia<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[16,2],saldozonas[16,3]))
+
+vietnam<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[17,2],saldozonas[17,3]))
+
+
+medio<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[18,2],saldozonas[18,3]))
+
+magreb<-tibble(
+name=c("Exportaciones","Importaciones"),
+y=c(saldozonas[19,2],saldozonas[19,3]))
 
 
 sacu<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[16,2],saldozonas[16,3]))
+y=c(saldozonas[20,2],saldozonas[20,3]))
 
 oceania<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[17,2],saldozonas[17,3]))
+y=c(saldozonas[21,2],saldozonas[21,3]))
 
 restom<-tibble(
 name=c("Exportaciones","Importaciones"),
-y=c(saldozonas[18,2],saldozonas[18,3]))
+y=c(saldozonas[22,2],saldozonas[22,3]))
 
 
 
@@ -1166,6 +1188,12 @@ dperu<-list_parse(peru)
 dusa<-list_parse(usa)
 dvietnam<-list_parse(vietnam)
 dindonesia<-list_parse(indonesia)
+dparaguay<-list_parse(paraguay)
+duruguay<-list_parse(uruguay)
+dtailandia<-list_parse(tailandia)
+dmalasia<-list_parse(malasia)
+
+
 
 
 
@@ -1190,7 +1218,15 @@ hc %>%
       list(
         id = "brasil",
         data = dbrasil
+      ),
+      list(
+        id = "paraguay",
+        data = dparaguay
       ), 
+      list(
+        id = "uruguay",
+        data = duruguay
+      ),      
       list(
         id = "resto de aladi",
         data = daladi
@@ -1227,13 +1263,21 @@ hc %>%
         id = "asean",
         data = dasean
       ),
-	  list(
-        id = "vietnam",
-        data = dvietnam
+      list(
+        id = "indonesia",
+        data = dindonesia
+      ),
+      list(
+        id = "malasia",
+        data = dmalasia
+      ),
+      list(
+        id = "tailandia",
+        data = dtailandia
       ),
 	  list(
         id = "vietnam",
-        data = dindonesia
+        data = dvietnam
       ),
       list(
         id = "medio oriente",
@@ -1303,7 +1347,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros seis meses de 2025",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros siete meses de 2025",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1498,7 +1542,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 23/5/2025.
+- Última actualización: 24/8/2025.
 
 
 
@@ -1510,7 +1554,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Junio 2025
+### Julio 2025
 
 ```{r , include= FALSE }
 
@@ -1539,7 +1583,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2025/07/sector_publico_base_caja_junio_2025.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2025/08/sector_publico_base_caja_julio_2025.xlsx")
 
 
 
@@ -1659,7 +1703,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Junio 2025. Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Julio 2025. Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1696,7 +1740,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2025/07/sector_publico_base_caja_junio_2025.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2025/08/sector_publico_base_caja_julio_2025.xlsx")
 
 
 
@@ -1816,7 +1860,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Junio 2025 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Julio 2025 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
