@@ -111,11 +111,11 @@ basecaja<- basecaja %>%
 
 argentina<-jsonlite::fromJSON("bases/argentina.geo.json", simplifyVector = FALSE)
 
-regiones<-read.xlsx("bases/opex 2ndo semestre 2024.xlsx",sheet=1)
+regiones<-read.xlsx("bases/opex 1er semestre 2025.xlsx",sheet=1)
 
 provincias<-jsonlite::fromJSON("bases/provincias.geojson", simplifyVector = FALSE)
 
-complejos<-read.xlsx("bases/opex 2ndo semestre 2024.xlsx",sheet=2)
+complejos<-read.xlsx("bases/opex 1er semestre 2025.xlsx",sheet=2)
 
 
 
@@ -237,7 +237,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_08_25.xls")%>%		 
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_09_25.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -427,7 +427,7 @@ Column {.tabset .tabset-fade}
      hc_colors(coloresAperturas)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_08_25.xls")%>%
+             href = " https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_09_25.xls")%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 })  
 ```
@@ -1867,7 +1867,7 @@ hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubr
 
 ```
 
-Origen provincial de las exportaciones y complejos exportadores - 2024 {data-orientation=columns data-navmenu="Comercio Exterior"}
+Origen provincial de las exportaciones y complejos exportadores - 2025 {data-orientation=columns data-navmenu="Comercio Exterior"}
 ==================================================================================================================================
 
 Column {data-width = 500}
@@ -1885,13 +1885,14 @@ dta_clss<-regiones %>%
   rename(name = Regiones, from = value) %>% 
   mutate(to = from + 500) %>% 
   mutate(color = cols14)%>% 
-  mutate(name = paste0(name," : ",from, " mill. USD")) %>%
+  mutate(name = paste0(name," : ",round(from,2), " mill. USD")) %>%
   list_parse()
 
 
 regiones<- left_join(regiones, regiones %>% 
   group_by(Regiones) %>% 
-  summarise(value = sum(Expo.Totales)),by = "Regiones")
+  summarise(value = sum(Expo.Totales)),by = "Regiones")#%>%
+  #mutate(value=round(value,digits=1))
 
 regiones<-rename(regiones,ExpoToT=Expo.Totales)
 regiones<-regiones %>% arrange(Provincias)
@@ -1980,7 +1981,7 @@ hc_colorAxis(
     ) %>%
 hc_yAxis(gridLineWidth=0)%>%
 hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
-hc_credits(enabled=TRUE, text="2ndo semestre 2024.Fuente: INDEC", position =list( align ="left", x=20))
+hc_credits(enabled=TRUE, text="1er. semestre 2025.Fuente: INDEC", position =list( align ="left", x=20))
 
 
 ```
@@ -1992,7 +1993,7 @@ Column {data-width = 500}
 
 ```{r , include=FALSE  , warn=FALSE }
 
-complejos<-complejos[-c(1,2,7,14,21,24,33),-2]
+complejos<-complejos[-c(1,2,7,14,21,25,33),-2]
 
 complejos<-complejos %>% rename("Extranjero y plataforma continental"="Extranjero.y.plataforma.continental")%>%
 pivot_longer(-Complejos,names_to= "Regiones",values_to= "Exportaciones")
@@ -2010,7 +2011,7 @@ complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols15[1],
                maxColor = cols15[20],enabled = TRUE)%>%
-  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 2ndo semestre 2024")%>%
+  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. semestre 2025")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_09_24.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
