@@ -39,7 +39,7 @@ si el panel les resulta interesante, o les ayuda con sus propios proyectos, teng
 
 - Cualquier comentario que sea útil para corregir o mejorar el sitio será muy valorado.
 
-- También pueden contactarme en los siguientes medios,desde ya les agradezco por haberlo visitado.
+- También pueden contactarme en los siguientes medios, desde ya les agradezco por haberlo visitado.
 
 
 
@@ -76,6 +76,5 @@ ol li {
 	<li><a class="icon-linkedin social-button borderless" href="https://linkedin.com/in/nahuel-bargas/"></a></li>
     <li><a class="icon-twitter social-button borderless" href="https://twitter.com/Nahuel_Sef"></a></li>
 	<li><a class="icon-github social-button borderless" href="https://github.com/NahuelBargas"></a></li>
-    <li><a class="icon-telegram social-button borderless" href="https://telegram.me/Nahuel_Sef"></a></li>
 </ol>
 
