@@ -213,7 +213,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("27.9 %", caption = "Acumulada en lo que va del año",  color="skyblue")
+valueBox("31.5 %", caption = "Acumulada en lo que va del año",  color="skyblue")
 ```
 
 
@@ -237,7 +237,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_12_25.xls")%>%		 
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_26.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -427,7 +427,7 @@ Column {.tabset .tabset-fade}
      hc_colors(coloresAperturas)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_12_25.xls")%>%
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_26.xls")%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 })  
 ```
@@ -1590,7 +1590,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Noviembre 2025
+### Diciembre 2025
 
 ```{r , include= FALSE }
 
@@ -1619,7 +1619,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2025/12/sector_publico_base_caja_noviembre_2025.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/01/sector_publico_base_caja_diciembre_2025.xlsx")
 
 
 
@@ -1739,7 +1739,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Noviembre 2025. Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2025. Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1776,7 +1776,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2025/12/sector_publico_base_caja_noviembre_2025.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/01/sector_publico_base_caja_diciembre_2025.xlsx")
 
 
 
@@ -1896,7 +1896,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Noviembre 2025 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2025 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
