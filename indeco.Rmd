@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 37,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 38,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas60.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas61.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_diciembre25.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_enero26.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -213,7 +213,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("31.5 %", caption = "Acumulada en lo que va del año",  color="skyblue")
+valueBox("2.9 %", caption = "Acumulada en lo que va del año",  color="skyblue")
 ```
 
 
@@ -853,11 +853,11 @@ hc_subtitle(text="Fuente: INDEC - Datos preliminares. Tercer trimestre 2025. ",s
 
 ```
 
-Balanza comercial, acumulado en 2025 {data-navmenu="Comercio Exterior"}
+Balanza comercial, acumulado en 2026 {data-navmenu="Comercio Exterior"}
 =========================================================================
 
 
-### Balanza comercial, acumulado 2025
+### Balanza comercial, acumulado 2026
 
 ```{r , include= FALSE }
 
@@ -1383,13 +1383,13 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado doce meses de 2025",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer mes de 2026",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
 ```
 
-Saldo y comercio exterior total, por zona zona económica - 2025 {data-navmenu="Comercio Exterior"}
+Saldo y comercio exterior total, por zona zona económica - 2026 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
@@ -1401,35 +1401,57 @@ Saldo y comercio exterior total, por zona zona económica - 2025 {data-navmenu="
 hctreemapcolores = with(environment(hctreemap),
    ## Modified `hctreemap`
    ## names colorValue correctly for connection to `hc_colorAxis`
-function (tm, ...) 
-{
-    assertthat::assert_that(is.list(tm))
-    df <- tm$tm %>% tbl_df() %>% select_("-x0", "-y0", "-w", 
-        "-h", "-stdErr", "-vColorValue") %>% rename_(value = "vSize", 
-        colorValue = "vColor") %>% purrr::map_if(is.factor, as.character) %>% 
-        data.frame(stringsAsFactors = FALSE) %>% tbl_df()
-    ndepth <- which(names(df) == "value") - 1
-    ds <- map_df(seq(ndepth), function(lvl) {
-        df2 <- df %>% filter_(sprintf("level == %s", lvl)) %>% 
-            rename_(name = names(df)[lvl]) %>% mutate_(id = "highcharter::str_to_id(name)")
-        if (lvl > 1) {
-            df2 <- df2 %>% mutate_(parent = names(df)[lvl - 1], 
-                parent = "highcharter::str_to_id(parent)")
-        }
-        else {
-            df2 <- df2 %>% mutate_(parent = NA)
-        }
-        df2
-    })
-    ds <- list_parse(ds)
-    ds <- map(ds, function(x) {
-        if (is.na(x$parent)) 
-            x$parent <- NULL
-        x
-    })
-    hc_add_series(highchart(), data = ds, type = "treemap", ...)
-}
-)
+   ## actualizada para dplyr 1.2.0
+   
+function (tm, ...) {
+
+  assertthat::assert_that(is.list(tm))
+
+  df <- tm$tm %>%
+    dplyr::as_tibble() %>%
+    dplyr::select(-x0, -y0, -w, -h, -stdErr, -vColorValue) %>%
+    dplyr::rename(
+      value = vSize,
+      colorValue = vColor
+    ) %>%
+    dplyr::mutate(dplyr::across(where(is.factor), as.character))
+
+  # profundidad del árbol
+  ndepth <- which(names(df) == "value") - 1
+
+  ds <- purrr::map_dfr(seq(ndepth), function(lvl) {
+
+    lvl_name <- names(df)[lvl]
+
+    df2 <- df %>%
+      dplyr::filter(level == lvl) %>%
+      dplyr::rename(name = !!lvl_name) %>%
+      dplyr::mutate(id = highcharter::str_to_id(name))
+
+    if (lvl > 1) {
+      parent_name <- names(df)[lvl - 1]
+      df2 <- df2 %>%
+        dplyr::mutate(
+          parent = !!rlang::sym(parent_name),
+          parent = highcharter::str_to_id(parent)
+        )
+    } else {
+      df2 <- df2 %>% dplyr::mutate(parent = NA)
+    }
+
+    df2
+  })
+
+  ds <- highcharter::list_parse(ds)
+
+  ds <- purrr::map(ds, function(x) {
+    if (is.na(x$parent)) x$parent <- NULL
+    x
+  })
+
+  highcharter::hc_add_series(highcharter::highchart(), data = ds, type = "treemap", ...)
+})
+
 
 
 
@@ -1446,7 +1468,7 @@ mitree<- hctreemapcolores(tm, allowDrillToNode = TRUE,
       list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols9[1],
                maxColor = cols9[13],enabled = TRUE)%>%
-  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2025")%>%
+  hc_title(text="Saldo balanza comercial e intercambio total, por zona económica y país. Acumulado 2026")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao, Chile, Uruguay y Brasil, sus zonas francas.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC. Sistema de Consulta del Comercio Exterior de Bienes ",href = "https://comex.indec.gob.ar") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
@@ -1462,11 +1484,11 @@ mitree
 
 ```
 
-Total comerciado, por país y continente - 2025 {data-navmenu="Comercio Exterior"}
+Total comerciado, por país y continente - 2026 {data-navmenu="Comercio Exterior"}
 =================================================================================
 
 
-## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2025
+## Saldo balanza comercial e intercambio total, por continente y país. Acumulado 2026
 
 
 
@@ -1578,7 +1600,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 24/1/2026.
+- Última actualización: 21/2/2026.
 
 
 
@@ -1590,7 +1612,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Diciembre 2025
+### Enero 2026
 
 ```{r , include= FALSE }
 
@@ -1619,7 +1641,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/01/sector_publico_base_caja_diciembre_2025.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/02/sector_publico_base_caja_enero_2026.xlsx")
 
 
 
@@ -1739,7 +1761,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2025. Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Enero 2026. Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1776,7 +1798,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/01/sector_publico_base_caja_diciembre_2025.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/02/sector_publico_base_caja_enero_2026.xlsx")
 
 
 
@@ -1896,7 +1918,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Diciembre 2025 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Enero 2026 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
