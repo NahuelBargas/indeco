@@ -111,11 +111,11 @@ basecaja<- basecaja %>%
 
 argentina<-jsonlite::fromJSON("bases/argentina.geo.json", simplifyVector = FALSE)
 
-regiones<-read.xlsx("bases/opex 1er semestre 2025.xlsx",sheet=1)
+regiones<-read.xlsx("bases/opex 2ndo semestre 2026.xlsx",sheet=1)
 
 provincias<-jsonlite::fromJSON("bases/provincias.geojson", simplifyVector = FALSE)
 
-complejos<-read.xlsx("bases/opex 1er semestre 2025.xlsx",sheet=2)
+complejos<-read.xlsx("bases/opex 2ndo semestre 2026.xlsx",sheet=2)
 
 
 
@@ -213,7 +213,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("2.9 %", caption = "Acumulada en lo que va del año",  color="skyblue")
+valueBox("5.9 %", caption = "Acumulada en lo que va del año",  color="skyblue")
 ```
 
 
@@ -237,7 +237,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_26.xls")%>%		 
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_03_26.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -427,7 +427,7 @@ Column {.tabset .tabset-fade}
      hc_colors(coloresAperturas)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_01_26.xls")%>%
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_03_26.xls")%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 })  
 ```
@@ -2039,7 +2039,7 @@ hc_colorAxis(
     ) %>%
 hc_yAxis(gridLineWidth=0)%>%
 hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
-hc_credits(enabled=TRUE, text="1er. semestre 2025.Fuente: INDEC", position =list( align ="left", x=20))
+hc_credits(enabled=TRUE, text="Año 2025.Fuente: INDEC", position =list( align ="left", x=20))
 
 
 ```
@@ -2051,12 +2051,37 @@ Column {data-width = 500}
 
 ```{r , include=FALSE  , warn=FALSE }
 
-complejos<-complejos[-c(1,2,7,14,21,25,33),-2]
+# en el segundo semestre de 2025 se excluyeró el desgloce por región  
+#complejos<-complejos[-c(1,2,7,14,21,25,33),-2]
+#
+#complejos<-complejos %>% rename("Extranjero y plataforma continental"="Extranjero.y.plataforma.continental")%>%
+#pivot_longer(-Complejos,names_to= "Regiones",values_to= "Exportaciones")
+#
+#tm3 <- treemap(complejos, index = c("Complejos","Regiones"),
+#              vSize = "Exportaciones",vColor="Exportaciones",
+#              type = "manual", palette = cols15,draw = FALSE)
+#
+#
+#complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
+#                        layoutAlgorithm = "squarified",
+#                        levelIsConstant = FALSE,
+#    levels = list(
+#      list(level = 1, dataLabels = list(enabled = TRUE)),
+#      list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
+#hc_colorAxis(minColor =cols15[1],
+#               maxColor = cols15[20],enabled = TRUE)%>%
+#  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. semestre 2025")%>%
+#  hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
+#  hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_09_24.xls") %>%
+#hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
+#                             Exportaciones: {point.value:,.0f} millones de dólares")
 
-complejos<-complejos %>% rename("Extranjero y plataforma continental"="Extranjero.y.plataforma.continental")%>%
-pivot_longer(-Complejos,names_to= "Regiones",values_to= "Exportaciones")
+#Quito lo que no sea complejo
+complejos<-complejos[-c(1,2,8,14,21,24,33),]
 
-tm3 <- treemap(complejos, index = c("Complejos","Regiones"),
+complejos<-complejos %>% rename("Exportaciones"="Totales")
+
+tm3 <- treemap(complejos, index = c("Complejos"),
               vSize = "Exportaciones",vColor="Exportaciones",
               type = "manual", palette = cols15,draw = FALSE)
 
@@ -2065,11 +2090,11 @@ complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
                         layoutAlgorithm = "squarified",
                         levelIsConstant = FALSE,
     levels = list(
-      list(level = 1, dataLabels = list(enabled = TRUE)),
-      list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
+      list(level = 1, dataLabels = list(enabled = TRUE))))%>%#,
+      #list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols15[1],
                maxColor = cols15[20],enabled = TRUE)%>%
-  hc_title(text="Complejos exportadores, desagregados por regiones económicas. Acumulado 1er. semestre 2025")%>%
+  hc_title(text="Complejos exportadores. Acumulado 2025")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
   hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_09_24.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
