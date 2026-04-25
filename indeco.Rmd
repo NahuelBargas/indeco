@@ -58,7 +58,7 @@ aperturas <- aperturas %>% pivot_longer(cols=-Aperturas,names_to="Region", value
 
 gini_ts<-readRDS("bases/basegini.RDS")
 
-trimestre<-seq(as.Date("2016-04-01"), length = 38,by = "3 months")
+trimestre<-seq(as.Date("2016-04-01"), length = 39,by = "3 months")
 trimestre2<-as.yearqtr(trimestre)
 trimestre2 <-format(trimestre2,  "%q-%Y")
 
@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas62.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas63.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -213,7 +213,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("5.9 %", caption = "Acumulada en lo que va del año",  color="skyblue")
+valueBox("9.4 %", caption = "Acumulada en lo que va del año",  color="skyblue")
 ```
 
 
@@ -237,7 +237,7 @@ highchart() %>%
   hc_colors(cols)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC.",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_03_26.xls")%>%		 
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_04_26.xls")%>%		 
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 ```
 
@@ -427,7 +427,7 @@ Column {.tabset .tabset-fade}
      hc_colors(coloresAperturas)%>%
   hc_credits(enabled = TRUE, text = "Fuente: INDEC",align = "right",verticalAlign = "bottom",
   style = list(color = "#2b908f", fontSize = '10px'),
-             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_03_26.xls")%>%
+             href = "https://www.indec.gob.ar/ftp/cuadros/economia/sh_ipc_04_26.xls")%>%
     hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 })  
 ```
@@ -773,7 +773,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("0.4 %", caption = "Variación del EMAE desestacionalizado de Ene.-26 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
+valueBox("-2.6 %", caption = "Variación del EMAE desestacionalizado de Feb.-26 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
 
 
 ```
@@ -782,7 +782,7 @@ valueBox("0.4 %", caption = "Variación del EMAE desestacionalizado de Ene.-26 c
 
 ```{r boxes2,}
 
-valueBox("1.9 %", caption = "Variación acumulada del año(2026) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")
+valueBox("-0.2 %", caption = "Variación acumulada del año(2026) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-down",color="yellow")#color="#43ac6a")
 
 ```
 
@@ -1383,7 +1383,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer bimestre de 2026",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer trimestre de 2026",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1600,7 +1600,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 21/3/2026.
+- Última actualización: 25/4/2026.
 
 
 
