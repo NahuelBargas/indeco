@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas64.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas65.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -1383,7 +1383,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer cuatrimestre de 2026",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros cinco meses de 2026",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1600,7 +1600,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 23/5/2026.
+- Última actualización: 20/6/2026.
 
 
 
