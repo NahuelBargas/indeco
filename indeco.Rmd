@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas66.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas67.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -98,7 +98,7 @@ VAB<-read.xlsx("bases/indicadores.xlsx", sheet="VAB")
 emae<- read.xlsx("bases/indicadores.xlsx", sheet="EMAE",detectDates = TRUE)
 
 ## Resultado fiscal
-basecaja<-read.xlsx("bases/resultado_fiscal_junio26.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
+basecaja<-read.xlsx("bases/resultado_fiscal_julio26.xlsx", sheet='IMIG',startRow = 7,colNames=FALSE)
 basecaja<-basecaja[,c(1,2,5)]
 names(basecaja)<-c("Concepto","Monto", "Var Anual")
 
@@ -773,7 +773,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-0.5 %", caption = "Variación del EMAE desestacionalizado de May.-26 con respecto al mes anterior", icon="glyphicon-arrow-down",color="yellow")
+valueBox("0.8 %", caption = "Variación del EMAE desestacionalizado de Jun.-26 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 
 ```
@@ -782,7 +782,7 @@ valueBox("-0.5 %", caption = "Variación del EMAE desestacionalizado de May.-26 
 
 ```{r boxes2,}
 
-valueBox("1.7 %", caption = "Variación acumulada del año(2026) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")#"color="yellow")
+valueBox("1.9 %", caption = "Variación acumulada del año(2026) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")#"color="yellow")
 
 ```
 
@@ -1383,7 +1383,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primer semestre de 2026",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros siete meses de 2026",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1514,7 +1514,7 @@ continente3<-continente3[,1:6]
 
 spanish<-'{
 	"sProcessing":     "Procesando...",
-	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2025",
+	"sLengthMenu":     "Mostrar _MENU_ filas - Acumulado 2026",
 	"sZeroRecords":    "No se encontraron resultados",
 	"sEmptyTable":     "Ningún dato disponible en esta tabla",
 	"sInfo":           "Mostrando fila número _START_ a la _END_ de un total de _TOTAL_ filas",
@@ -1600,7 +1600,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 25/7/2026.
+- Última actualización: 22/8/2026.
 
 
 
@@ -1612,7 +1612,7 @@ Resultado Fiscal, base caja  {data-navmenu="Resultado Fiscal"}
 Row {.tabset .tabset-fade}
 -------------------------------------
 
-### Junio 2026
+### Julio 2026
 
 ```{r , include= FALSE }
 
@@ -1641,7 +1641,7 @@ hcrs <- highchart() %>%
     colorByPoint = TRUE,
     data = rfc
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda. Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/07/imig_junio_2026.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/08/imig_julio_2026.xlsx")
 
 
 
@@ -1761,7 +1761,7 @@ hcrs %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols12[7:12])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Junio 2026. Millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Julio 2026. Millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas. <br> El resultado financiero se obtiene de restarle al resultado primario (IT-GP) los intereses netos.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1798,7 +1798,7 @@ hcrs2 <- highchart() %>%
     colorByPoint = TRUE,
     data = rfs2
   ) %>% hc_credits(enabled = TRUE, text = " Secretaría de Hacienda.  Datos Preliminares.",position = list(align = "left",verticalAlign = "bottom", x=2),
-  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/07/imig_junio_2026.xlsx")
+  style = list(color = "#2b908f", fontSize = '8px'),href = "https://www.argentina.gob.ar/sites/default/files/2026/08/imig_julio_2026.xlsx")
 
 
 
@@ -1918,7 +1918,7 @@ hcrs2 %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y} millones de pesos") %>%
 hc_colors(cols13[2:7])%>%
-hc_title(text="Resultado Fiscal- Base Caja-Junio 2026 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
+hc_title(text="Resultado Fiscal- Base Caja-Julio 2026 - Variaciones anuales en millones de pesos",style = list( fontSize = '13px')) %>%
 hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubros que componen los ingresos totales y gastos primarios,cliquee sobre las columnas.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
