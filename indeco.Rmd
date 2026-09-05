@@ -111,11 +111,11 @@ basecaja<- basecaja %>%
 
 argentina<-jsonlite::fromJSON("bases/argentina.geo.json", simplifyVector = FALSE)
 
-regiones<-read.xlsx("bases/opex 2ndo semestre 2026.xlsx",sheet=1)
+regiones<-read.xlsx("bases/opex 1er semestre 2026.xlsx",sheet=1)
 
 provincias<-jsonlite::fromJSON("bases/provincias.geojson", simplifyVector = FALSE)
 
-complejos<-read.xlsx("bases/opex 2ndo semestre 2026.xlsx",sheet=2)
+complejos<-read.xlsx("bases/opex 1er semestre 2026.xlsx",sheet=2)
 
 
 
@@ -1925,7 +1925,7 @@ hc_subtitle(text="     Para conocer en mayor detalle las variaciones de los rubr
 
 ```
 
-Origen provincial de las exportaciones y complejos exportadores - 2025 {data-orientation=columns data-navmenu="Comercio Exterior"}
+Origen provincial de las exportaciones y complejos exportadores - 2026 {data-orientation=columns data-navmenu="Comercio Exterior"}
 ==================================================================================================================================
 
 Column {data-width = 500}
@@ -2039,7 +2039,7 @@ hc_colorAxis(
     ) %>%
 hc_yAxis(gridLineWidth=0)%>%
 hc_xAxis(labels=list(enabled=FALSE), minorGridLineWidth= 0,minorTickLength= 0,tickLength= 0)%>%
-hc_credits(enabled=TRUE, text="Año 2025.Fuente: INDEC", position =list( align ="left", x=20))
+hc_credits(enabled=TRUE, text="Año 2026.Fuente: INDEC", position =list( align ="left", x=20))
 
 
 ```
@@ -2077,7 +2077,7 @@ Column {data-width = 500}
 #                             Exportaciones: {point.value:,.0f} millones de dólares")
 
 #Quito lo que no sea complejo
-complejos<-complejos[-c(1,2,8,14,21,24,33),]
+complejos<-complejos[-c(1,2,8,13,20,25,33),]
 
 complejos<-complejos %>% rename("Exportaciones"="Totales")
 
@@ -2094,9 +2094,9 @@ complejostree<- hctreemapcolores(tm3, allowDrillToNode = TRUE,
       #list(level = 2, dataLabels = list(enabled = FALSE))))%>% 
 hc_colorAxis(minColor =cols15[1],
                maxColor = cols15[20],enabled = TRUE)%>%
-  hc_title(text="Complejos exportadores. Acumulado 2025")%>%
+  hc_title(text="Complejos exportadores. Acumulado 2026")%>%
   hc_subtitle(text = "Datos estimados. Millones de dolares. Cliquear para conocer el detalle.") %>% 
-  hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/opex_anexo_cuadros_09_24.xls") %>%
+  hc_credits(enabled=TRUE, text= " Fuente: INDEC.  Dirección Nacional de Estadísticas del Sector Externo ",href = "https://www.indec.gob.ar/ftp/cuadros/economia/complejos_exportadores_anexo_cuadros_26_08_26.xls") %>%
 hc_tooltip(pointFormat = "<b>{point.name}</b>:<br>
                              Exportaciones: {point.value:,.0f} millones de dólares")
 							 
