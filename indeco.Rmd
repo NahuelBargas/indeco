@@ -82,7 +82,7 @@ producto.ts<-cbind(producto.ts,PBI.hp$trend)
 
 ## Comercio
 
-basezonas<-read.xlsx("bases/basezonas68.xlsx", sheet=1)
+basezonas<-read.xlsx("bases/basezonas69.xlsx", sheet=1)
 
 saldozonas<-read.xlsx("bases/indicadores.xlsx", sheet=7)
 
@@ -773,7 +773,7 @@ Puede consultarse la serie completa desde 2004 [aquí](https://www.indec.gob.ar/
 
 ```{r boxes1,}
 
-valueBox("-2.9 %", caption = "Variación del EMAE desestacionalizado de Jul.-26 con respecto al mes anterior", icon="glyphicon-arrow-down",color="skyblue")
+valueBox("0.1 %", caption = "Variación del EMAE desestacionalizado de Ago.-26 con respecto al mes anterior", icon="glyphicon-arrow-up",color="skyblue")
 
 
 ```
@@ -782,7 +782,7 @@ valueBox("-2.9 %", caption = "Variación del EMAE desestacionalizado de Jul.-26 
 
 ```{r boxes2,}
 
-valueBox("1.7 %", caption = "Variación acumulada del año(2026) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")#"color="yellow")
+valueBox("1.2 %", caption = "Variación acumulada del año(2026) respecto al acumulado de igual periodo del año anterior", icon="glyphicon-arrow-up",color="#43ac6a")#"color="yellow")
 
 ```
 
@@ -1383,7 +1383,7 @@ hc %>%
   )%>%
 hc_tooltip(pointFormat =  "{point.y:.1f} millones de dólares") %>%
   hc_colors(cols3)%>%
-hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros ocho meses de 2026",style = list( fontSize = '12px')) %>%
+hc_title(text="Exportaciones por grandes rubros, importaciones por usos y agregados.Balanza comercial, por zonas económicas y países seleccionados. <br> Acumulado primeros nueve meses de 2026",style = list( fontSize = '12px')) %>%
 hc_subtitle(text="INDEC - Datos Estimados. Millones de dólares. Cliquear para desplegar.",style = list(color = "#2b908f", fontSize = '10px')) %>%
   hc_exporting(enabled = TRUE) %>% hc_add_theme(temaclásico)
 
@@ -1600,7 +1600,7 @@ Row {data-height=100}
 - Fuente: [INDEC](https://comex.indec.gob.ar/) - Sistema de consulta de comercio exterior .
 - Datos Estimados.  Millones de dólares. 
 - Estados Unidos incluye Puerto Rico y territorios asociados, China a Macao. Chile, Uruguay y Brasil, sus zonas francas.
-- Última actualización: 19/9/2026.
+- Última actualización: 23/10/2026.
 
 
 
