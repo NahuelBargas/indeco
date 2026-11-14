@@ -213,7 +213,7 @@ valueBox(paste(ipcintdiv[1,2],"%"), caption = "Variación interanual", icon="gly
 ### Acumulada en el año.
 
 ```{r}
-valueBox("23.6 %", caption = "Acumulada en lo que va del año",  color="skyblue")
+valueBox("26.3 %", caption = "Acumulada en lo que va del año",  color="skyblue")
 ```
 
 
